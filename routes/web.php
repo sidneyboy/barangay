@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/barangay_admin', function () {
     return view('welcome');
 });
 
@@ -22,5 +22,7 @@ Auth::routes();
 Route::get('/proceeding', [App\Http\Controllers\Barangay_controller::class, 'proceeding'])->name('proceeding');
 Route::post('/proceeding_register', [App\Http\Controllers\Barangay_controller::class, 'proceeding_register'])->name('proceeding_register');
 
+Route::get('/barangay_admin_login', [App\Http\Controllers\Barangay_controller::class, 'barangay_admin_login'])->name('barangay_admin_login');
+Route::get('/home', [App\Http\Controllers\Barangay_controller::class, 'home'])->name('home')->middleware(['auth', 'verified']);;
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

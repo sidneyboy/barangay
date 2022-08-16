@@ -22,7 +22,7 @@
                     <div class="card-header">{{ __('Register Barangay Admin') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('proceeding_register') }}">
+                        <form method="POST" action="{{ route('proceeding_register') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row mb-3">
@@ -32,7 +32,7 @@
                                 <div class="col-md-6">
                                     <input id="invitation_code" type="text"
                                         class="form-control @error('invitation_code') is-invalid @enderror"
-                                        name="invitation_code" value="{{ old('invitation_code') }}" 
+                                        name="invitation_code" value="{{ old('invitation_code') }}"
                                         autocomplete="invitation_code" autofocus>
 
                                     @error('invitation_code')
@@ -51,9 +51,27 @@
                                 <div class="col-md-6">
                                     <input id="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name') }}"  autocomplete="name" autofocus>
+                                        value="{{ old('name') }}" autocomplete="name" autofocus>
 
                                     @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="contact_number"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Contact Number') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="contact_number" type="text"
+                                        class="form-control @error('contact_number') is-invalid @enderror"
+                                        name="contact_number" value="{{ old('contact_number') }}"
+                                        autocomplete="contact_number" autofocus>
+
+                                    @error('contact_number')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -68,7 +86,7 @@
                                 <div class="col-md-6">
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}"  autocomplete="email">
+                                        value="{{ old('email') }}" autocomplete="email">
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -85,7 +103,7 @@
                                 <div class="col-md-6">
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
-                                         autocomplete="new-password">
+                                        autocomplete="new-password">
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -101,7 +119,7 @@
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
-                                        name="password_confirmation"  autocomplete="new-password">
+                                        name="password_confirmation" autocomplete="new-password">
                                 </div>
                             </div>
 
@@ -115,7 +133,9 @@
                                         name="user_image" value="{{ old('user_image') }}" autofocus accept="image/*"
                                         id="imgInp" />
 
-                                    <img id="blah" src="#" alt="your image" class="img img-thumbnail" />
+                                    <img id="blah" class="img img-thumbnail"
+                                        src="{{ asset('images/default_image.jpg') }}" alt="your image"
+                                        class="img img-thumbnail" />
                                 </div>
 
                                 @error('user_image')
@@ -127,6 +147,10 @@
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
+                                    <input type="hidden" name="region" value="{{ $region }}">
+                                    <input type="hidden" name="province" value="{{ $province }}">
+                                    <input type="hidden" name="city" value="{{ $city }}">
+                                    <input type="hidden" name="barangay" value="{{ $barangay }}">
                                     <button type="submit" class="btn btn-success btn-sm float-right">
                                         {{ __('Register') }}
                                     </button>

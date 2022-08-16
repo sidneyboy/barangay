@@ -26,7 +26,6 @@
                                 <label for="">Region:</label>
                                 <select class="form-control @error('region') is-invalid @enderror" name="region"
                                     id="region" style="width:100%;">
-                                    <option value="" default>Select</option>
                                 </select>
 
                                 @error('region')
