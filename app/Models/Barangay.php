@@ -14,5 +14,7 @@ class Barangay extends Model
         'province',
         'city',
         'barangay',
+       'latitude',
+       'longitude',
     ];
 }

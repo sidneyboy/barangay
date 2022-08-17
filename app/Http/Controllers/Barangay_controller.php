@@ -58,6 +58,7 @@ class Barangay_controller extends Controller
             'contact_number' => $request->input('contact_number'),
             'user_image' => $image_name,
             'barangay_id' => $barangay->id,
+            'user_type' => 'barangay_admin',
         ]);
 
         $user->save();
@@ -73,6 +74,21 @@ class Barangay_controller extends Controller
 
     public function home()
     {
-        return view('home');
+        $user = User::find(auth()->user()->id); 
+        //return $user->barangay->barangay;
+        return view('home',[
+            'user' => $user,
+        ]);
     }
+
+    public function register_officials()
+    {
+        return view('register_officials');
+    }
+
+    public function barangay_position()
+    {
+        return view('barangay_position');
+    }
+    
 }

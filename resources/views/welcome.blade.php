@@ -67,6 +67,40 @@
                                     </span>
                                 @enderror
                             </div>
+
+                            <div class="form-group">
+                                <label for="latitude"
+                                    class="">{{ __('Latitude:') }}</label>
+
+
+                                <input id="latitude" type="latitude"
+                                    class="form-control @error('latitude') is-invalid @enderror" name="latitude"
+                                    value="{{ old('latitude') }}" required autocomplete="latitude" autofocus>
+
+                                @error('latitude')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="longitude"
+                                    class="">{{ __('Longitude:') }}</label>
+
+
+                                <input id="longitude" type="longitude"
+                                    class="form-control @error('longitude') is-invalid @enderror" name="longitude"
+                                    value="{{ old('longitude') }}" required autocomplete="longitude" autofocus>
+
+                                @error('longitude')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <br />

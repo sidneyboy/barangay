@@ -24,7 +24,13 @@ class User extends Authenticatable
         'contact_number',
         'user_image',
         'barangay_id',
+        'user_type',
     ];
+
+    public function barangay()
+    {
+        return $this->belongsTo('App\Models\barangay', 'barangay_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
