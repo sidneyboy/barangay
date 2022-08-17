@@ -8,9 +8,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="title">{{ __('Title') }}</label>
-                        <input id="title" type="title"
-                            class="form-control @error('title') is-invalid @enderror" name="title"
-                            value="{{ old('title') }}" required autocomplete="title" autofocus>
+                        <input id="title" type="title" class="form-control @error('title') is-invalid @enderror"
+                            name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
 
                         @error('title')
                             <span class="invalid-feedback" role="alert">
@@ -21,12 +20,12 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">{{ __('') }}</label>
-                        <input id="" type=""
-                            class="form-control @error('') is-invalid @enderror" name=""
+                        <label for="description">{{ __('description') }}</label>
+                        <input id="description" type="description"
+                            class="form-control @error('description') is-invalid @enderror" name="description"
                             value="{{ old('') }}" required autocomplete="" autofocus>
 
-                        @error('')
+                        @error('description')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
