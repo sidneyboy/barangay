@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/barangay_admin', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('official_login');});
+Route::post('/official_login_process', [App\Http\Controllers\Official_controller::class, 'official_login_process'])->name('official_login_process');
+
+Route::get('/official_welcome/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_welcome'])->name('official_welcome');
+
+Route::get('/official_assistance_type/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_assistance_type'])->name('official_assistance_type');
+Route::post('/official_assistance_type_process', [App\Http\Controllers\Official_controller::class, 'official_assistance_type_process'])->name('official_assistance_type_process');
+
+Route::get('/official_res_registration/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_res_registration'])->name('official_res_registration');
+Route::post('/official_res_registration_process', [App\Http\Controllers\Official_controller::class, 'official_res_registration_process'])->name('official_res_registration_process');
+
+
+Route::get('/official_res_profile/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_res_profile'])->name('official_res_profile');
+
+
+
+
+Route::get('/barangay_admin', function () {return view('welcome');});
 
 Auth::routes();
 
@@ -27,6 +42,26 @@ Route::get('/home', [App\Http\Controllers\Barangay_controller::class, 'home'])->
 
 
 Route::get('/barangay_position', [App\Http\Controllers\Barangay_controller::class, 'barangay_position'])->name('barangay_position');
+Route::post('/barangay_position_process', [App\Http\Controllers\Barangay_controller::class, 'barangay_position_process'])->name('barangay_position_process');
+Route::post('/barangay_position_update', [App\Http\Controllers\Barangay_controller::class, 'barangay_position_update'])->name('barangay_position_update');
+Route::get('/barangay_position_delete/{id}', [App\Http\Controllers\Barangay_controller::class, 'barangay_position_delete'])->name('barangay_position_delete');
+
+Route::get('/barangay_register', [App\Http\Controllers\Barangay_controller::class, 'barangay_register'])->name('barangay_register');
+Route::post('/barangay_register_process', [App\Http\Controllers\Barangay_controller::class, 'barangay_register_process'])->name('barangay_register_process');
+
+Route::get('/barangay_officials_profile', [App\Http\Controllers\Barangay_controller::class, 'barangay_officials_profile'])->name('barangay_officials_profile');
+Route::post('/barangay_official_update', [App\Http\Controllers\Barangay_controller::class, 'barangay_official_update'])->name('barangay_official_update');
+
+Route::get('/barangay_logout', [App\Http\Controllers\Barangay_controller::class, 'barangay_logout'])->name('barangay_logout');
+
+
+
+
+
+
+
+
+
 Route::get('/register_officials', [App\Http\Controllers\Barangay_controller::class, 'register_officials'])->name('register_officials');
 
 
