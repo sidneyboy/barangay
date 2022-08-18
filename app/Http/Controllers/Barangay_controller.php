@@ -7,7 +7,10 @@ use App\Models\Barangay;
 use App\Models\Barangay_position;
 use App\Models\Barangay_officials;
 
+use App\Mail\send_mail_to_resident;
+
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -149,7 +152,8 @@ class Barangay_controller extends Controller
 
     public function barangay_register_process(Request $request)
     {
-        //return $request->input();
+      
+        return $request->input();
 
         $validated = $request->validate([
             'user_image' => 'required',
@@ -166,6 +170,8 @@ class Barangay_controller extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:barangay_officials'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+
+
 
         $user_image = $request->file('user_image');
         $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();

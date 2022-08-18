@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Barangay_officials;
 use App\Models\Residents;
 use App\Models\Assistance_type;
+
+use App\Mail\send_email_to_resident;
+use Illuminate\Support\Facades\Mail;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -68,6 +72,8 @@ class Official_controller extends Controller
 
     public function official_res_registration_process(Request $request)
     {
+
+
         $validated = $request->validate([
             'user_image' => 'required',
             'first_name' => ['required', 'string', 'max:255'],
@@ -111,6 +117,12 @@ class Official_controller extends Controller
 
         $officials->save();
 
+        $first_name = $request->input('first_name');
+        $last_name = $request->input('last_name');
+        $email = $request->input('email');
+        $password = uniqid();
+        Mail::to('salazarjohnsidney@gmail.com')->send(new send_email_to_resident($email, $password, $first_name, $last_name));
+
         return redirect()->route('official_res_registration', ['user_id' => $request->input('user_id')])->with('success', 'Successfully added new resident');
     }
 
@@ -118,9 +130,9 @@ class Official_controller extends Controller
     {
         $user = Barangay_officials::find($user_id);
         $resident = Residents::get();
-        return view('official_res_profile',[
+        return view('official_res_profile', [
             'resident' => $resident,
-            'user' => $user 
+            'user' => $user
         ]);
     }
 }

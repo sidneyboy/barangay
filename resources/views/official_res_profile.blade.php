@@ -63,7 +63,7 @@
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">{{ $data->first_name }} {{ $data->middle_name }} {{ $data->last_name }}</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -71,11 +71,14 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="card" style="width: 100%;">
-                                                            <img class="card-img-top" src="src="{{ asset('/storage/'. $data->user_image) }}" alt="Card image cap">
+                                                            <img class="card-img-top"
+                                                                src="{{ asset('/storage/' . $data->user_image) }}"
+                                                                alt="Card image cap">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
