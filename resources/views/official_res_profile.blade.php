@@ -30,6 +30,7 @@
                                 <th>Fathers Name</th>
                                 <th>Email</th>
                                 <th>Added By</th>
+                                <th>Photo</th>
                                 <th>Update</th>
                             </tr>
                         </thead>
@@ -48,6 +49,37 @@
                                     <td>{{ $data->fathers_name }}</td>
                                     <td>{{ $data->email }}</td>
                                     <td>{{ $data->barangay_official_id->first_name }}{{ $data->barangay_official_id->last_name }}
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal"
+                                            data-target="#exampleModal{{ $data->id }}">
+                                            Photo
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal{{ $data->id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="card" style="width: 100%;">
+                                                            <img class="card-img-top" src="src="{{ asset('/storage/'. $data->user_image) }}" alt="Card image cap">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         <!-- Button trigger modal -->
@@ -82,12 +114,31 @@
                                                             value="{{ $data->last_name }}">
 
                                                         <label for="">Gender:</label>
-                                                        <input type="text" required name="gender" class="form-control"
-                                                            value="{{ $data->gender }}">
+                                                        <select name="gender" class="form-control" required>
+                                                            <option value="{{ $data->gender }}">{{ $data->gender }}
+                                                                Current</option>
+                                                            @if ($data->gender == 'Male')
+                                                                <option value="Female">Female
+                                                                </option>
+                                                            @else
+                                                                <option value="Male">Male
+                                                                </option>
+                                                            @endif
+                                                        </select>
 
                                                         <label for="">Civil Status:</label>
-                                                        <input type="text" required name="civil_status"
-                                                            class="form-control" value="{{ $data->civil_status }}">
+                                                        <select name="gender" class="form-control" required>
+                                                            <option value="{{ $data->civil_status }}">
+                                                                {{ $data->civil_status }}
+                                                                Current</option>
+                                                            @if ($data->civil_status == 'Single')
+                                                                <option value="Married">Married
+                                                                </option>
+                                                            @else
+                                                                <option value="Single">Single
+                                                                </option>
+                                                            @endif
+                                                        </select>
 
                                                         <label for="">Birth Date:</label>
                                                         <input type="text" required name="birth_date"
@@ -98,8 +149,8 @@
                                                             class="form-control" value="{{ $data->contact_number }}">
 
                                                         <label for="">Spouse:</label>
-                                                        <input type="text" required name="spouse" class="form-control"
-                                                            value="{{ $data->spouse }}">
+                                                        <input type="text" required name="spouse"
+                                                            class="form-control" value="{{ $data->spouse }}">
 
                                                         <label for="">Mothers Name:</label>
                                                         <input type="text" required name="mothers_name"
@@ -111,12 +162,13 @@
 
 
                                                         <label for="">Email:</label>
-                                                        <input type="text" required name="email" class="form-control"
-                                                            value="{{ $data->email }}">
+                                                        <input type="text" required name="email"
+                                                            class="form-control" value="{{ $data->email }}">
 
                                                         <input type="text" value="{{ $data->id }}"
                                                             name="resident_id">
-                                                        <input type="text" value="{{ $user->id }}" name="user_id">
+                                                        <input type="text" value="{{ $user->id }}"
+                                                            name="user_id">
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
