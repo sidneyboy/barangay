@@ -26,7 +26,7 @@ Route::post('/official_res_registration_process', [App\Http\Controllers\Official
 
 
 Route::get('/official_res_profile/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_res_profile'])->name('official_res_profile');
-
+Route::post('/official_res_profile_update', [App\Http\Controllers\Official_controller::class, 'official_res_profile_update'])->name('official_res_profile_update');
 
 
 

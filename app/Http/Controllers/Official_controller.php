@@ -135,4 +135,25 @@ class Official_controller extends Controller
             'user' => $user
         ]);
     }
+
+    public function official_res_profile_update(Request $request)
+    {
+        //return $request->input();
+
+        Residents::where('id', $request->input('resident_id'))
+            ->update([
+                'first_name' => $request->input('first_name'),
+                'middle_name' => $request->input('middle_name'),
+                'last_name' => $request->input('last_name'),
+                'gender' => $request->input('gender'),
+                'civil_status' => $request->input('civil_status'),
+                'birth_date' => $request->input('birth_date'),
+                'mothers_name' => $request->input('mothers_name'),
+                'fathers_name' => $request->input('fathers_name'),
+                'contact_number' => $request->input('contact_number'),
+                'spouse' => $request->input('spouse'),
+            ]);
+
+        return redirect()->route('official_res_profile', ['user_id' => $request->input('user_id')])->with('success', 'Successfully updated resident profile');
+    }
 }
