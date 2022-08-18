@@ -28,6 +28,24 @@ Route::post('/official_res_registration_process', [App\Http\Controllers\Official
 Route::get('/official_res_profile/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_res_profile'])->name('official_res_profile');
 Route::post('/official_res_profile_update', [App\Http\Controllers\Official_controller::class, 'official_res_profile_update'])->name('official_res_profile_update');
 
+Route::get('/official_assistance_request/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_assistance_request'])->name('official_assistance_request');
+Route::post('/official_assistance_approved', [App\Http\Controllers\Official_controller::class, 'official_assistance_approved'])->name('official_assistance_approved');
+
+
+
+Route::get('/official_logout', [App\Http\Controllers\Official_controller::class, 'official_logout'])->name('official_logout');
+
+Route::get('/resident_welcome/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'resident_welcome'])->name('resident_welcome');
+Route::get('/res_assistance/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'res_assistance'])->name('res_assistance');
+Route::post('/res_assistance_process/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'res_assistance_process'])->name('res_assistance_process');
+
+Route::get('/res_assistance_request/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'res_assistance_request'])->name('res_assistance_request');
+
+
+
+
+
+
 
 
 Route::get('/barangay_admin', function () {return view('welcome');});
@@ -39,6 +57,7 @@ Route::post('/proceeding_register', [App\Http\Controllers\Barangay_controller::c
 
 Route::get('/barangay_admin_login', [App\Http\Controllers\Barangay_controller::class, 'barangay_admin_login'])->name('barangay_admin_login');
 Route::get('/home', [App\Http\Controllers\Barangay_controller::class, 'home'])->name('home')->middleware(['auth', 'verified']);
+
 
 
 Route::get('/barangay_position', [App\Http\Controllers\Barangay_controller::class, 'barangay_position'])->name('barangay_position');

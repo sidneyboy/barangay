@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barangay_officials;
 use App\Models\Residents;
 use App\Models\Assistance_type;
-
+use App\Models\Assitance;
 use App\Mail\send_email_to_resident;
 use Illuminate\Support\Facades\Mail;
 
@@ -25,7 +25,14 @@ class Official_controller extends Controller
                 return redirect('/')->with('error', 'Wrong Credentials');
             }
         } else {
-            return 'wala';
+            $resident = Residents::where('email', $request->input('email'))->first();
+            if ($resident) {
+                if (Hash::check($request->input('password'), $resident->password)) {
+                    return redirect()->route('resident_welcome', ['resident_id' => $resident->id]);
+                } else {
+                    return redirect('/')->with('error', 'Wrong Credentials');
+                }
+            }
         }
     }
 
@@ -86,7 +93,7 @@ class Official_controller extends Controller
             'fathers_name' => 'required',
             'contact_number' => ['required', 'numeric', 'min:11'],
             'spouse' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:barangay_officials'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:residents'],
         ]);
 
         $user_image = $request->file('user_image');
@@ -120,7 +127,6 @@ class Official_controller extends Controller
         $first_name = $request->input('first_name');
         $last_name = $request->input('last_name');
         $email = $request->input('email');
-        $password = uniqid();
         Mail::to('salazarjohnsidney@gmail.com')->send(new send_email_to_resident($email, $password, $first_name, $last_name));
 
         return redirect()->route('official_res_registration', ['user_id' => $request->input('user_id')])->with('success', 'Successfully added new resident');
@@ -155,5 +161,35 @@ class Official_controller extends Controller
             ]);
 
         return redirect()->route('official_res_profile', ['user_id' => $request->input('user_id')])->with('success', 'Successfully updated resident profile');
+    }
+
+    public function official_logout()
+    {
+        return redirect('/');
+    }
+
+    public function official_assistance_request($user_id)
+    {
+        $user = Barangay_officials::find($user_id);
+        $assistance = Assitance::orderBy('id', 'desc')->where('barangay_id', $user->barangay_id)->get();
+        return view('official_assistance_request', [
+            'user' => $user,
+            'assistance' => $assistance,
+        ]);
+    }
+
+    public function official_assistance_approved(Request $request)
+    {
+        date_default_timezone_set('Asia/Manila');
+        $date = date('Y-m-d H:i:s');
+        Assitance::where('id', $request->input('assistance_id'))
+            ->update([
+                'approved_cash' => $request->input('approved_cash'),
+                'approved_by_official_id' => $request->input('approved_by_official_id'),
+                'approved_date' => $date,
+                'status' => 'approved',
+            ]);
+
+        return redirect()->route('official_assistance_request', ['user_id' => $request->input('approved_by_official_id')])->with('success', 'Successfully approved request cash assistance');
     }
 }

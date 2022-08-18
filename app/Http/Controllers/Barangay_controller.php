@@ -153,7 +153,7 @@ class Barangay_controller extends Controller
     public function barangay_register_process(Request $request)
     {
       
-        return $request->input();
+        //return $request->input();
 
         $validated = $request->validate([
             'user_image' => 'required',

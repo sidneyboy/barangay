@@ -38,25 +38,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Assistance</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6> --}}
-                        <a class="collapse-item" href="{{ url('official_assistance_type', $user->id) }}">Assistance Type</a>
-                        <a class="collapse-item" href="{{ url('official_assistance_request', $user->id) }}">Assistance Request</a>
-                    </div>
-                </div>
-            </li>
+           
 
             <!-- Nav Item - Charts -->
             {{-- {{-- <li class="nav-item">
@@ -65,16 +47,21 @@
                     <span>Register Officials</span></a>
             </li> --}}
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('official_res_registration', $user->id) }}">
+            {{-- <li class="nav-item">
+                <a class="nav-link" href="{{ url('official_res_registration', $resident->id) }}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Resident Registration</span></a>
-            </li>
+                    <span>Profile</span></a>
+            </li> --}}
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('official_res_profile', $user->id) }}">
+                <a class="nav-link" href="{{ url('res_assistance', $resident->id) }}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Resident Profile</span></a>
+                    <span>Assistance</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('res_assistance_request', $resident->id) }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Assistance Request</span></a>
             </li>
 
             <!-- Divider -->
@@ -256,8 +243,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $user->first_name }} {{ $user->last_name }}</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('/storage/'. $user->user_image) }}">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $resident->first_name }} {{ $resident->last_name }}</span>
+                                <img class="img-profile rounded-circle" src="{{ asset('/storage/'. $resident->user_image) }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
