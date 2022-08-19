@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::table('assitances', function (Blueprint $table) {
             $table->double('approved_cash')->nullable();
-            $table->string('approved_by_official_id');
-            $table->string('approved_date');
+            $table->string('approved_by_official_id')->nullable();
+            $table->string('approved_date')->nullable();
         });
     }
 

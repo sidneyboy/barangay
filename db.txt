@@ -15,3 +15,5 @@ kagawad2022
 
 barangay_admin@gmail.com
 barangay_admin
+
+dapat nullable ang assistance nga mga update column

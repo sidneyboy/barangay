@@ -27,7 +27,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <span>
-                                            Status: {{ $data->status }}
+                                            Status: <span class="badge badge-success">{{ $data->status }}</span>
                                         </span>
                                     </div>
                                 </div>

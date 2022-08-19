@@ -19,6 +19,7 @@ class Resident_controller extends Controller
 
     public function res_assistance($resident_id)
     {
+       
         $resident = Residents::find($resident_id);
         $assistance_type = Assistance_type::get();
         return view('res_assistance', [

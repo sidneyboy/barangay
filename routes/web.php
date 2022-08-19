@@ -37,7 +37,7 @@ Route::get('/official_logout', [App\Http\Controllers\Official_controller::class,
 
 Route::get('/resident_welcome/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'resident_welcome'])->name('resident_welcome');
 Route::get('/res_assistance/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'res_assistance'])->name('res_assistance');
-Route::post('/res_assistance_process/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'res_assistance_process'])->name('res_assistance_process');
+Route::post('/res_assistance_process', [App\Http\Controllers\Resident_controller::class, 'res_assistance_process'])->name('res_assistance_process');
 
 Route::get('/res_assistance_request/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'res_assistance_request'])->name('res_assistance_request');
 

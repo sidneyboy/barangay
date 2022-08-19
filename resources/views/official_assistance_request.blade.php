@@ -19,11 +19,11 @@
                             Request No: {{ $data->id }}
                         </div>
                         <div class="col-md-4">
-                            Approved Amount: {{ $data->approved_cash }}
+                            Approved Amount: {{ number_format($data->approved_cash,2,".",",") }}
                         </div>
                         <div class="col-md-4">
                             <span>
-                                Status: {{ $data->status }}
+                                Status: <span class="badge badge-success">{{ Str::ucfirst($data->status) }}</span>
                             </span>
                         </div>
                     </div>
@@ -67,6 +67,21 @@
                                                                 value="{{ $user->id }}">
                                                             <input type="hidden" name="assistance_id"
                                                                 value="{{ $data->id }}">
+
+                                                            <input type="hidden" name="resident_email"
+                                                                value="{{ $data->resident->email }}">
+
+                                                            <input type="hidden" name="first_name"
+                                                                value="{{ $data->resident->first_name }}">
+
+                                                            <input type="hidden" name="middle_name"
+                                                                value="{{ $data->resident->middle_name }}">
+
+                                                            <input type="hidden" name="last_name"
+                                                                value="{{ $data->resident->last_name }}">
+
+                                                            <input type="hidden" name="assistance_title"
+                                                                value="{{ $data->assistance->title }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -81,9 +96,13 @@
                                 </div>
                             </div>
                         </span>
+                    @else
+                        <span class="float-left">
+                            Approved Date:{{ date('F j, Y', strtotime($data->approved_date)) }}
+                        </span>
                     @endif
                     <span class="float-right">
-                        {{ date('F j, Y', strtotime($data->created_at)) }}
+                        Requested Date:{{ date('F j, Y', strtotime($data->created_at)) }}
                     </span>
                 </div>
             </div>

@@ -7,6 +7,8 @@ use App\Models\Residents;
 use App\Models\Assistance_type;
 use App\Models\Assitance;
 use App\Mail\send_email_to_resident;
+use App\Mail\Assistance_approved_email;
+
 use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Support\Facades\Auth;
@@ -39,9 +41,10 @@ class Official_controller extends Controller
     public function official_welcome($user_id)
     {
         $user = Barangay_officials::find($user_id);
-
+        $assistance_count = Assitance::where('status','New Request')->where('barangay_id',$user->barangay_id)->count();
         return view('official_welcome', [
             'user' => $user,
+            'assistance_count' => $assistance_count,
         ]);
     }
 
@@ -49,9 +52,11 @@ class Official_controller extends Controller
     {
         $user = Barangay_officials::find($user_id);
         $type = Assistance_type::where('barangay_id', $user->barangay_id)->get();
+        $assistance_count = Assitance::where('status','New Request')->where('barangay_id',$user->barangay_id)->count();
         return view('official_assistance_type', [
             'user' => $user,
             'type' => $type,
+            'assistance_count' => $assistance_count,
         ]);
     }
 
@@ -72,8 +77,10 @@ class Official_controller extends Controller
     public function official_res_registration($user_id)
     {
         $user = Barangay_officials::find($user_id);
+        $assistance_count = Assitance::where('status','New Request')->where('barangay_id',$user->barangay_id)->count();
         return view('official_res_registration', [
             'user' => $user,
+            'assistance_count' => $assistance_count,
         ]);
     }
 
@@ -127,7 +134,7 @@ class Official_controller extends Controller
         $first_name = $request->input('first_name');
         $last_name = $request->input('last_name');
         $email = $request->input('email');
-        Mail::to('salazarjohnsidney@gmail.com')->send(new send_email_to_resident($email, $password, $first_name, $last_name));
+        Mail::to($request->input('email'))->send(new send_email_to_resident($email, $password, $first_name, $last_name));
 
         return redirect()->route('official_res_registration', ['user_id' => $request->input('user_id')])->with('success', 'Successfully added new resident');
     }
@@ -135,10 +142,12 @@ class Official_controller extends Controller
     public function official_res_profile($user_id)
     {
         $user = Barangay_officials::find($user_id);
-        $resident = Residents::get();
+        $resident = Residents::where('barangay_id',$user->barangay_id)->get();
+        $assistance_count = Assitance::where('status','New Request')->where('barangay_id',$user->barangay_id)->count();
         return view('official_res_profile', [
             'resident' => $resident,
-            'user' => $user
+            'user' => $user,
+            'assistance_count' => $assistance_count,
         ]);
     }
 
@@ -171,10 +180,12 @@ class Official_controller extends Controller
     public function official_assistance_request($user_id)
     {
         $user = Barangay_officials::find($user_id);
-        $assistance = Assitance::orderBy('id', 'desc')->where('barangay_id', $user->barangay_id)->get();
+        $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
+        $assistance_count = Assitance::where('status','New Request')->where('barangay_id',$user->barangay_id)->count();
         return view('official_assistance_request', [
             'user' => $user,
             'assistance' => $assistance,
+            'assistance_count' => $assistance_count,
         ]);
     }
 
@@ -189,6 +200,15 @@ class Official_controller extends Controller
                 'approved_date' => $date,
                 'status' => 'approved',
             ]);
+
+        $email = $request->input('resident_email');
+        $first_name = $request->input('first_name');
+        $middle_name = $request->input('middle_name');
+        $last_name = $request->input('last_name');
+        $assistance_title = $request->input('assistance_title');
+        $approved_cash = number_format($request->input('approved_cash'),2,".",",");
+
+        Mail::to($email)->send(new Assistance_approved_email($middle_name, $first_name, $last_name,$assistance_title,$approved_cash));
 
         return redirect()->route('official_assistance_request', ['user_id' => $request->input('approved_by_official_id')])->with('success', 'Successfully approved request cash assistance');
     }
