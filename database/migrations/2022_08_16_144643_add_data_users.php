@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('Users', function (Blueprint $table) {
             $table->string('contact_number');
-            $table->BigInteger('barangay_id');
+            $table->BigInteger('barangay_id')->nullable();
         });
     }
 

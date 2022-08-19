@@ -205,7 +205,7 @@ class Barangay_controller extends Controller
     {
         $user = User::find(auth()->user()->id);
         $position = Barangay_position::get();
-        $officials = Barangay_officials::get();
+        $officials = Barangay_officials::where('barangay_id',$user->barangay_id)->get();
         return view('barangay_officials_profile', [
             'officials' => $officials,
             'position' => $position,
