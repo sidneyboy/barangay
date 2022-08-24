@@ -29,12 +29,12 @@ class Residents extends Model
 
     public function barangay()
     {
-        return $this->belongsTo('App\Models\barangay', 'barangay_id');
+        return $this->belongsTo('App\Models\Barangay', 'barangay_id');
     }
 
     public function barangay_official_id()
     {
-        return $this->belongsTo('App\Models\barangay_officials', 'user_id');
+        return $this->belongsTo('App\Models\Barangay_officials', 'user_id');
     }
 
 }

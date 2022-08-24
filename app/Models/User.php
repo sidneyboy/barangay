@@ -29,8 +29,9 @@ class User extends Authenticatable
 
     public function barangay()
     {
-        return $this->belongsTo('App\Models\barangay', 'barangay_id');
+        return $this->belongsTo('App\Models\Barangay', 'barangay_id');
     }
+
 
     /**
      * The attributes that should be hidden for serialization.

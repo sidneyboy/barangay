@@ -35,6 +35,8 @@
                             <div class="card-body">
                                 <b>Assitance Type:</b> {{ $data->assistance->title }}<br />
                                 <b> Brief Explanation:</b> {{ $data->explanation }}
+                                <br /><br />
+                                <img src="{{ asset('/storage/'. $data->image) }}" class="img img-thumbnail" alt="">
                             </div>
                             <div class="card-footer">
                                 <span class="float-right">

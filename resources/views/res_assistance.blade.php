@@ -13,7 +13,7 @@
     <div class="card" style="width: 100%;">
         <h6 class="card-header">Request Assistance Section</h6>
         <div class="card-body">
-            <form action="{{ route('res_assistance_process') }}" method="post">
+            <form action="{{ route('res_assistance_process') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-12">
@@ -39,6 +39,21 @@
                                       </textarea>
 
                             @error('explanation')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <br />
+
+                            <img id="blah" class="img img-thumbnail" src="{{ asset('storage/default_image.jpg') }}"
+                                alt="your image" />
+
+                            <input type="file" min="0"
+                                class="form-control form-control-user  @error('image') is-invalid @enderror"
+                                name="image" value="{{ old('image') }}" autofocus accept="image/*"
+                                id="imgInp" />
+
+                            @error('image')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

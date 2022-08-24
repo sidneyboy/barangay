@@ -17,3 +17,24 @@ barangay_admin@gmail.com
 barangay_admin
 
 dapat nullable ang assistance nga mga update column
+
+000webhost-credentials
+ebarangay-portal
+CJUi366QNCCHFdNU71Sb
+
+db credentials
+barangay
+barangay12345
+~mf30p>#dU9~5575
+
+
+----------------------------------------------------------------------------
+infinitfree
+Website for ebarangay-portal.epizy.com
+username: epiz_32418833!
+password: vashknives
+
+db credentials:
+host: sql210.epizy.com
+epiz_32418833_barangay
+ 

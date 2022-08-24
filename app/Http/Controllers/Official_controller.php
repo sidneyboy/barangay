@@ -34,6 +34,8 @@ class Official_controller extends Controller
                 } else {
                     return redirect('/')->with('error', 'Wrong Credentials');
                 }
+            }else{
+                return redirect('/')->with('error', 'Wrong Credentials');
             }
         }
     }
@@ -41,7 +43,7 @@ class Official_controller extends Controller
     public function official_welcome($user_id)
     {
         $user = Barangay_officials::find($user_id);
-        $assistance_count = Assitance::where('status','New Request')->where('barangay_id',$user->barangay_id)->count();
+        $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('official_welcome', [
             'user' => $user,
             'assistance_count' => $assistance_count,
@@ -52,7 +54,7 @@ class Official_controller extends Controller
     {
         $user = Barangay_officials::find($user_id);
         $type = Assistance_type::where('barangay_id', $user->barangay_id)->get();
-        $assistance_count = Assitance::where('status','New Request')->where('barangay_id',$user->barangay_id)->count();
+        $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('official_assistance_type', [
             'user' => $user,
             'type' => $type,
@@ -77,7 +79,7 @@ class Official_controller extends Controller
     public function official_res_registration($user_id)
     {
         $user = Barangay_officials::find($user_id);
-        $assistance_count = Assitance::where('status','New Request')->where('barangay_id',$user->barangay_id)->count();
+        $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('official_res_registration', [
             'user' => $user,
             'assistance_count' => $assistance_count,
@@ -142,8 +144,8 @@ class Official_controller extends Controller
     public function official_res_profile($user_id)
     {
         $user = Barangay_officials::find($user_id);
-        $resident = Residents::where('barangay_id',$user->barangay_id)->get();
-        $assistance_count = Assitance::where('status','New Request')->where('barangay_id',$user->barangay_id)->count();
+        $resident = Residents::where('barangay_id', $user->barangay_id)->get();
+        $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('official_res_profile', [
             'resident' => $resident,
             'user' => $user,
@@ -181,7 +183,7 @@ class Official_controller extends Controller
     {
         $user = Barangay_officials::find($user_id);
         $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
-        $assistance_count = Assitance::where('status','New Request')->where('barangay_id',$user->barangay_id)->count();
+        $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('official_assistance_request', [
             'user' => $user,
             'assistance' => $assistance,
@@ -201,15 +203,73 @@ class Official_controller extends Controller
                 'status' => 'approved',
             ]);
 
-        $email = $request->input('resident_email');
+       return $email = $request->input('resident_email');
         $first_name = $request->input('first_name');
         $middle_name = $request->input('middle_name');
         $last_name = $request->input('last_name');
         $assistance_title = $request->input('assistance_title');
-        $approved_cash = number_format($request->input('approved_cash'),2,".",",");
+        $approved_cash = number_format($request->input('approved_cash'), 2, ".", ",");
 
-        Mail::to($email)->send(new Assistance_approved_email($middle_name, $first_name, $last_name,$assistance_title,$approved_cash));
+        Mail::to($email)->send(new Assistance_approved_email($middle_name, $first_name, $last_name, $assistance_title, $approved_cash));
 
         return redirect()->route('official_assistance_request', ['user_id' => $request->input('approved_by_official_id')])->with('success', 'Successfully approved request cash assistance');
+    }
+
+    public function official_profile($user_id)
+    {
+        $user = Barangay_officials::find($user_id);
+        $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
+        $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        return view('official_profile', [
+            'user' => $user,
+            'assistance' => $assistance,
+            'assistance_count' => $assistance_count,
+        ]);
+    }
+
+    public function official_profile_update(Request $request)
+    {
+        //return $request->input();
+
+        $validated = $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        Barangay_officials::where('id', $request->input('official_id'))
+            ->update([
+                'first_name' => $request->input('first_name'),
+                'middle_name' => $request->input('middle_name'),
+                'last_name' => $request->input('last_name'),
+                'gender' => $request->input('gender'),
+                'civil_status' => $request->input('civil_status'),
+                'birth_date' => $request->input('birth_date'),
+                'email' => $request->input('email'),
+                'contact_number' => $request->input('contact_number'),
+                'password' => Hash::make($request->input('password')),
+                'spouse' => $request->input('spouse'),
+            ]);
+
+
+
+        return redirect()->route('official_profile', ['user_id' => $request->input('official_id')])->with('success', 'Successfully updated your profile');
+    }
+
+    public function official_profile_update_image(Request $request)
+    {
+        $validated = $request->validate([
+            'user_image' => ['required'],
+        ]);
+
+        $user_image = $request->file('user_image');
+        $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();
+        $path_user_image = $user_image->storeAs('public', $image_name);
+
+        Barangay_officials::where('id', $request->input('official_id'))
+        ->update([
+            'user_image' => $image_name,
+        ]);
+
+        return redirect()->route('official_profile', ['user_id' => $request->input('official_id')])->with('success', 'Successfully updated your profile');
     }
 }

@@ -33,6 +33,9 @@
                         {{ $data->resident->middle_name }} {{ $data->resident->last_name }}</h6>
                     Assistance Type: {{ $data->assistance->title }}<br />
                     Brief Explanation: {{ $data->explanation }}
+                    <br /><br />
+
+                    <img src="{{ asset('/storage/'. $data->image) }}" class="img img-thumbnail" alt="">
                 </div>
                 <div class="card-footer">
                     @if ($data->status != 'approved')
@@ -68,7 +71,7 @@
                                                             <input type="hidden" name="assistance_id"
                                                                 value="{{ $data->id }}">
 
-                                                            <input type="hidden" name="resident_email"
+                                                            <input type="text" name="resident_email"
                                                                 value="{{ $data->resident->email }}">
 
                                                             <input type="hidden" name="first_name"

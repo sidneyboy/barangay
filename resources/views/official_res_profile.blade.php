@@ -11,7 +11,7 @@
     @endif
 
     <div class="card" style="width: 100%;">
-        <h6 class="card-header">Resident Registration</h6>
+        <h6 class="card-header">Resident List</h6>
         <div class="card-body">
             <div class="table table-responsive">
                 <table class="table table-bordered table-hover table-sm">

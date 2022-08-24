@@ -32,7 +32,14 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-text mx-3">Barangay</sup></div>
+                <div class="sidebar-brand-icon">
+                   @if ($barangay_logo)
+                   <img src="{{ asset('/storage/'. $barangay_logo->logo) }}" alt="" class="img img-thumbnail">
+                   @else
+                       
+                   @endif
+                </div>
+                <div class="sidebar-brand-text mx-3">Barangay</div>
             </a>
 
             <!-- Divider -->
@@ -52,6 +59,7 @@
                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6> --}}
+                        
                         <a class="collapse-item" href="{{ url('barangay_register') }}">Register</a>
                         <a class="collapse-item" href="{{ url('barangay_officials_profile') }}">Profiles</a>
                         <a class="collapse-item" href="{{ url('barangay_position') }}">Position Type</a>
@@ -59,14 +67,51 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="{{ url('register_officials') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Register Officials</span></a>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseResidentPage"
+                    aria-expanded="true" aria-controls="collapseResidentPage">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Residents Profile</span>
+                </a>
+                <div id="collapseResidentPage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        {{-- <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" href="login.html">Login</a>
+                        <a class="collapse-item" href="register.html">Register</a>
+                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Other Pages:</h6> --}}
+                        
+                        <a class="collapse-item" href="{{ url('barangay_resident_register') }}">Register</a>
+                        <a class="collapse-item" href="{{ url('barangay_resident_profile') }}">Profiles</a>
+                    </div>
+                </div>
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Complain Report</span></a>
+            </li>
+
+            
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('barangay_logo') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Barangay Logo</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Archive</span></a>
+            </li>
+
+            
+
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ url('register_officials') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Register Officials</span></a>
@@ -257,6 +302,10 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ url('barangay_profile/') }}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
                                 {{-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile

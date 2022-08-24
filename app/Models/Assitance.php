@@ -17,21 +17,22 @@ class Assitance extends Model
         'status',
         'approved_cash',
         'approved_by_official_id',
-        'approved_date'
+        'approved_date',
+        'image'
     ];
 
     public function barangay()
     {
-        return $this->belongsTo('App\Models\barangay', 'barangay_id');
+        return $this->belongsTo('App\Models\Barangay', 'barangay_id');
     }
 
     public function resident()
     {
-        return $this->belongsTo('App\Models\residents', 'resident_id');
+        return $this->belongsTo('App\Models\Residents', 'resident_id');
     }
 
     public function assistance()
     {
-        return $this->belongsTo('App\Models\assistance_type', 'assistance_type_id');
+        return $this->belongsTo('App\Models\Assistance_type', 'assistance_type_id');
     }
 }
