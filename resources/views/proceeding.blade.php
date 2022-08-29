@@ -147,9 +147,8 @@
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <input type="hidden" name="region" value="{{ $region }}">
-                                    <input type="hidden" name="province" value="{{ $province }}">
-                                    <input type="hidden" name="city" value="{{ $city }}">
+                                    <input type="hidden" name="latitude" value="{{ $latitude }}">
+                                    <input type="hidden" name="longitude" value="{{ $longitude }}">
                                     <input type="hidden" name="barangay" value="{{ $barangay }}">
                                     <button type="submit" class="btn btn-success btn-sm float-right">
                                         {{ __('Register') }}

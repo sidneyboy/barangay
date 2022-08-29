@@ -8,8 +8,14 @@ use App\Models\Barangay_position;
 use App\Models\Barangay_officials;
 use App\Models\Barangay_logo;
 use App\Models\Residents;
+use App\Models\Complain;
 
 use App\Mail\send_mail_to_resident;
+use App\Mail\Approved_complains;
+use App\Mail\Approved_complains_respondent;
+use App\Mail\Approved_complains_lupon;
+
+
 
 use App\Mail\send_email_to_resident;
 use App\Mail\Assistance_approved_email;
@@ -25,16 +31,14 @@ class Barangay_controller extends Controller
     public function proceeding(Request $request)
     {
         $validated = $request->validate([
-            'region' => 'required',
-            'province' => 'required',
-            'city' => 'required',
+            'longitude' => 'required',
+            'latitude' => 'required',
             'barangay' => 'required',
         ]);
 
         return view('proceeding')
-            ->with('region', $request->input('region'))
-            ->with('province', $request->input('province'))
-            ->with('city', $request->input('city'))
+            ->with('longitude', $request->input('longitude'))
+            ->with('latitude', $request->input('latitude'))
             ->with('barangay', $request->input('barangay'));
     }
 
@@ -52,9 +56,8 @@ class Barangay_controller extends Controller
         ]);
 
         $barangay = new Barangay([
-            'region' => $request->input('region'),
-            'province' => $request->input('province'),
-            'city' => $request->input('city'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude'),
             'barangay' => $request->input('barangay'),
         ]);
 
@@ -87,11 +90,13 @@ class Barangay_controller extends Controller
 
     public function home()
     {
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $user = User::find(auth()->user()->id);
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         return view('home', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
         ]);
     }
 
@@ -105,10 +110,12 @@ class Barangay_controller extends Controller
         $user = User::find(auth()->user()->id);
         $position = Barangay_position::orderBy('id', 'desc')->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_position', [
             'position' => $position,
             'user' => $user,
             'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
         ]);
     }
 
@@ -153,10 +160,12 @@ class Barangay_controller extends Controller
         $user = User::find(auth()->user()->id);
         $position = Barangay_position::get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_register', [
             'position' => $position,
             'user' => $user,
             'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
         ]);
     }
 
@@ -180,8 +189,6 @@ class Barangay_controller extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:barangay_officials'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-
-
 
         $user_image = $request->file('user_image');
         $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();
@@ -217,19 +224,19 @@ class Barangay_controller extends Controller
         $position = Barangay_position::get();
         $officials = Barangay_officials::where('barangay_id', $user->barangay_id)->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
 
         return view('barangay_officials_profile', [
             'officials' => $officials,
             'position' => $position,
             'user' => $user,
             'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
         ]);
     }
 
     public function barangay_official_update(Request $request)
     {
-        //return $request->input();
-
         Barangay_officials::where('id', $request->input('id'))
             ->update([
                 'first_name' => $request->input('first_name'),
@@ -261,9 +268,11 @@ class Barangay_controller extends Controller
     {
         $user = User::find(auth()->user()->id);
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_logo', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
         ]);
     }
 
@@ -307,9 +316,11 @@ class Barangay_controller extends Controller
     {
         $user = User::find(auth()->user()->id);
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_resident_register', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
         ]);
     }
 
@@ -367,10 +378,11 @@ class Barangay_controller extends Controller
     }
 
     public function barangay_resident_profile()
-    {   
+    {
         $user = User::find(auth()->user()->id);
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $resident = Residents::where('barangay_id', $user->barangay_id)->get();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_resident_profile', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
@@ -383,10 +395,12 @@ class Barangay_controller extends Controller
         $user = User::find(auth()->user()->id);
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $resident = Residents::where('barangay_id', $user->barangay_id)->get();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_profile', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'resident' => $resident,
+            'complain_count' => $complain_count,
         ]);
     }
 
@@ -394,7 +408,7 @@ class Barangay_controller extends Controller
     {
         $validated = $request->validate([
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],            
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         User::where('id', $request->input('user_id'))
@@ -404,8 +418,6 @@ class Barangay_controller extends Controller
                 'contact_number' => $request->input('contact_number'),
                 'password' => Hash::make($request->input('password')),
             ]);
-
-
 
         return redirect()->route('barangay_profile')->with('success', 'Successfully updated your profile');
     }
@@ -421,10 +433,73 @@ class Barangay_controller extends Controller
         $path_user_image = $user_image->storeAs('public', $image_name);
 
         User::where('id', $request->input('user_id'))
-        ->update([
-            'user_image' => $image_name,
-        ]);
+            ->update([
+                'user_image' => $image_name,
+            ]);
 
         return redirect()->route('barangay_profile')->with('success', 'Successfully updated your profile');
+    }
+
+    public function barangay_complain_report()
+    {
+        $user = User::find(auth()->user()->id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $complain = Complain::orderBy('id', 'desc')->get();
+        $lupon = Barangay_officials::where('barangay_id', $user->barangay_id)->get();
+
+        return view('barangay_complain_report', [
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
+            'complain' => $complain,
+            'lupon' => $lupon,
+        ]);
+    }
+
+    public function barangay_complain_approved(Request $request)
+    {
+       
+        $explode = explode('-',$request->input('lupon_id'));
+        $lupon_id = $explode[0];
+        $lupon_email = $explode[1];
+        $lupon_data = Barangay_officials::find($lupon_id);
+        $complainant_id = $request->input('complainant_id');
+        $complainant_first_name = $request->input('complainant_first_name');
+        $complainant_middle_name = $request->input('complainant_middle_name');
+        $complainant_last_name = $request->input('complainant_last_name');
+        $respondent_id = $request->input('respondent_id');
+        $respondent_first_name = $request->input('respondent_first_name');
+        $respondent_middle_name = $request->input('respondent_middle_name');
+        $respondent_last_name = $request->input('respondent_last_name');
+        $complainant_email = $request->input('complainant_email');
+        $respondent_email = $request->input('respondent_email');
+        $hearing_date = $request->input('hearing_date');
+        $time = $request->input('time');
+        $barangay = $request->input('barangay');
+
+        if ($time == 'Morning') {
+            $hearing_time = '9:00am';
+        }else{
+            $hearing_time = '1:30pm';
+        }
+
+
+
+        Mail::to($complainant_email)->send(new Approved_complains($complainant_first_name, $complainant_middle_name, $complainant_last_name,$hearing_date,$hearing_time,$respondent_first_name, $respondent_middle_name, $respondent_last_name,$barangay));
+
+        Mail::to($respondent_email)->send(new Approved_complains_respondent($respondent_first_name, $respondent_middle_name, $respondent_last_name,$complainant_first_name, $complainant_middle_name, $complainant_last_name,$hearing_date,$hearing_time,$barangay));
+
+        Mail::to($lupon_email)->send(new Approved_complains_lupon($lupon_data->first_name,$lupon_data->middle_name,$lupon_data->last_name,$hearing_date,$hearing_time,$complainant_first_name, $complainant_middle_name, $complainant_last_name,$respondent_first_name, $respondent_middle_name, $respondent_last_name,$barangay));
+
+        Complain::where('id', $request->input('complain_id'))
+            ->update([
+                'lupon_id' => $lupon_id,
+                'hearing_date' => $request->input('hearing_date'),
+                'time' => $hearing_time,
+                'status' => 'Approved',
+            ]);
+
+        return redirect()->route('barangay_complain_report')->with('success', 'Successfully approved and set schedule for Complain Request No.'. $request->input('complain_id'));
     }
 }

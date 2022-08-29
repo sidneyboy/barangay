@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Residents;
 use App\Models\Assistance_type;
 use App\Models\Assitance;
+use App\Models\Complain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -116,5 +117,45 @@ class Resident_controller extends Controller
             ]);
 
         return redirect()->route('resident_profile', ['resident_id' => $request->input('resident_id')])->with('success', 'Successfully updated your profile');
+    }
+
+    public function resident_complain($resident_id)
+    {
+        $resident = Residents::find($resident_id);
+        $assistance = Assitance::orderBy('id', 'desc')->get();
+        $respondent = Residents::where('id', '!=', $resident_id)->get();
+        return view('resident_complain', [
+            'resident' => $resident,
+            'assistance' => $assistance,
+            'respondent' => $respondent,
+        ]);
+    }
+
+    public function resident_complain_process(Request $request)
+    {
+        //return $request->input();
+        $new = new Complain([
+            'complainant_id' => $request->input('resident_id'),
+            'respondent_id' => $request->input('respondent_id'),
+            'reason' => $request->input('reason'),
+            'barangay_id' => $request->input('barangay_id'),
+            'status' => 'Pending Approval',
+        ]);
+
+        $new->save();
+
+        return redirect()->route('resident_complain', ['resident_id' => $request->input('resident_id')])->with('success', 'Successfully submitted complain request, Please wait for an email indicating the approval and schedule of hearing.');
+    }
+
+    public function resident_complain_request($resident_id)
+    {
+        $resident = Residents::find($resident_id);
+        $assistance = Assitance::orderBy('id', 'desc')->get();
+        $complain = Complain::orderBy('id','desc')->get();
+        return view('resident_complain_request', [
+            'resident' => $resident,
+            'assistance' => $assistance,
+            'complain' => $complain,
+        ]);
     }
 }

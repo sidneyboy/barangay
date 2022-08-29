@@ -14,4 +14,9 @@ class Barangay_position extends Model
         'description',
         'status',
     ];
+
+    public function barangay()
+    {
+        return $this->belongsTo('App\Models\Barangay', 'barangay_id');
+    }
 }

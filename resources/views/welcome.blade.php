@@ -22,7 +22,7 @@
                 <form action="{{ route('proceeding') }}" method="get">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="">Region:</label>
                                 <select class="form-control @error('region') is-invalid @enderror" name="region"
                                     id="region" style="width:100%;">
@@ -55,11 +55,15 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="">Barangay:</label>
-                                <select class="form-control @error('barangay') is-invalid @enderror" name="barangay"
-                                    id="barangay" style="width:100%;"></select>
+                                {{-- <select class="form-control @error('barangay') is-invalid @enderror" name="barangay"
+                                    id="barangay" style="width:100%;"></select> --}}
+
+                                <input id="barangay" type="barangay"
+                                    class="form-control @error('barangay') is-invalid @enderror" name="barangay"
+                                    value="{{ old('barangay') }}" required autocomplete="barangay" autofocus>
 
                                 @error('barangay')
                                     <span class="invalid-feedback" role="alert">
@@ -69,8 +73,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="latitude"
-                                    class="">{{ __('Latitude:') }}</label>
+                                <label for="latitude" class="">{{ __('Latitude:') }}</label>
 
 
                                 <input id="latitude" type="latitude"
@@ -86,8 +89,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="longitude"
-                                    class="">{{ __('Longitude:') }}</label>
+                                <label for="longitude" class="">{{ __('Longitude:') }}</label>
 
 
                                 <input id="longitude" type="longitude"

@@ -56,6 +56,11 @@ Route::get('/resident_profile/{resident_id}', [App\Http\Controllers\Resident_con
 Route::post('/resident_profile_update', [App\Http\Controllers\Resident_controller::class, 'resident_profile_update'])->name('resident_profile_update');
 Route::post('/resident_profile_image_update', [App\Http\Controllers\Resident_controller::class, 'resident_profile_image_update'])->name('resident_profile_image_update');
 
+Route::get('/resident_complain/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'resident_complain'])->name('resident_complain');
+Route::post('/resident_complain_process', [App\Http\Controllers\Resident_controller::class, 'resident_complain_process'])->name('resident_complain_process');
+
+Route::get('/resident_complain_request/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'resident_complain_request'])->name('resident_complain_request');
+
 
 
 
@@ -104,21 +109,12 @@ Route::get('/barangay_profile', [App\Http\Controllers\Barangay_controller::class
 Route::post('/barangay_profile_update_process', [App\Http\Controllers\Barangay_controller::class, 'barangay_profile_update_process'])->name('barangay_profile_update_process');
 Route::post('/barangay_profile_update_image', [App\Http\Controllers\Barangay_controller::class, 'barangay_profile_update_image'])->name('barangay_profile_update_image');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Route::get('/register_officials', [App\Http\Controllers\Barangay_controller::class, 'register_officials'])->name('register_officials');
+
+
+Route::get('/barangay_complain_report', [App\Http\Controllers\Barangay_controller::class, 'barangay_complain_report'])->name('barangay_complain_report');
+Route::post('/barangay_complain_approved', [App\Http\Controllers\Barangay_controller::class, 'barangay_complain_approved'])->name('barangay_complain_approved');
+
 
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

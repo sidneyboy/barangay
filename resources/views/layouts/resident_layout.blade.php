@@ -38,20 +38,6 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Pages Collapse Menu -->
-           
-
-            <!-- Nav Item - Charts -->
-            {{-- {{-- <li class="nav-item">
-                <a class="nav-link" href="{{ url('register_officials') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Register Officials</span></a>
-            </li> --}}
-
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="{{ url('official_res_registration', $resident->id) }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Profile</span></a>
-            </li> --}}
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('res_assistance', $resident->id) }}">
@@ -62,6 +48,18 @@
                 <a class="nav-link" href="{{ url('res_assistance_request', $resident->id) }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Assistance Request</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('resident_complain', $resident->id) }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Complain</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('resident_complain_request', $resident->id) }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Complain Request</span></a>
             </li>
 
             <!-- Divider -->

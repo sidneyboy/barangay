@@ -75,13 +75,6 @@
                 </a>
                 <div id="collapseResidentPage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6> --}}
-                        
                         <a class="collapse-item" href="{{ url('barangay_resident_register') }}">Register</a>
                         <a class="collapse-item" href="{{ url('barangay_resident_profile') }}">Profiles</a>
                     </div>
@@ -89,9 +82,9 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ url('barangay_complain_report') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Complain Report</span></a>
+                    <span>Complain Report</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
             </li>
 
             
