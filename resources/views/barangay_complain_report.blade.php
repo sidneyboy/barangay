@@ -40,20 +40,87 @@
                                             {{ Str::ucfirst($data->respondent->middle_name) }}
                                             {{ Str::ucfirst($data->respondent->last_name) }} - Brgy
                                             {{ Str::ucfirst($data->respondent->barangay->barangay) }}</td>
-                                        <td>{{ $data->reason }}</td>
+                                        <td>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-primary btn-sm btn-block"
+                                                data-toggle="modal" data-target="#exampleModal_reason{{ $data->id }}">
+                                                Show Reason
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal_reason{{ $data->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Reason</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>{{ $data->reason }}</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm"
+                                                                data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td>{{ $data->lupon->first_name }} {{ $data->lupon->middle_name }}
                                             {{ $data->lupon->last_name }}</td>
                                         <td>{{ $data->hearing_date }}</td>
-                                        <td>{{ $data->image }}</td>
+                                        <td>
+                                            @if ($data->image == '')
+                                                No Document Available
+                                            @else
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                    data-target="#exampleModal">
+                                                    Show Document
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Document
+                                                                    Hearing
+                                                                </h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <img src="{{ asset('/storage/' . $data->image) }}"
+                                                                    class="img img-thumbnail" alt="">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-primary">Save
+                                                                    changes</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </td>
                                         <td>{{ $data->status }}</td>
                                         <td>
-                                            @if ($data->status != 'Approved')
+                                            @if ($data->status == '')
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                                     data-target="#exampleModal{{ $data->id }}">
                                                     Option
                                                 </button>
-
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="exampleModal{{ $data->id }}" tabindex="-1"
                                                     role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -99,9 +166,11 @@
 
                                                                         <input type="hidden" name="complainant_id"
                                                                             value="{{ $data->complainant_id }}">
-                                                                        <input type="hidden" name="complainant_first_name"
+                                                                        <input type="hidden"
+                                                                            name="complainant_first_name"
                                                                             value="{{ $data->complainant->first_name }}">
-                                                                        <input type="hidden" name="complainant_middle_name"
+                                                                        <input type="hidden"
+                                                                            name="complainant_middle_name"
                                                                             value="{{ $data->complainant->middle_name }}">
                                                                         <input type="hidden" name="complainant_last_name"
                                                                             value="{{ $data->complainant->last_name }}">
@@ -110,7 +179,8 @@
                                                                             value="{{ $data->respondent_id }}">
                                                                         <input type="hidden" name="respondent_first_name"
                                                                             value="{{ $data->respondent->first_name }}">
-                                                                        <input type="hidden" name="respondent_middle_name"
+                                                                        <input type="hidden"
+                                                                            name="respondent_middle_name"
                                                                             value="{{ $data->respondent->middle_name }}">
                                                                         <input type="hidden" name="respondent_last_name"
                                                                             value="{{ $data->respondent->last_name }}">
@@ -128,7 +198,100 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary btn-sm"
+                                                                    <button type="button"
+                                                                        class="btn btn-secondary btn-sm"
+                                                                        data-dismiss="modal">Close</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary btn-sm">Save
+                                                                        changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @elseif($data->status == 'Approved')
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                    data-target="#exampleModal_set_status{{ $data->id }}">
+                                                    Set Status
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal_set_status{{ $data->id }}"
+                                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form action="{{ route('barangay_complain_status_change') }}"
+                                                                method="post">
+                                                                @csrf
+                                                                <div class="modal-body">
+                                                                    <label>Set Status:</label>
+                                                                    <select name="status" id="status"
+                                                                        class="form-control" style="width:100%;" required>
+                                                                        <option value="" default>Set</option>
+                                                                        <option value="On Progress" default>On Progress
+                                                                        </option>
+                                                                    </select>
+
+                                                                    <input type="hidden" name="complain_id"
+                                                                        value="{{ $data->id }}">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                        class="btn btn-secondary btn-sm"
+                                                                        data-dismiss="modal">Close</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary btn-sm">Save
+                                                                        changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @elseif($data->status == 'On Progress')
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                    data-target="#exampleModal_set_status{{ $data->id }}">
+                                                    Set Status
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal_set_status{{ $data->id }}"
+                                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form action="{{ route('barangay_complain_status_change') }}"
+                                                                method="post">
+                                                                @csrf
+                                                                <div class="modal-body">
+                                                                    <label>Set Status:</label>
+                                                                    <select name="status" id="status"
+                                                                        class="form-control" style="width:100%;" required>
+                                                                        <option value="" default>Set</option>
+                                                                        <option value="On Progress" default>On Progress
+                                                                        </option>
+                                                                    </select>
+
+                                                                    <input type="hidden" name="complain_id"
+                                                                        value="{{ $data->id }}">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                        class="btn btn-secondary btn-sm"
                                                                         data-dismiss="modal">Close</button>
                                                                     <button type="submit"
                                                                         class="btn btn-primary btn-sm">Save

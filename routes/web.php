@@ -35,15 +35,36 @@ Route::get('/official_profile/{user_id}', [App\Http\Controllers\Official_control
 Route::post('/official_profile_update', [App\Http\Controllers\Official_controller::class, 'official_profile_update'])->name('official_profile_update');
 Route::post('/official_profile_update_image', [App\Http\Controllers\Official_controller::class, 'official_profile_update_image'])->name('official_profile_update_image');
 
-
-
-
-
-
-
-
-
 Route::get('/official_logout', [App\Http\Controllers\Official_controller::class, 'official_logout'])->name('official_logout');
+
+Route::get('/official_complain_report/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_complain_report'])->name('official_complain_report');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/resident_welcome/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'resident_welcome'])->name('resident_welcome');
 Route::get('/res_assistance/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'res_assistance'])->name('res_assistance');
@@ -60,6 +81,31 @@ Route::get('/resident_complain/{resident_id}', [App\Http\Controllers\Resident_co
 Route::post('/resident_complain_process', [App\Http\Controllers\Resident_controller::class, 'resident_complain_process'])->name('resident_complain_process');
 
 Route::get('/resident_complain_request/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'resident_complain_request'])->name('resident_complain_request');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -114,6 +160,9 @@ Route::get('/register_officials', [App\Http\Controllers\Barangay_controller::cla
 
 Route::get('/barangay_complain_report', [App\Http\Controllers\Barangay_controller::class, 'barangay_complain_report'])->name('barangay_complain_report');
 Route::post('/barangay_complain_approved', [App\Http\Controllers\Barangay_controller::class, 'barangay_complain_approved'])->name('barangay_complain_approved');
+
+Route::post('/barangay_complain_status_change', [App\Http\Controllers\Barangay_controller::class, 'barangay_complain_status_change'])->name('barangay_complain_status_change');
+
 
 
 

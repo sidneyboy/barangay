@@ -19,6 +19,8 @@ class Complain extends Model
         'status',
         'barangay_id',
         'time',
+        'time_started',
+        'time_ended',
     ];
 
     public function barangay()

@@ -38,7 +38,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Pages Collapse Menu -->
-          
+
             @if ($user->position->title == 'Lupon')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('official_res_profile', $user->id) }}">
@@ -46,17 +46,17 @@
                         <span>Resident Profile</span></a>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Complain</span></a>
-                </li>
+                </li> --}}
 
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ url('official_complain_report', $user->id) }}">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Complain Report</span></a>
+                        <span>Complain Report</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
                 </li>
             @else
                 <li class="nav-item">

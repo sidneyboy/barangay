@@ -6,6 +6,7 @@ use App\Models\Barangay_officials;
 use App\Models\Residents;
 use App\Models\Assistance_type;
 use App\Models\Assitance;
+use App\Models\Complain;
 use App\Mail\send_email_to_resident;
 use App\Mail\Assistance_approved_email;
 
@@ -146,10 +147,12 @@ class Official_controller extends Controller
         $user = Barangay_officials::find($user_id);
         $resident = Residents::where('barangay_id', $user->barangay_id)->get();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $complain_count = Complain::where('lupon_id',$user_id)->where('status','Approved')->count();
         return view('official_res_profile', [
             'resident' => $resident,
             'user' => $user,
             'assistance_count' => $assistance_count,
+            'complain_count' => $complain_count,
         ]);
     }
 
@@ -203,7 +206,7 @@ class Official_controller extends Controller
                 'status' => 'approved',
             ]);
 
-       return $email = $request->input('resident_email');
+        $email = $request->input('resident_email');
         $first_name = $request->input('first_name');
         $middle_name = $request->input('middle_name');
         $last_name = $request->input('last_name');
@@ -271,5 +274,19 @@ class Official_controller extends Controller
         ]);
 
         return redirect()->route('official_profile', ['user_id' => $request->input('official_id')])->with('success', 'Successfully updated your profile');
+    }
+
+    public function official_complain_report($user_id)
+    {
+      
+
+        $user = Barangay_officials::find($user_id);
+        $complain_report = Complain::where('lupon_id',$user_id)->where('status','Approved')->orderBy('id','desc')->get();
+        $complain_count = Complain::where('lupon_id',$user_id)->where('status','Approved')->count();
+        return view('official_complain_report', [
+            'user' => $user,
+            'complain_report' => $complain_report,
+            'complain_count' => $complain_count,
+        ]);
     }
 }

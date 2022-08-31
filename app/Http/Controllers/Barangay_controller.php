@@ -90,8 +90,8 @@ class Barangay_controller extends Controller
 
     public function home()
     {
-        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $user = User::find(auth()->user()->id);
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         return view('home', [
             'user' => $user,
@@ -459,8 +459,8 @@ class Barangay_controller extends Controller
 
     public function barangay_complain_approved(Request $request)
     {
-       
-        $explode = explode('-',$request->input('lupon_id'));
+
+        $explode = explode('-', $request->input('lupon_id'));
         $lupon_id = $explode[0];
         $lupon_email = $explode[1];
         $lupon_data = Barangay_officials::find($lupon_id);
@@ -480,17 +480,17 @@ class Barangay_controller extends Controller
 
         if ($time == 'Morning') {
             $hearing_time = '9:00am';
-        }else{
+        } else {
             $hearing_time = '1:30pm';
         }
 
 
 
-        Mail::to($complainant_email)->send(new Approved_complains($complainant_first_name, $complainant_middle_name, $complainant_last_name,$hearing_date,$hearing_time,$respondent_first_name, $respondent_middle_name, $respondent_last_name,$barangay));
+        Mail::to($complainant_email)->send(new Approved_complains($complainant_first_name, $complainant_middle_name, $complainant_last_name, $hearing_date, $hearing_time, $respondent_first_name, $respondent_middle_name, $respondent_last_name, $barangay));
 
-        Mail::to($respondent_email)->send(new Approved_complains_respondent($respondent_first_name, $respondent_middle_name, $respondent_last_name,$complainant_first_name, $complainant_middle_name, $complainant_last_name,$hearing_date,$hearing_time,$barangay));
+        Mail::to($respondent_email)->send(new Approved_complains_respondent($respondent_first_name, $respondent_middle_name, $respondent_last_name, $complainant_first_name, $complainant_middle_name, $complainant_last_name, $hearing_date, $hearing_time, $barangay));
 
-        Mail::to($lupon_email)->send(new Approved_complains_lupon($lupon_data->first_name,$lupon_data->middle_name,$lupon_data->last_name,$hearing_date,$hearing_time,$complainant_first_name, $complainant_middle_name, $complainant_last_name,$respondent_first_name, $respondent_middle_name, $respondent_last_name,$barangay));
+        Mail::to($lupon_email)->send(new Approved_complains_lupon($lupon_data->first_name, $lupon_data->middle_name, $lupon_data->last_name, $hearing_date, $hearing_time, $complainant_first_name, $complainant_middle_name, $complainant_last_name, $respondent_first_name, $respondent_middle_name, $respondent_last_name, $barangay));
 
         Complain::where('id', $request->input('complain_id'))
             ->update([
@@ -500,6 +500,19 @@ class Barangay_controller extends Controller
                 'status' => 'Approved',
             ]);
 
-        return redirect()->route('barangay_complain_report')->with('success', 'Successfully approved and set schedule for Complain Request No.'. $request->input('complain_id'));
+        return redirect()->route('barangay_complain_report')->with('success', 'Successfully approved and set schedule for Complain Request No.' . $request->input('complain_id'));
+    }
+
+    public function barangay_complain_status_change(Request $request)
+    {
+        date_default_timezone_set('Asia/Manila');
+        $date_time = date('Y-m-d H:i:s');
+        Complain::where('id', $request->input('complain_id'))
+            ->update([
+                'status' => $request->input('status'),
+                'time_started' => $date_time,
+            ]);
+
+        return redirect()->route('barangay_complain_report')->with('success', 'Status change to On Progress. Complain No ' . $request->input('complain_id')) ;
     }
 }
