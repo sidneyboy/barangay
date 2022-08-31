@@ -24,6 +24,8 @@
                                     <th>Reason</th>
                                     <th>Lupon</th>
                                     <th>Hearing Date</th>
+                                    <th>Started</th>
+                                    <th>Ended</th>
                                     <th>Image</th>
                                     <th>Status</th>
                                     <th>Option</th>
@@ -74,6 +76,8 @@
                                         <td>{{ $data->lupon->first_name }} {{ $data->lupon->middle_name }}
                                             {{ $data->lupon->last_name }}</td>
                                         <td>{{ $data->hearing_date }}</td>
+                                        <td>{{ $data->time_started }}</td>
+                                        <td>{{ $data->time_ended }}</td>
                                         <td>
                                             @if ($data->image == '')
                                                 No Document Available
@@ -102,18 +106,21 @@
                                                                 <img src="{{ asset('/storage/' . $data->image) }}"
                                                                     class="img img-thumbnail" alt="">
                                                             </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary">Save
-                                                                    changes</button>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             @endif
                                         </td>
-                                        <td>{{ $data->status }}</td>
+                                        <td>
+
+                                            @if ($data->status == 'Approved')
+                                                <span class="badge badge-primary btn-lg">{{ $data->status }}</span>
+                                            @elseif($data->status == 'On Progress')
+                                                <span class="badge badge-success btn-lg">{{ $data->status }}</span>
+                                            @elseif($data->status == 'End')
+                                                <span class="badge badge-danger btn-lg">{{ $data->status }}</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             @if ($data->status == '')
                                                 <!-- Button trigger modal -->
@@ -228,7 +235,8 @@
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <form action="{{ route('barangay_complain_status_change') }}"
+                                                            <form
+                                                                action="{{ route('barangay_complain_status_change_to_on_progess') }}"
                                                                 method="post">
                                                                 @csrf
                                                                 <div class="modal-body">
@@ -274,20 +282,25 @@
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <form action="{{ route('barangay_complain_status_change') }}"
-                                                                method="post">
+                                                            <form
+                                                                action="{{ route('barangay_complain_status_change_to_end') }}"
+                                                                method="post" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <label>Set Status:</label>
                                                                     <select name="status" id="status"
                                                                         class="form-control" style="width:100%;" required>
                                                                         <option value="" default>Set</option>
-                                                                        <option value="On Progress" default>On Progress
+                                                                        <option value="End" default>End
                                                                         </option>
                                                                     </select>
 
                                                                     <input type="hidden" name="complain_id"
                                                                         value="{{ $data->id }}">
+
+                                                                    <label>Hearing Document</label>
+                                                                    <input type="file" name="file"
+                                                                        class="form-control" required>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button"
@@ -301,6 +314,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            @elseif($data->status == 'End')
+                                                <button type="button" class="btn btn-secondary btn-sm" disabled>Cannot
+                                                    Change</button>
                                             @endif
                                         </td>
                                     </tr>

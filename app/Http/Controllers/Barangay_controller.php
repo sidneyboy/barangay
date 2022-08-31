@@ -9,6 +9,7 @@ use App\Models\Barangay_officials;
 use App\Models\Barangay_logo;
 use App\Models\Residents;
 use App\Models\Complain;
+use App\Models\Document_type;
 
 use App\Mail\send_mail_to_resident;
 use App\Mail\Approved_complains;
@@ -503,7 +504,7 @@ class Barangay_controller extends Controller
         return redirect()->route('barangay_complain_report')->with('success', 'Successfully approved and set schedule for Complain Request No.' . $request->input('complain_id'));
     }
 
-    public function barangay_complain_status_change(Request $request)
+    public function barangay_complain_status_change_to_on_progess(Request $request)
     {
         date_default_timezone_set('Asia/Manila');
         $date_time = date('Y-m-d H:i:s');
@@ -513,6 +514,57 @@ class Barangay_controller extends Controller
                 'time_started' => $date_time,
             ]);
 
-        return redirect()->route('barangay_complain_report')->with('success', 'Status change to On Progress. Complain No ' . $request->input('complain_id')) ;
+        return redirect()->route('barangay_complain_report')->with('success', 'Status change to On Progress. Complain No ' . $request->input('complain_id'));
+    }
+
+    public function barangay_complain_status_change_to_end(Request $request)
+    {
+        date_default_timezone_set('Asia/Manila');
+        $date_time = date('Y-m-d H:i:s');
+
+        $user_image = $request->file('file');
+        $image_name = 'hearing_document-' . time() . '.' . $user_image->getClientOriginalExtension();
+        $path_user_image = $user_image->storeAs('public', $image_name);
+
+        Complain::where('id', $request->input('complain_id'))
+            ->update([
+                'status' => $request->input('status'),
+                'time_ended' => $date_time,
+                'image' => $image_name,
+            ]);
+
+        return redirect()->route('barangay_complain_report')->with('success', 'Status change to On Progress. Complain No ' . $request->input('complain_id'));
+    }
+
+    public function barangay_document_type()
+    {
+        $user = User::find(auth()->user()->id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $document = Document_type::where('barangay_id',$user->barangay_id)->get();
+        return view('barangay_document_type', [
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
+            'document' => $document,
+        ]);
+    }
+
+    public function barangay_document_save(Request $request)
+    {
+        $user_image = $request->file('file');
+        $image_name = $user_image->getClientOriginalName();
+        $path_user_image = $user_image->storeAs('public', $image_name);
+
+        $new = new Document_type([
+            'document_name' => $request->input('document_name'),
+            'file' => $image_name,
+            'amount' => $request->input('amount'),
+            'barangay_id' => $request->input('barangay_id'),
+        ]);
+
+        $new->save();
+
+        return redirect()->route('barangay_document_type')->with('success', 'Uploaded new Document Type');
     }
 }

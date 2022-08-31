@@ -97,6 +97,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ url('barangay_document_type') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Document Type</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Archive</span></a>

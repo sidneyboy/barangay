@@ -161,7 +161,12 @@ Route::get('/register_officials', [App\Http\Controllers\Barangay_controller::cla
 Route::get('/barangay_complain_report', [App\Http\Controllers\Barangay_controller::class, 'barangay_complain_report'])->name('barangay_complain_report');
 Route::post('/barangay_complain_approved', [App\Http\Controllers\Barangay_controller::class, 'barangay_complain_approved'])->name('barangay_complain_approved');
 
-Route::post('/barangay_complain_status_change', [App\Http\Controllers\Barangay_controller::class, 'barangay_complain_status_change'])->name('barangay_complain_status_change');
+Route::post('/barangay_complain_status_change_to_on_progess', [App\Http\Controllers\Barangay_controller::class, 'barangay_complain_status_change_to_on_progess'])->name('barangay_complain_status_change_to_on_progess');
+Route::post('/barangay_complain_status_change_to_end', [App\Http\Controllers\Barangay_controller::class, 'barangay_complain_status_change_to_end'])->name('barangay_complain_status_change_to_end');
+
+Route::get('/barangay_document_type', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_type'])->name('barangay_document_type');
+Route::post('/barangay_document_save', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_save'])->name('barangay_document_save');
+
 
 
 
