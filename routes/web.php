@@ -82,6 +82,13 @@ Route::post('/resident_complain_process', [App\Http\Controllers\Resident_control
 
 Route::get('/resident_complain_request/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'resident_complain_request'])->name('resident_complain_request');
 
+Route::get('/resident_document_request/{resident_id}', [App\Http\Controllers\Resident_controller::class, 'resident_document_request'])->name('resident_document_request');
+
+
+Route::post('/resident_document_request_process', [App\Http\Controllers\Resident_controller::class, 'resident_document_request_process'])->name('resident_document_request_process');
+
+
+
 
 
 
@@ -166,6 +173,18 @@ Route::post('/barangay_complain_status_change_to_end', [App\Http\Controllers\Bar
 
 Route::get('/barangay_document_type', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_type'])->name('barangay_document_type');
 Route::post('/barangay_document_save', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_save'])->name('barangay_document_save');
+
+Route::get('/barangay_document_type_update/{document_id}', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_type_update'])->name('barangay_document_type_update');
+
+Route::post('/barangay_document_type_update_process', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_type_update_process'])->name('barangay_document_type_update_process');
+Route::post('/barangay_document_type_update_file_process', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_type_update_file_process'])->name('barangay_document_type_update_file_process');
+
+Route::get('/barangay_document_request/', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_request'])->name('barangay_document_request');
+Route::get('/barangay_document_request_approved/{document_request_id}/{document_id}/{resident_id}', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_request_approved'])->name('barangay_document_request_approved');
+Route::get('/barangay_document_request_received/{document_request_id}/{document_id}/{resident_id}', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_request_received'])->name('barangay_document_request_received');
+
+
+
 
 
 

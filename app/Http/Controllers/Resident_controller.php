@@ -6,6 +6,9 @@ use App\Models\Residents;
 use App\Models\Assistance_type;
 use App\Models\Assitance;
 use App\Models\Complain;
+use App\Models\Document_type;
+use App\Models\Document_request;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -151,11 +154,39 @@ class Resident_controller extends Controller
     {
         $resident = Residents::find($resident_id);
         $assistance = Assitance::orderBy('id', 'desc')->get();
-        $complain = Complain::orderBy('id','desc')->get();
+        $complain = Complain::orderBy('id', 'desc')->get();
         return view('resident_complain_request', [
             'resident' => $resident,
             'assistance' => $assistance,
             'complain' => $complain,
         ]);
+    }
+
+    public function resident_document_request($resident_id)
+    {
+        $resident = Residents::find($resident_id);
+        $document = Document_type::where('barangay_id', $resident->barangay_id)->get();
+        $document_request = Document_request::where('resident_id',$resident_id)->get();
+        return view('resident_document_request', [
+            'resident' => $resident,
+            'document' => $document,
+            'document_request' => $document_request,
+        ]);
+    }
+
+    public function resident_document_request_process(Request $request)
+    {
+        //return $request->input();
+
+        $new = new Document_request([
+            'resident_id' => $request->input('resident_id'),
+            'document_type_id' => $request->input('document_type_id'),
+            'barangay_id' => $request->input('barangay_id'),
+            'status' => 'New Request',
+        ]);
+
+        $new->save();
+
+        return redirect()->route('resident_document_request', ['resident_id' => $request->input('resident_id')])->with('success', 'Successfully requested new document');
     }
 }

@@ -10,11 +10,15 @@ use App\Models\Barangay_logo;
 use App\Models\Residents;
 use App\Models\Complain;
 use App\Models\Document_type;
+use App\Models\Document_request;
 
 use App\Mail\send_mail_to_resident;
 use App\Mail\Approved_complains;
 use App\Mail\Approved_complains_respondent;
 use App\Mail\Approved_complains_lupon;
+use App\Mail\Document_approved_request;
+use App\Mail\Document_received;
+
 
 
 
@@ -94,10 +98,12 @@ class Barangay_controller extends Controller
         $user = User::find(auth()->user()->id);
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('home', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'complain_count' => $complain_count,
+            'request_count' => $request_count,
         ]);
     }
 
@@ -112,11 +118,13 @@ class Barangay_controller extends Controller
         $position = Barangay_position::orderBy('id', 'desc')->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_position', [
             'position' => $position,
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'complain_count' => $complain_count,
+            'request_count' => $request_count,
         ]);
     }
 
@@ -162,11 +170,13 @@ class Barangay_controller extends Controller
         $position = Barangay_position::get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_register', [
             'position' => $position,
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'complain_count' => $complain_count,
+            'request_count' => $request_count,
         ]);
     }
 
@@ -226,13 +236,14 @@ class Barangay_controller extends Controller
         $officials = Barangay_officials::where('barangay_id', $user->barangay_id)->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
-
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_officials_profile', [
             'officials' => $officials,
             'position' => $position,
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'complain_count' => $complain_count,
+            'request_count' => $request_count,
         ]);
     }
 
@@ -270,10 +281,12 @@ class Barangay_controller extends Controller
         $user = User::find(auth()->user()->id);
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_logo', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'complain_count' => $complain_count,
+            'request_count' => $request_count,
         ]);
     }
 
@@ -318,10 +331,12 @@ class Barangay_controller extends Controller
         $user = User::find(auth()->user()->id);
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_resident_register', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'complain_count' => $complain_count,
+            'request_count' => $request_count,
         ]);
     }
 
@@ -384,10 +399,12 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $resident = Residents::where('barangay_id', $user->barangay_id)->get();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_resident_profile', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'resident' => $resident,
+            'request_count' => $request_count,
         ]);
     }
 
@@ -397,11 +414,13 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $resident = Residents::where('barangay_id', $user->barangay_id)->get();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('barangay_profile', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'resident' => $resident,
             'complain_count' => $complain_count,
+            'request_count' => $request_count,
         ]);
     }
 
@@ -448,6 +467,7 @@ class Barangay_controller extends Controller
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $complain = Complain::orderBy('id', 'desc')->get();
         $lupon = Barangay_officials::where('barangay_id', $user->barangay_id)->get();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
 
         return view('barangay_complain_report', [
             'user' => $user,
@@ -455,6 +475,7 @@ class Barangay_controller extends Controller
             'complain_count' => $complain_count,
             'complain' => $complain,
             'lupon' => $lupon,
+            'request_count' => $request_count,
         ]);
     }
 
@@ -541,12 +562,15 @@ class Barangay_controller extends Controller
         $user = User::find(auth()->user()->id);
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
-        $document = Document_type::where('barangay_id',$user->barangay_id)->get();
+        $document = Document_type::where('barangay_id', $user->barangay_id)->get();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+
         return view('barangay_document_type', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'complain_count' => $complain_count,
             'document' => $document,
+            'request_count' => $request_count,
         ]);
     }
 
@@ -566,5 +590,120 @@ class Barangay_controller extends Controller
         $new->save();
 
         return redirect()->route('barangay_document_type')->with('success', 'Uploaded new Document Type');
+    }
+
+    public function barangay_document_type_update($document_id)
+    {
+        $document_type = Document_type::find($document_id);
+        $user = User::find(auth()->user()->id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+
+        return view('barangay_document_type_update', [
+            'document_type' => $document_type,
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
+            'request_count' => $request_count,
+        ]);
+    }
+
+    public function barangay_document_type_update_process(Request $request)
+    {
+        Document_type::where('id', $request->input('document_type_id'))
+            ->update([
+                'document_name' => $request->input('document_name'),
+                'amount' => str_replace('', ',', $request->input('amount')),
+            ]);
+
+        return redirect()->route('barangay_document_type')->with('success', 'Successfully updated document type');
+    }
+
+    public function barangay_document_type_update_file_process(Request $request)
+    {
+
+        $user_image = $request->file('file');
+        $image_name = $user_image->getClientOriginalName();
+        $path_user_image = $user_image->storeAs('public', $image_name);
+
+        Document_type::where('id', $request->input('document_type_id'))
+            ->update([
+                'file' => $image_name,
+            ]);
+
+        return redirect()->route('barangay_document_type')->with('success', 'Successfully updated document template');
+    }
+
+    public function barangay_document_request()
+    {
+        $user = User::find(auth()->user()->id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+
+        $document_request = Document_request::where('barangay_id', $user->barangay_id)->get();
+
+        return view('barangay_document_request', [
+            'request_count' => $request_count,
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
+            'document_request' => $document_request,
+        ]);
+    }
+
+    public function barangay_document_request_approved($document_request_id, $document_id, $resident_id)
+    {
+
+        $resident = Residents::find($resident_id);
+        $document = Document_type::find($document_id);
+
+        $first_name = $resident->first_name;
+        $middle_name = $resident->middle_name;
+        $last_name = $resident->last_name;
+        $document_name = $document->document_name;
+        $document_amount = $document->amount;
+        $barangay = $resident->barangay->barangay;
+
+        Mail::to($resident->email)->send(new Document_approved_request($first_name, $middle_name, $last_name, $document_name, $document_amount, $barangay));
+
+
+        date_default_timezone_set('Asia/Manila');
+        $date_time = date('Y-m-d H:i:s');
+        Document_request::where('id', $document_request_id)
+            ->update([
+                'user_id' => auth()->user()->id,
+                'status' => 'Approved',
+                'time_approved' => $date_time,
+            ]);
+
+        return redirect()->route('barangay_document_request')->with('success', 'Approved Request');
+    }
+
+    public function barangay_document_request_received($document_request_id, $document_id, $resident_id)
+    {
+        $resident = Residents::find($resident_id);
+        $document = Document_type::find($document_id);
+
+        $first_name = $resident->first_name;
+        $middle_name = $resident->middle_name;
+        $last_name = $resident->last_name;
+        $document_name = $document->document_name;
+        $document_amount = $document->amount;
+        $barangay = $resident->barangay->barangay;
+
+        Mail::to($resident->email)->send(new Document_received($first_name, $middle_name, $last_name, $document_name, $document_amount, $barangay));
+
+        date_default_timezone_set('Asia/Manila');
+        $date_time = date('Y-m-d H:i:s');
+        Document_request::where('id', $document_request_id)
+            ->update([
+                'user_id' => auth()->user()->id,
+                'status' => 'Received',
+                'time_received' => $date_time,
+            ]);
+
+        return redirect()->route('barangay_document_request')->with('success', 'Document Received Successfully');
     }
 }

@@ -53,13 +53,6 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6> --}}
-                        
                         <a class="collapse-item" href="{{ url('barangay_register') }}">Register</a>
                         <a class="collapse-item" href="{{ url('barangay_officials_profile') }}">Profiles</a>
                         <a class="collapse-item" href="{{ url('barangay_position') }}">Position Type</a>
@@ -87,8 +80,6 @@
                     <span>Complain Report</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
             </li>
 
-            
-
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('barangay_logo') }}">
@@ -100,6 +91,12 @@
                 <a class="nav-link" href="{{ url('barangay_document_type') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Document Type</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('barangay_document_request') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Document Request</span> <span class="badge badge-light">{{ $request_count }}</span></a>
             </li>
 
             <li class="nav-item">

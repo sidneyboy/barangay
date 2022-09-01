@@ -51,14 +51,17 @@
                                 <th>Document Name</th>
                                 <th>Amount</th>
                                 <th>File</th>
+                                <th>Update</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($document as $data)
                                 <tr>
                                     <td>{{ $data->document_name }}</td>
-                                    <td>{{ number_format($data->amount,2,".",",") }}</td>
-                                    <td><a href="{{ asset('/storage/'. $data->file) }}" download>Open</td>
+                                    <td>{{ number_format($data->amount, 2, '.', ',') }}</td>
+                                    <td><a href="{{ asset('/storage/' . $data->file) }}" download>Open</td>
+                                    <td><a href="{{ url('barangay_document_type_update',$data->id) }}">Update</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
