@@ -693,7 +693,7 @@ class Barangay_controller extends Controller
         $document_amount = $document->amount;
         $barangay = $resident->barangay->barangay;
 
-        Mail::to($resident->email)->send(new Document_received($first_name, $middle_name, $last_name, $document_name, $document_amount, $barangay));
+        Mail::to($resident->email)->send(new Document_received($first_name, $middle_name, $last_name, $document_name, $barangay));
 
         date_default_timezone_set('Asia/Manila');
         $date_time = date('Y-m-d H:i:s');
