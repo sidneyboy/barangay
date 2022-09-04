@@ -18,22 +18,26 @@
                     <form action="{{ route('resident_document_request_process') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <div class="col-md-12">
-                                <label>Document Type</label>
-                                <select name="document_type_id" class="form-control" required>
-                                    <option value="" default>Select</option>
-                                    @foreach ($document as $data)
-                                        <option value="{{ $data->id }}">{{ $data->document_name }} -
-                                            {{ number_format($data->amount, 2, '.', ',') }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-12">
-                                <br />
-                                <input type="hidden" name="resident_id" value="{{ $resident->id }}">
-                                <input type="hidden" name="barangay_id" value="{{ $resident->barangay_id }}">
-                                <button type="submit" class="btn btn-success btn-sm float-right">Submit</button>
-                            </div>
+                            @if ($complain_count != 0)
+                                <center><h6 style="color:red;">There is a pending complain about you. You cannot request for a document</h6></center>
+                            @else
+                                <div class="col-md-12">
+                                    <label>Document Type</label>
+                                    <select name="document_type_id" class="form-control" required>
+                                        <option value="" default>Select</option>
+                                        @foreach ($document as $data)
+                                            <option value="{{ $data->id }}">{{ $data->document_name }} -
+                                                {{ number_format($data->amount, 2, '.', ',') }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <br />
+                                    <input type="hidden" name="resident_id" value="{{ $resident->id }}">
+                                    <input type="hidden" name="barangay_id" value="{{ $resident->barangay_id }}">
+                                    <button type="submit" class="btn btn-success btn-sm float-right">Submit</button>
+                                </div>
+                            @endif
                         </div>
                     </form>
                 </div>

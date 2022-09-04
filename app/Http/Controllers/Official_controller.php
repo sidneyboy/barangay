@@ -21,6 +21,7 @@ class Official_controller extends Controller
     public function official_login_process(Request $request)
     {
         $user = Barangay_officials::where('email', $request->input('email'))->first();
+      
         if ($user) {
             if (Hash::check($request->input('password'), $user->password)) {
                 return redirect()->route('official_welcome', ['user_id' => $user->id]);
@@ -45,9 +46,11 @@ class Official_controller extends Controller
     {
         $user = Barangay_officials::find($user_id);
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $complain_count = Complain::where('lupon_id',$user->id)->where('status','Approved')->count();
         return view('official_welcome', [
             'user' => $user,
             'assistance_count' => $assistance_count,
+            'complain_count' => $complain_count,
         ]);
     }
 
@@ -187,10 +190,12 @@ class Official_controller extends Controller
         $user = Barangay_officials::find($user_id);
         $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $complain_count = Complain::where('lupon_id',$user_id)->where('status','Approved')->count();
         return view('official_assistance_request', [
             'user' => $user,
             'assistance' => $assistance,
             'assistance_count' => $assistance_count,
+            'complain_count' => $complain_count,
         ]);
     }
 
@@ -223,10 +228,12 @@ class Official_controller extends Controller
         $user = Barangay_officials::find($user_id);
         $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $complain_count = Complain::where('lupon_id',$user_id)->where('status','Approved')->count();
         return view('official_profile', [
             'user' => $user,
             'assistance' => $assistance,
             'assistance_count' => $assistance_count,
+            'complain_count' => $complain_count,
         ]);
     }
 
@@ -283,10 +290,12 @@ class Official_controller extends Controller
         $user = Barangay_officials::find($user_id);
         $complain_report = Complain::where('lupon_id',$user_id)->where('status','Approved')->orderBy('id','desc')->get();
         $complain_count = Complain::where('lupon_id',$user_id)->where('status','Approved')->count();
+        $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('official_complain_report', [
             'user' => $user,
             'complain_report' => $complain_report,
             'complain_count' => $complain_count,
+            'assistance_count' => $assistance_count,
         ]);
     }
 }

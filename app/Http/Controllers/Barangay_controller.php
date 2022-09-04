@@ -706,4 +706,40 @@ class Barangay_controller extends Controller
 
         return redirect()->route('barangay_document_request')->with('success', 'Document Received Successfully');
     }
+
+    public function barangay_dashboard()
+    {
+        $user = User::find(auth()->user()->id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('barangay_id', $user->barangay_id)->count();
+        $pending_count = Complain::where('barangay_id', $user->barangay_id)->where('status','')->count();
+        $approved_count = Complain::where('barangay_id', $user->barangay_id)->where('status','Approved')->count();
+        $progress_count = Complain::where('barangay_id', $user->barangay_id)->where('status','On Progress')->count();
+        $end_count = Complain::where('barangay_id', $user->barangay_id)->where('status','End')->count();
+
+        $document_count = Document_request::where('barangay_id', $user->barangay_id)->count();
+        $new_request_count = Document_request::where('barangay_id', $user->barangay_id)->where('status','New Request')->count();
+        $d_approved_count = Document_request::where('barangay_id', $user->barangay_id)->where('status','Approved')->count();
+        $received_count = Document_request::where('barangay_id', $user->barangay_id)->where('status','Received')->count();
+
+
+        $document = Document_type::where('barangay_id', $user->barangay_id)->get();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+
+        return view('barangay_dashboard', [
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
+            'document' => $document,
+            'request_count' => $request_count,
+            'pending_count' => $pending_count,
+            'approved_count' => $approved_count,
+            'progress_count' => $progress_count,
+            'end_count' => $end_count,
+            'document_count' => $document_count,
+            'new_request_count' => $new_request_count,
+            'd_approved_count' => $d_approved_count,
+            'received_count' => $received_count,
+        ]);
+    }
 }

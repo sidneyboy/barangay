@@ -162,15 +162,21 @@ class Resident_controller extends Controller
         ]);
     }
 
+
+
     public function resident_document_request($resident_id)
     {
         $resident = Residents::find($resident_id);
+
+        $complain_count = Complain::where('status','!=','end')->where('respondent_id',$resident_id)->count();
+
         $document = Document_type::where('barangay_id', $resident->barangay_id)->get();
         $document_request = Document_request::where('resident_id',$resident_id)->get();
         return view('resident_document_request', [
             'resident' => $resident,
             'document' => $document,
             'document_request' => $document_request,
+            'complain_count' => $complain_count,
         ]);
     }
 

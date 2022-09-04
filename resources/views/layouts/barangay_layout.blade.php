@@ -75,6 +75,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ url('barangay_dashboard') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ url('barangay_complain_report') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Complain Report</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
@@ -99,11 +105,11 @@
                     <span>Document Request</span> <span class="badge badge-light">{{ $request_count }}</span></a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Archive</span></a>
-            </li>
+            </li> --}}
 
             
 

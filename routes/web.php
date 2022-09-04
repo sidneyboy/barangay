@@ -183,7 +183,7 @@ Route::get('/barangay_document_request/', [App\Http\Controllers\Barangay_control
 Route::get('/barangay_document_request_approved/{document_request_id}/{document_id}/{resident_id}', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_request_approved'])->name('barangay_document_request_approved');
 Route::get('/barangay_document_request_received/{document_request_id}/{document_id}/{resident_id}', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_request_received'])->name('barangay_document_request_received');
 
-
+Route::get('/barangay_dashboard', [App\Http\Controllers\Barangay_controller::class, 'barangay_dashboard'])->name('barangay_dashboard');
 
 
 
