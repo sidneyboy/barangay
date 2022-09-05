@@ -405,6 +405,7 @@ class Barangay_controller extends Controller
             'barangay_logo' => $barangay_logo,
             'resident' => $resident,
             'request_count' => $request_count,
+            'complain_count' => $complain_count,
         ]);
     }
 

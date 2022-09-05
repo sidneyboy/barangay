@@ -73,11 +73,27 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{ $data->lupon->first_name }} {{ $data->lupon->middle_name }}
-                                            {{ $data->lupon->last_name }}</td>
+                                        <td>
+                                            @if ($data->lupon_id == null)
+                                            @else
+                                                {{ $data->lupon->first_name }} {{ $data->lupon->middle_name }}
+                                                {{ $data->lupon->last_name }}
+                                            @endif
+                                        </td>
                                         <td>{{ $data->hearing_date }}</td>
-                                        <td>{{ $data->time_started }}</td>
-                                        <td>{{ $data->time_ended }}</td>
+                                        <td>
+
+                                            @if ($data->time_started == null)
+                                            @else
+                                                {{ date('F j, Y h:i a', strtotime($data->time_started)) }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($data->time_ended == null)
+                                            @else
+                                                {{ date('F j, Y h:i a', strtotime($data->time_ended)) }}
+                                            @endif
+                                        </td>
                                         <td>
                                             @if ($data->image == '')
                                                 No Document Available
@@ -122,7 +138,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($data->status == '')
+                                            @if ($data->status == 'Pending Approval')
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                                     data-target="#exampleModal{{ $data->id }}">

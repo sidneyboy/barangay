@@ -28,7 +28,7 @@
                             <th>Mothers Name</th>
                             <th>Fathers Name</th>
                             <th>Email</th>
-                            <th>Added By</th>
+                            {{-- <th>Added By</th> --}}
                             <th>Photo</th>
                             <th>Update</th>
                         </tr>
@@ -47,8 +47,8 @@
                                 <td>{{ $data->mothers_name }}</td>
                                 <td>{{ $data->fathers_name }}</td>
                                 <td>{{ $data->email }}</td>
-                                <td>{{ $data->barangay_official_id->first_name }}{{ $data->barangay_official_id->last_name }}
-                                </td>
+                                {{-- <td>{{ $data->barangay_official_id->first_name }}{{ $data->barangay_official_id->last_name }}
+                                </td> --}}
                                 <td>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal"
