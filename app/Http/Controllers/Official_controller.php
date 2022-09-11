@@ -7,6 +7,8 @@ use App\Models\Residents;
 use App\Models\Assistance_type;
 use App\Models\Assitance;
 use App\Models\Complain;
+use App\Models\Barangay_logo;
+
 use App\Mail\send_email_to_resident;
 use App\Mail\Assistance_approved_email;
 
@@ -21,10 +23,16 @@ class Official_controller extends Controller
     public function official_login_process(Request $request)
     {
         $user = Barangay_officials::where('email', $request->input('email'))->first();
-      
-        if ($user) {
+
+        if ($user->position->title != 'Staff') {
             if (Hash::check($request->input('password'), $user->password)) {
                 return redirect()->route('official_welcome', ['user_id' => $user->id]);
+            } else {
+                return redirect('/')->with('error', 'Wrong Credentials');
+            }
+        } elseif ($user->position->title == 'Staff') {
+            if (Hash::check($request->input('password'), $user->password)) {
+                return redirect()->route('staff_welcome', ['user_id' => $user->id]);
             } else {
                 return redirect('/')->with('error', 'Wrong Credentials');
             }
@@ -36,7 +44,7 @@ class Official_controller extends Controller
                 } else {
                     return redirect('/')->with('error', 'Wrong Credentials');
                 }
-            }else{
+            } else {
                 return redirect('/')->with('error', 'Wrong Credentials');
             }
         }
@@ -46,7 +54,7 @@ class Official_controller extends Controller
     {
         $user = Barangay_officials::find($user_id);
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $complain_count = Complain::where('lupon_id',$user->id)->where('status','Approved')->count();
+        $complain_count = Complain::where('lupon_id', $user->id)->where('status', 'Approved')->count();
         return view('official_welcome', [
             'user' => $user,
             'assistance_count' => $assistance_count,
@@ -150,7 +158,7 @@ class Official_controller extends Controller
         $user = Barangay_officials::find($user_id);
         $resident = Residents::where('barangay_id', $user->barangay_id)->get();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $complain_count = Complain::where('lupon_id',$user_id)->where('status','Approved')->count();
+        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
         return view('official_res_profile', [
             'resident' => $resident,
             'user' => $user,
@@ -190,7 +198,7 @@ class Official_controller extends Controller
         $user = Barangay_officials::find($user_id);
         $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $complain_count = Complain::where('lupon_id',$user_id)->where('status','Approved')->count();
+        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
         return view('official_assistance_request', [
             'user' => $user,
             'assistance' => $assistance,
@@ -228,7 +236,7 @@ class Official_controller extends Controller
         $user = Barangay_officials::find($user_id);
         $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $complain_count = Complain::where('lupon_id',$user_id)->where('status','Approved')->count();
+        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
         return view('official_profile', [
             'user' => $user,
             'assistance' => $assistance,
@@ -276,26 +284,42 @@ class Official_controller extends Controller
         $path_user_image = $user_image->storeAs('public', $image_name);
 
         Barangay_officials::where('id', $request->input('official_id'))
-        ->update([
-            'user_image' => $image_name,
-        ]);
+            ->update([
+                'user_image' => $image_name,
+            ]);
 
         return redirect()->route('official_profile', ['user_id' => $request->input('official_id')])->with('success', 'Successfully updated your profile');
     }
 
     public function official_complain_report($user_id)
     {
-      
+
 
         $user = Barangay_officials::find($user_id);
-        $complain_report = Complain::where('lupon_id',$user_id)->where('status','Approved')->orderBy('id','desc')->get();
-        $complain_count = Complain::where('lupon_id',$user_id)->where('status','Approved')->count();
+        $complain_report = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->orderBy('id', 'desc')->get();
+        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         return view('official_complain_report', [
             'user' => $user,
             'complain_report' => $complain_report,
             'complain_count' => $complain_count,
             'assistance_count' => $assistance_count,
+        ]);
+    }
+
+    public function staff_welcome($user_id)
+    {
+        $user = Barangay_officials::find($user_id);
+        $complain_report = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->orderBy('id', 'desc')->get();
+        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        return view('staff_welcome', [
+            'user' => $user,
+            'complain_report' => $complain_report,
+            'complain_count' => $complain_count,
+            'assistance_count' => $assistance_count,
+            'barangay_logo' => $barangay_logo,
         ]);
     }
 }

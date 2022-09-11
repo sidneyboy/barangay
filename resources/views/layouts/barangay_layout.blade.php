@@ -74,6 +74,20 @@
                 </div>
             </li>
 
+            {{-- <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsestaffpage"
+                    aria-expanded="true" aria-controls="collapsestaffpage">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Staff Profile</span>
+                </a>
+                <div id="collapsestaffpage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ url('barangay_staff_register') }}">Register</a>
+                        <a class="collapse-item" href="{{ url('barangay_staff_profile') }}">Profiles</a>
+                    </div>
+                </div>
+            </li> --}}
+
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('barangay_dashboard') }}">
                     <i class="fas fa-fw fa-chart-area"></i>

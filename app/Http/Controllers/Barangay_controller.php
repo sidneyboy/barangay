@@ -713,15 +713,15 @@ class Barangay_controller extends Controller
         $user = User::find(auth()->user()->id);
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('barangay_id', $user->barangay_id)->count();
-        $pending_count = Complain::where('barangay_id', $user->barangay_id)->where('status','')->count();
-        $approved_count = Complain::where('barangay_id', $user->barangay_id)->where('status','Approved')->count();
-        $progress_count = Complain::where('barangay_id', $user->barangay_id)->where('status','On Progress')->count();
-        $end_count = Complain::where('barangay_id', $user->barangay_id)->where('status','End')->count();
+        $pending_count = Complain::where('barangay_id', $user->barangay_id)->where('status', '')->count();
+        $approved_count = Complain::where('barangay_id', $user->barangay_id)->where('status', 'Approved')->count();
+        $progress_count = Complain::where('barangay_id', $user->barangay_id)->where('status', 'On Progress')->count();
+        $end_count = Complain::where('barangay_id', $user->barangay_id)->where('status', 'End')->count();
 
         $document_count = Document_request::where('barangay_id', $user->barangay_id)->count();
-        $new_request_count = Document_request::where('barangay_id', $user->barangay_id)->where('status','New Request')->count();
-        $d_approved_count = Document_request::where('barangay_id', $user->barangay_id)->where('status','Approved')->count();
-        $received_count = Document_request::where('barangay_id', $user->barangay_id)->where('status','Received')->count();
+        $new_request_count = Document_request::where('barangay_id', $user->barangay_id)->where('status', 'New Request')->count();
+        $d_approved_count = Document_request::where('barangay_id', $user->barangay_id)->where('status', 'Approved')->count();
+        $received_count = Document_request::where('barangay_id', $user->barangay_id)->where('status', 'Received')->count();
 
 
         $document = Document_type::where('barangay_id', $user->barangay_id)->get();
@@ -742,5 +742,65 @@ class Barangay_controller extends Controller
             'd_approved_count' => $d_approved_count,
             'received_count' => $received_count,
         ]);
+    }
+
+    public function barangay_staff_register()
+    {
+        $user = User::find(auth()->user()->id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        return view('barangay_staff_register', [
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
+            'request_count' => $request_count,
+        ]);
+    }
+
+    public function barangay_staff_register_process(Request $request)
+    {
+        $validated = $request->validate([
+            'user_image' => 'required',
+            'first_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'gender' => 'required|not_in:0',
+            'civil_status' => 'required|not_in:0',
+            'position_type_id' => 'required|not_in:0',
+            'birth_date' => 'required',
+            'office_term' => 'required',
+            'contact_number' => ['required', 'numeric', 'min:11'],
+            'spouse' => 'required',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:barangay_officials'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user_image = $request->file('user_image');
+        $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();
+        $path_user_image = $user_image->storeAs('public', $image_name);
+
+        $user = User::find(auth()->user()->id);
+
+        $officials = new Barangay_officials([
+            'user_image' => $image_name,
+            'first_name' => $request->input('first_name'),
+            'middle_name' => $request->input('middle_name'),
+            'last_name' => $request->input('last_name'),
+            'gender' => $request->input('gender'),
+            'civil_status' => $request->input('civil_status'),
+            'position_type_id' => $request->input('position_type_id'),
+            'birth_date' => $request->input('birth_date'),
+            'office_term' => $request->input('office_term'),
+            'contact_number' => $request->input('contact_number'),
+            'spouse' => $request->input('spouse'),
+            'email' => $request->input('email'),
+            'password' => hash::make($request->input('password')),
+            'barangay_id' => $user->barangay_id,
+        ]);
+
+        $officials->save();
+
+        return redirect('barangay_register')->with('success', 'Successfully added new barangay official');
     }
 }

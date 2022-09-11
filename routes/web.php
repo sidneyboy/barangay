@@ -42,8 +42,7 @@ Route::get('/official_complain_report/{user_id}', [App\Http\Controllers\Official
 
 
 
-
-
+Route::get('/staff_welcome/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_welcome'])->name('staff_welcome');
 
 
 
@@ -186,7 +185,10 @@ Route::get('/barangay_document_request_received/{document_request_id}/{document_
 Route::get('/barangay_dashboard', [App\Http\Controllers\Barangay_controller::class, 'barangay_dashboard'])->name('barangay_dashboard');
 
 
+Route::get('/barangay_staff_register', [App\Http\Controllers\Barangay_controller::class, 'barangay_staff_register'])->name('barangay_staff_register');
 
+
+Route::post('/barangay_staff_register_process', [App\Http\Controllers\Barangay_controller::class, 'barangay_staff_register_process'])->name('barangay_staff_register_process');
 
 
 
