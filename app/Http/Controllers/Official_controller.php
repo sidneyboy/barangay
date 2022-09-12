@@ -7,6 +7,8 @@ use App\Models\Residents;
 use App\Models\Assistance_type;
 use App\Models\Assitance;
 use App\Models\Complain;
+use App\Models\User;
+use App\Models\Document_request;
 use App\Models\Barangay_logo;
 
 use App\Mail\send_email_to_resident;
@@ -24,17 +26,19 @@ class Official_controller extends Controller
     {
         $user = Barangay_officials::where('email', $request->input('email'))->first();
 
-        if ($user->position->title != 'Staff') {
-            if (Hash::check($request->input('password'), $user->password)) {
-                return redirect()->route('official_welcome', ['user_id' => $user->id]);
-            } else {
-                return redirect('/')->with('error', 'Wrong Credentials');
-            }
-        } elseif ($user->position->title == 'Staff') {
-            if (Hash::check($request->input('password'), $user->password)) {
-                return redirect()->route('staff_welcome', ['user_id' => $user->id]);
-            } else {
-                return redirect('/')->with('error', 'Wrong Credentials');
+        if ($user) {
+            if ($user->position->title != 'Staff') {
+                if (Hash::check($request->input('password'), $user->password)) {
+                    return redirect()->route('official_welcome', ['user_id' => $user->id]);
+                } else {
+                    return redirect('/')->with('error', 'Wrong Credentials');
+                }
+            } elseif ($user->position->title == 'Staff') {
+                if (Hash::check($request->input('password'), $user->password)) {
+                    return redirect()->route('staff_welcome', ['user_id' => $user->id]);
+                } else {
+                    return redirect('/')->with('error', 'Wrong Credentials');
+                }
             }
         } else {
             $resident = Residents::where('email', $request->input('email'))->first();
@@ -320,6 +324,80 @@ class Official_controller extends Controller
             'complain_count' => $complain_count,
             'assistance_count' => $assistance_count,
             'barangay_logo' => $barangay_logo,
+        ]);
+    }
+
+    public function staff_document_request($user_id)
+    {
+        //return $user_id;
+        $user = Barangay_officials::find($user_id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+
+        $document_request = Document_request::where('barangay_id', $user->barangay_id)->get();
+
+        return view('staff_document_request', [
+            'request_count' => $request_count,
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
+            'document_request' => $document_request,
+        ]);
+    }
+
+    public function staff_complain_report($user_id)
+    {
+        $user = Barangay_officials::find($user_id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $complain = Complain::orderBy('id', 'desc')->get();
+        $lupon = Barangay_officials::where('barangay_id', $user->barangay_id)->get();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+
+        return view('staff_complain_report', [
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
+            'complain' => $complain,
+            'lupon' => $lupon,
+            'request_count' => $request_count,
+        ]);
+    }
+
+    public function staff_resident_profile($user_id)
+    {
+        $user = Barangay_officials::find($user_id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $resident = Residents::where('barangay_id', $user->barangay_id)->get();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        return view('staff_resident_profile', [
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'resident' => $resident,
+            'request_count' => $request_count,
+            'complain_count' => $complain_count,
+        ]);
+    }
+
+    public function staff_resident_search(Request $request)
+    {
+        $user = Barangay_officials::find($request->input('user_id'));
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $resident = Residents::where('barangay_id', $user->barangay_id)->get();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $search = $request->input('search_box');
+        $resident_search = Residents::where('first_name', 'like', '%' . $search . '%')->orWhere('last_name', 'like', '%' . $search . '%')->orderBy('id', 'DESC')->get();
+
+        return view('staff_resident_search', [
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'resident' => $resident,
+            'request_count' => $request_count,
+            'complain_count' => $complain_count,
+            'resident_search' => $resident_search,
         ]);
     }
 }

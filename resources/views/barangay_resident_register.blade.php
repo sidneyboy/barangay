@@ -205,6 +205,41 @@
                             </div>
                         </div>
 
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="zone">{{ __('Zone:') }}</label>
+                                <select name="zone" id="zone" class="form-control">
+                                    <option value="" default>Select</option>
+                                    @foreach ($zone as $data)
+                                        <option value="{{ $data->id }}">{{ $data->zone }}</option>
+                                    @endforeach
+                                </select>
+
+                                @error('zone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="voter">{{ __('Voter:') }}</label>
+                                <select name="voter" id="voter" class="form-control">
+                                    <option value="" default>Select</option>
+                                    <option value="Voter">Voter</option>
+                                    <option value="None Voter">None Voter</option>
+                                </select>
+
+                                @error('voter')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
 
 
 

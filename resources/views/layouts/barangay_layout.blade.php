@@ -39,7 +39,7 @@
                        
                    @endif
                 </div>
-                <div class="sidebar-brand-text mx-3">Barangay</div>
+                <div class="sidebar-brand-text mx-3">Barangay {{ $user->barangay->barangay }}</div>
             </a>
 
             <!-- Divider -->

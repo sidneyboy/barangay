@@ -1,4 +1,4 @@
-@extends('layouts.barangay_layout')
+@extends('layouts.staff_layout')
 
 @section('content')
     @if (session('success'))
@@ -13,8 +13,24 @@
     <div class="card" style="width: 100%;">
         <h6 class="card-header">Resident Registration</h6>
         <div class="card-body">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <form action="{{ route('staff_resident_search') }}" method="post">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button id="basic-addon1" type="submit" class="btn btn-sm input-group-text">Search</button>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search" aria-label="Search"
+                                aria-describedby="basic-addon1">
+                            <input type="hidden" value="{{ $user->id }}" name="user_id">
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="table table-responsive">
-                <table class="table table-bordered table-hover table-sm">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>First Name</th>
@@ -31,11 +47,11 @@
                             <th>Zone</th>
                             {{-- <th>Added By</th> --}}
                             <th>Photo</th>
-                            <th>Update</th>
+                            {{-- <th>Update</th> --}}
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($resident as $data)
+                        @foreach ($resident_search as $data)
                             <tr>
                                 <td>{{ $data->first_name }}</td>
                                 <td>{{ $data->middle_name }}</td>
@@ -48,7 +64,7 @@
                                 <td>{{ $data->mothers_name }}</td>
                                 <td>{{ $data->fathers_name }}</td>
                                 <td>{{ $data->email }}</td>
-                                <td>{{ $data->zone->zone }}</td>
+                                <td>{{ $data->zone }}</td>
                                 {{-- <td>{{ $data->barangay_official_id->first_name }}{{ $data->barangay_official_id->last_name }}
                                 </td> --}}
                                 <td>
@@ -86,7 +102,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-danger btn-sm btn-block" data-toggle="modal"
                                         data-target="#exampleModal_update{{ $data->id }}">
@@ -187,7 +203,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>

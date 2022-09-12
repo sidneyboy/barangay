@@ -11,6 +11,7 @@ use App\Models\Residents;
 use App\Models\Complain;
 use App\Models\Document_type;
 use App\Models\Document_request;
+use App\Models\Zone;
 
 use App\Mail\send_mail_to_resident;
 use App\Mail\Approved_complains;
@@ -332,11 +333,13 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $zone = Zone::get();
         return view('barangay_resident_register', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'complain_count' => $complain_count,
             'request_count' => $request_count,
+            'zone' => $zone,
         ]);
     }
 
@@ -378,7 +381,8 @@ class Barangay_controller extends Controller
             'contact_number' => $request->input('contact_number'),
             'spouse' => $request->input('spouse'),
             'email' => $request->input('email'),
-            'password' => hash::make($password),
+            'zone' => $request->input('zone'),
+            // 'password' => hash::make($password),
             'user_id' => $request->input('user_id'),
             'barangay_id' => $request->input('barangay_id'),
         ]);
@@ -723,11 +727,22 @@ class Barangay_controller extends Controller
         $d_approved_count = Document_request::where('barangay_id', $user->barangay_id)->where('status', 'Approved')->count();
         $received_count = Document_request::where('barangay_id', $user->barangay_id)->where('status', 'Received')->count();
 
+        $resident_count = Residents::where('barangay_id', $user->barangay_id)->count();
+        $total_number_of_male = Residents::where('gender', 'male')->where('barangay_id', $user->barangay_id)->count();
+        $total_number_of_female = Residents::where('gender', 'female')->where('barangay_id', $user->barangay_id)->count();
+        $total_voter = Residents::where('voter', 'Voter')->where('barangay_id', $user->barangay_id)->count();
+        $total_none_voter = Residents::where('voter', 'None Voter')->where('barangay_id', $user->barangay_id)->count();
+
 
         $document = Document_type::where('barangay_id', $user->barangay_id)->get();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
 
         return view('barangay_dashboard', [
+            'total_none_voter' => $total_none_voter,
+            'total_voter' => $total_voter,
+            'resident_count' => $resident_count,
+            'total_number_of_female' => $total_number_of_female,
+            'total_number_of_male' => $total_number_of_male,
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'complain_count' => $complain_count,

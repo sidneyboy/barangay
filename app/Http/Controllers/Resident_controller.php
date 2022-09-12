@@ -188,6 +188,7 @@ class Resident_controller extends Controller
             'resident_id' => $request->input('resident_id'),
             'document_type_id' => $request->input('document_type_id'),
             'barangay_id' => $request->input('barangay_id'),
+            'reason' => $request->input('reason'),
             'status' => 'New Request',
         ]);
 

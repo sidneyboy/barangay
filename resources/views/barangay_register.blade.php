@@ -203,7 +203,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    {{-- <div class="col-md-3">
                         <div class="form-group">
                             <label for="password">{{ __('Password:') }}</label>
                             <input id="password" type="password"
@@ -230,7 +230,7 @@
                                 </span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
 
 
                     <div class="col-md-12">

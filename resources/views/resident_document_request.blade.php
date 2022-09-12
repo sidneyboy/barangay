@@ -19,17 +19,25 @@
                         @csrf
                         <div class="form-group">
                             @if ($complain_count != 0)
-                                <center><h6 style="color:red;">There is a pending complain about you. You cannot request for a document</h6></center>
+                                <center>
+                                    <h6 style="color:red;">There is a pending complain about you. You cannot request for a
+                                        document</h6>
+                                </center>
                             @else
                                 <div class="col-md-12">
-                                    <label>Document Type</label>
-                                    <select name="document_type_id" class="form-control" required>
-                                        <option value="" default>Select</option>
-                                        @foreach ($document as $data)
-                                            <option value="{{ $data->id }}">{{ $data->document_name }} -
-                                                {{ number_format($data->amount, 2, '.', ',') }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="form-group">
+                                        <label>Document Type</label>
+                                        <select name="document_type_id" class="form-control" required>
+                                            <option value="" default>Select</option>
+                                            @foreach ($document as $data)
+                                                <option value="{{ $data->id }}">{{ $data->document_name }} -
+                                                    {{ number_format($data->amount, 2, '.', ',') }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        <label>Purpose</label>
+                                        <textarea name="reason" class="form-control"></textarea>
+                                    </div>
                                 </div>
                                 <div class="col-md-12">
                                     <br />
@@ -54,14 +62,14 @@
                                     <th>Document</th>
                                     <th>Amount</th>
                                     <th>Status</th>
-                                    <th>Reason</th>
+                                    <th>Purpose</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($document_request as $data)
                                     <tr>
                                         <td>{{ $data->document->document_name }}</td>
-                                        <td>{{ $data->document->document_name }}</td>
+                                        <td>{{ $data->document->amount }}</td>
                                         <td>{{ $data->status }}</td>
                                         <td>{{ $data->reason }}</td>
                                     </tr>

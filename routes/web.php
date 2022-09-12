@@ -43,6 +43,13 @@ Route::get('/official_complain_report/{user_id}', [App\Http\Controllers\Official
 
 
 Route::get('/staff_welcome/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_welcome'])->name('staff_welcome');
+Route::get('/staff_document_request/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_document_request'])->name('staff_document_request');
+Route::get('/staff_complain_report/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_complain_report'])->name('staff_complain_report');
+Route::get('/staff_resident_profile/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_resident_profile'])->name('staff_resident_profile');
+Route::post('/staff_resident_search/', [App\Http\Controllers\Official_controller::class, 'staff_resident_search'])->name('staff_resident_search');
+
+
+
 
 
 

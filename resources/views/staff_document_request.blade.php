@@ -1,4 +1,4 @@
-@extends('layouts.barangay_layout')
+@extends('layouts.staff_layout')
 
 @section('content')
     @if (session('success'))
@@ -19,9 +19,8 @@
                             <th>Requester</th>
                             <th>Approved</th>
                             <th>Document Name</th>
-                            <th>Amount</th>
                             <th>Document</th>
-                            
+                            <th>Amount</th>
                             <th>status</th>
                             <th>time_approved</th>
                             <th>time_received</th>

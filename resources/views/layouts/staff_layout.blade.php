@@ -20,6 +20,11 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
 </head>
 
 <body id="page-top">
@@ -75,24 +80,35 @@
                         </div>
                     </div>
                 </li> --}}
-{{-- 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Complain</span></a>
                 </li> --}}
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ url('staff_document_request', $user->id) }}">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Document Approval</span></a>
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url('staff_resident_profile', $user->id) }}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Resident Profile</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('staff_complain_report', $user->id) }}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Complain Report</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
+                </li>
+
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Document Archive</span></a>
-                </li>
+                </li> --}}
 
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="#">
@@ -172,8 +188,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                    data-target="#logoutModal">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -236,7 +251,11 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
@@ -251,6 +270,8 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+   
+   
 
     <script>
         imgInp.onchange = evt => {
@@ -259,6 +280,10 @@
                 blah.src = URL.createObjectURL(file)
             }
         }
+
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
     </script>
 
 </body>

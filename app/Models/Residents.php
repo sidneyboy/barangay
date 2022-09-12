@@ -25,11 +25,18 @@ class Residents extends Model
         'password',
         'barangay_id',
         'user_id',
+        'zone',
+        'voter',
     ];
 
     public function barangay()
     {
         return $this->belongsTo('App\Models\Barangay', 'barangay_id');
+    }
+
+    public function zone()
+    {
+        return $this->belongsTo('App\Models\Zone', 'zone');
     }
 
     public function barangay_official_id()
