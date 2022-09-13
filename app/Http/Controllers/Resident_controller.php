@@ -8,6 +8,8 @@ use App\Models\Assitance;
 use App\Models\Complain;
 use App\Models\Document_type;
 use App\Models\Document_request;
+use App\Models\Barangay_logo;
+
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,8 +19,10 @@ class Resident_controller extends Controller
     public function resident_welcome($resident_id)
     {
         $resident = Residents::find($resident_id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('resident_welcome', [
             'resident' => $resident,
+            'barangay_logo' => $barangay_logo,
         ]);
     }
 
@@ -27,9 +31,11 @@ class Resident_controller extends Controller
 
         $resident = Residents::find($resident_id);
         $assistance_type = Assistance_type::get();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('res_assistance', [
             'resident' => $resident,
             'assistance_type' => $assistance_type,
+            'barangay_logo' => $barangay_logo,
         ]);
     }
 
@@ -63,9 +69,11 @@ class Resident_controller extends Controller
     {
         $resident = Residents::find($resident_id);
         $assistance = Assitance::orderBy('id', 'desc')->get();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('res_assistance_request', [
             'resident' => $resident,
             'assistance' => $assistance,
+            'barangay_logo' => $barangay_logo,
         ]);
     }
 
@@ -73,9 +81,11 @@ class Resident_controller extends Controller
     {
         $resident = Residents::find($resident_id);
         $assistance = Assitance::orderBy('id', 'desc')->get();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('resident_profile', [
             'resident' => $resident,
             'assistance' => $assistance,
+            'barangay_logo' => $barangay_logo,
         ]);
     }
 
@@ -127,10 +137,12 @@ class Resident_controller extends Controller
         $resident = Residents::find($resident_id);
         $assistance = Assitance::orderBy('id', 'desc')->get();
         $respondent = Residents::where('id', '!=', $resident_id)->get();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('resident_complain', [
             'resident' => $resident,
             'assistance' => $assistance,
             'respondent' => $respondent,
+            'barangay_logo' => $barangay_logo,
         ]);
     }
 
@@ -155,10 +167,12 @@ class Resident_controller extends Controller
         $resident = Residents::find($resident_id);
         $assistance = Assitance::orderBy('id', 'desc')->get();
         $complain = Complain::orderBy('id', 'desc')->get();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('resident_complain_request', [
             'resident' => $resident,
             'assistance' => $assistance,
             'complain' => $complain,
+            'barangay_logo' => $barangay_logo,
         ]);
     }
 
@@ -168,15 +182,17 @@ class Resident_controller extends Controller
     {
         $resident = Residents::find($resident_id);
 
-        $complain_count = Complain::where('status','!=','end')->where('respondent_id',$resident_id)->count();
+        $complain_count = Complain::where('status', '!=', 'end')->where('respondent_id', $resident_id)->count();
 
         $document = Document_type::where('barangay_id', $resident->barangay_id)->get();
-        $document_request = Document_request::where('resident_id',$resident_id)->get();
+        $document_request = Document_request::where('resident_id', $resident_id)->get();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('resident_document_request', [
             'resident' => $resident,
             'document' => $document,
             'document_request' => $document_request,
             'complain_count' => $complain_count,
+            'barangay_logo' => $barangay_logo,
         ]);
     }
 

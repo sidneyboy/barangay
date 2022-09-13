@@ -45,7 +45,7 @@
             <div class="card-header">Documents</div>
             <div class="card-body">
                 <div class="table table-responsive">
-                    <table class="table table-bordered table-hover">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Document Name</th>

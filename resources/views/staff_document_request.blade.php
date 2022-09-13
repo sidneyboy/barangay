@@ -13,11 +13,12 @@
         <div class="card-header">Document Request</div>
         <div class="card-body">
             <div class="table table-responsive">
-                <table class="table table-striped table-sm table-hover">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Requester</th>
                             <th>Approved</th>
+                            <th>Purpose</th>
                             <th>Document Name</th>
                             <th>Document</th>
                             <th>Amount</th>
@@ -38,24 +39,24 @@
                                     @else
                                     @endif
                                 </td>
+                                <td>{{ $data->reason }}</td>
                                 <td>{{ $data->document->document_name }}</td>
                                 <td>{{ number_format($data->document->amount, 2, '.', ',') }}</td>
                                 <td><a href="{{ asset('/storage/' . $data->document->file) }}"
                                         download>{{ $data->document->file }}</td>
                                 </td>
                                 <td>{{ $data->status }}</td>
-                                <td>{{ date('F j, Y h:i:s a', strtotime($data->time_approved)) }}</td>
-                                {{-- <td>
-                                    @if ($data->time_disapproved != '')
-                                        {{ date('F j, Y h:i:s a', strtotime($data->time_disapproved)) }}
+                                <td>
+                                    @if ($data->time_approved != '')
+                                        {{ date('F j, Y h:i:s a', strtotime($data->time_approved)) }}
                                     @endif
-                                </td> --}}
+                                </td>
                                 <td>
                                     @if ($data->time_received != '')
                                         {{ date('F j, Y h:i:s a', strtotime($data->time_received)) }}
                                     @endif
                                 </td>
-                                {{-- <td>{{ $data->reason }}</td> --}}
+
                                 <td>
                                     @if ($data->status == 'New Request')
                                         <a style="width:100px;"

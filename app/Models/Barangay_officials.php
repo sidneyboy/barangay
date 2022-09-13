@@ -28,7 +28,7 @@ class Barangay_officials extends Model
 
     public function barangay()
     {
-        return $this->belongsTo('App\Models\Barangay', 'arangay_id');
+        return $this->belongsTo('App\Models\Barangay', 'barangay_id');
     }
 
     public function position()

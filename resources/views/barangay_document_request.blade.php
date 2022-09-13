@@ -13,7 +13,7 @@
         <div class="card-header">Document Request</div>
         <div class="card-body">
             <div class="table table-responsive">
-                <table class="table table-striped table-sm table-hover">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Requester</th>
@@ -21,7 +21,6 @@
                             <th>Document Name</th>
                             <th>Amount</th>
                             <th>Document</th>
-                            
                             <th>status</th>
                             <th>time_approved</th>
                             <th>time_received</th>

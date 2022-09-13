@@ -96,16 +96,17 @@ class Barangay_controller extends Controller
 
     public function home()
     {
-        $user = User::find(auth()->user()->id);
-        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
-        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
-        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        return view('home', [
-            'user' => $user,
-            'barangay_logo' => $barangay_logo,
-            'complain_count' => $complain_count,
-            'request_count' => $request_count,
-        ]);
+        return redirect('barangay_dashboard');
+        // $user = User::find(auth()->user()->id);
+        // $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        // $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        // $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        // return view('home', [
+        //     'user' => $user,
+        //     'barangay_logo' => $barangay_logo,
+        //     'complain_count' => $complain_count,
+        //     'request_count' => $request_count,
+        // ]);
     }
 
     public function register_officials()

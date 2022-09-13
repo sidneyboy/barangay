@@ -14,7 +14,7 @@
         <h6 class="card-header">Resident Registration</h6>
         <div class="card-body">
             <div class="table table-responsive">
-                <table class="table table-bordered table-hover table-sm">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>First Name</th>
@@ -48,7 +48,11 @@
                                 <td>{{ $data->mothers_name }}</td>
                                 <td>{{ $data->fathers_name }}</td>
                                 <td>{{ $data->email }}</td>
-                                <td>{{ $data->zone->zone }}</td>
+                                <td>
+                                    @if ($data->zone != null)
+                                        {{ $data->zone->zone }}
+                                    @endif
+                                </td>
                                 {{-- <td>{{ $data->barangay_official_id->first_name }}{{ $data->barangay_official_id->last_name }}
                                 </td> --}}
                                 <td>
@@ -105,7 +109,7 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                            <form action="{{ route('official_res_profile_update') }}" method="post">
+                                                <form action="{{ route('official_res_profile_update') }}" method="post">
                                                     @csrf
                                                     <div class="modal-body">
                                                         <label for="">First Name:</label>

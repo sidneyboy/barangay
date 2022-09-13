@@ -37,7 +37,14 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-text mx-3">Barangay</sup></div>
+                <div class="sidebar-brand-icon">
+                    @if ($barangay_logo)
+                        <img src="{{ asset('/storage/' . $barangay_logo->logo) }}" alt=""
+                            class="img img-thumbnail" style="border:0px;">
+                    @else
+                    @endif
+                </div>
+                <div class="sidebar-brand-text mx-3">Barangay {{ $user->barangay->barangay }}</sup></div>
             </a>
 
             <!-- Divider -->
@@ -188,7 +195,8 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                    data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -255,7 +263,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
-    
+
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
@@ -270,20 +278,20 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
-   
-   
+
+
 
     <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+
         imgInp.onchange = evt => {
             const [file] = imgInp.files
             if (file) {
                 blah.src = URL.createObjectURL(file)
             }
         }
-
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
     </script>
 
 </body>
