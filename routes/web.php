@@ -199,4 +199,34 @@ Route::post('/barangay_staff_register_process', [App\Http\Controllers\Barangay_c
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/super_user_login', [App\Http\Controllers\Super_user_controller::class, 'super_user_login'])->name('super_user_login');
+Route::post('/super_user_login_process', [App\Http\Controllers\Super_user_controller::class, 'super_user_login_process'])->name('super_user_login_process');
+Route::get('/super_user_dashboard/{user_id}', [App\Http\Controllers\Super_user_controller::class, 'super_user_dashboard'])->name('super_user_dashboard');
+Route::get('/super_user_logut', [App\Http\Controllers\Super_user_controller::class, 'super_user_logut'])->name('super_user_logut');
+Route::get('/status_approval/{user_id}/{status}/{barangay_id}', [App\Http\Controllers\Super_user_controller::class, 'status_approval'])->name('status_approval');
+
+
+
+
+
+
+
+
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

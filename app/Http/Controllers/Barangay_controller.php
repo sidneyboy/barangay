@@ -65,6 +65,7 @@ class Barangay_controller extends Controller
             'latitude' => $request->input('latitude'),
             'longitude' => $request->input('longitude'),
             'barangay' => $request->input('barangay'),
+            'status' => 'Pending Approval',
         ]);
 
         $barangay->save();

@@ -20,6 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -37,13 +38,13 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    @if ($barangay_logo)
+                    {{-- @if ($barangay_logo)
                         <img src="{{ asset('/storage/' . $barangay_logo->logo) }}" alt=""
                             class="img img-thumbnail" style="border:0px;">
                     @else
-                    @endif
+                    @endif --}}
                 </div>
-                <div class="sidebar-brand-text mx-3">Barangay {{ $resident->barangay->barangay }}</sup></div>
+                <div class="sidebar-brand-text mx-3">SUPER USER</sup></div>
             </a>
 
             <!-- Divider -->
@@ -51,32 +52,9 @@
             <!-- Nav Item - Pages Collapse Menu -->
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('res_assistance', $resident->id) }}">
+                <a class="nav-link" href="{{ url('barangay_list', $user->id) }}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Assistance</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('res_assistance_request', $resident->id) }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Assistance Request</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('resident_complain', $resident->id) }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Complain</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('resident_complain_request', $resident->id) }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Complain Request</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('resident_document_request', $resident->id) }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Document Request</span></a>
+                    <span>Barangay List</span> </a>
             </li>
 
             <!-- Divider -->
@@ -105,7 +83,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                   
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -138,18 +116,19 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $resident->first_name }} {{ $resident->last_name }}</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('/storage/'. $resident->user_image) }}">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $user->name }}
+                                    </span>
+                                {{-- <img class="img-profile rounded-circle"
+                                    src="{{ asset('/storage/' . $user->user_image) }}"> --}}
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ url('resident_profile/'. $resident->id) }}">
+                                {{-- <a class="dropdown-item" href="{{ url('official_profile/' . $user->id) }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
-                                </a>
-                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                    data-target="#logoutModal">
+                                </a> --}}
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -205,18 +184,18 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{ url('official_logout') }}">Logout</a>
+                    <a class="btn btn-primary" href="{{ url('super_user_logut') }}">Logout</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Bootstrap core JavaScript-->
+    {{-- <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Bootstrap core JavaScript-->
-    {{-- <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script> --}}
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
@@ -232,12 +211,12 @@
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
-    <script>
-         $(document).ready(function() {
-            $('#example').DataTable();
-            $('#example2').DataTable();
-        });
 
+
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
 
         imgInp.onchange = evt => {
             const [file] = imgInp.files

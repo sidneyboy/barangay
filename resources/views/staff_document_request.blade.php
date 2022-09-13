@@ -41,9 +41,10 @@
                                 </td>
                                 <td>{{ $data->reason }}</td>
                                 <td>{{ $data->document->document_name }}</td>
-                                <td>{{ number_format($data->document->amount, 2, '.', ',') }}</td>
                                 <td><a href="{{ asset('/storage/' . $data->document->file) }}"
-                                        download>{{ $data->document->file }}</td>
+                                    download>{{ $data->document->file }}</td>
+                                <td>{{ number_format($data->document->amount, 2, '.', ',') }}</td>
+                               
                                 </td>
                                 <td>{{ $data->status }}</td>
                                 <td>

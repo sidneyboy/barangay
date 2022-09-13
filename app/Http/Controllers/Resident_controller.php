@@ -166,12 +166,14 @@ class Resident_controller extends Controller
     {
         $resident = Residents::find($resident_id);
         $assistance = Assitance::orderBy('id', 'desc')->get();
-        $complain = Complain::orderBy('id', 'desc')->get();
+        $complain = Complain::where('complainant_id',$resident_id)->orderBy('id', 'desc')->get();
+        $respondent = Complain::where('respondent_id',$resident_id)->orderBy('id', 'desc')->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('resident_complain_request', [
             'resident' => $resident,
             'assistance' => $assistance,
             'complain' => $complain,
+            'respondent' => $respondent,
             'barangay_logo' => $barangay_logo,
         ]);
     }

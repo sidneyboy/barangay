@@ -44,7 +44,11 @@
                                         download>{{ $data->document->file }}</td>
                                 </td>
                                 <td>{{ $data->status }}</td>
-                                <td>{{ date('F j, Y h:i:s a', strtotime($data->time_approved)) }}</td>
+                                <td>
+                                    @if ($data->time_approved != '')
+                                        {{ date('F j, Y h:i:s a', strtotime($data->time_approved)) }}
+                                    @endif
+                                </td>
                                 {{-- <td>
                                     @if ($data->time_disapproved != '')
                                         {{ date('F j, Y h:i:s a', strtotime($data->time_disapproved)) }}

@@ -12,42 +12,42 @@
     
     <div class="row">
         <div class="col-md-4" style="margin-bottom:20px;">
-            <div class="card" style="background-color:orange">
+            <div class="card" style="background-color:cadetblue">
                 <div class="card-header">Total Population</div>
                 <div class="card-body">
-                    <center><h1>{{ $resident_count }}</h1></center>
+                    <center><h1 style="color:white">{{ $resident_count }}</h1></center>
                 </div>
             </div>
         </div>
         <div class="col-md-4" style="margin-bottom:20px;">
-            <div class="card" style="background-color:green">
+            <div class="card" style="background-color:#8fdbc5">
                 <div class="card-header">Total Male</div>
                 <div class="card-body">
-                    <center><h1>{{ $total_number_of_male }}</h1></center>
+                    <center><h1 style="color:white">{{ $total_number_of_male }}</h1></center>
                 </div>
             </div>
         </div>
         <div class="col-md-4" style="margin-bottom:20px;">
-            <div class="card" style="background-color:yellowgreen">
+            <div class="card" style="background-color:#64ADC4">
                 <div class="card-header">Total Female</div>
                 <div class="card-body">
-                    <center><h1>{{ $total_number_of_female }}</h1></center>
+                    <center><h1 style="color:white">{{ $total_number_of_female }}</h1></center>
                 </div>
             </div>
         </div>
         <div class="col-md-4" style="margin-bottom:20px;">
-            <div class="card" style="background-color:blue">
+            <div class="card" style="background-color:#367096">
                 <div class="card-header">Total Voter</div>
                 <div class="card-body">
-                    <center><h1>{{ $total_voter }}</h1></center>
+                    <center><h1 style="color:white">{{ $total_voter }}</h1></center>
                 </div>
             </div>
         </div>
         <div class="col-md-4" style="margin-bottom:20px;">
-            <div class="card" style="background-color:bisque">
+            <div class="card" style="background-color:#4887B7">
                 <div class="card-header">Total None Voter</div>
                 <div class="card-body">
-                    <center><h1>{{ $total_none_voter }}</h1></center>
+                    <center><h1 style="color:white">{{ $total_none_voter }}</h1></center>
                 </div>
             </div>
         </div>
