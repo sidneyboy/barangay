@@ -223,7 +223,7 @@ class Barangay_controller extends Controller
             'contact_number' => $request->input('contact_number'),
             'spouse' => $request->input('spouse'),
             'email' => $request->input('email'),
-            'password' => hash::make($request->input('password')),
+            // 'password' => hash::make($request->input('password')),
             'barangay_id' => $user->barangay_id,
         ]);
 
@@ -384,7 +384,7 @@ class Barangay_controller extends Controller
             'spouse' => $request->input('spouse'),
             'email' => $request->input('email'),
             'zone' => $request->input('zone'),
-            // 'password' => hash::make($password),
+            'password' => hash::make($password),
             'user_id' => $request->input('user_id'),
             'barangay_id' => $request->input('barangay_id'),
         ]);
