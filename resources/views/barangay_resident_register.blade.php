@@ -189,6 +189,36 @@
                             </div>
                         </div>
 
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="current_address">{{ __('Current Addresss:') }}</label>
+                                <input id="current_address" type="text"
+                                    class="form-control @error('current_address') is-invalid @enderror" name="current_address"
+                                    value="{{ old('current_address') }}" autocomplete="current_address" autofocus>
+
+                                @error('current_address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="permanent_address">{{ __('Permanent_address:') }}</label>
+                                <input id="permanent_address" type="text"
+                                    class="form-control @error('permanent_address') is-invalid @enderror" name="permanent_address"
+                                    value="{{ old('permanent_address') }}" autocomplete="permanent_address" autofocus>
+
+                                @error('permanent_address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
 
                         <div class="col-md-12">
                             <div class="form-group">

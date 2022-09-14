@@ -27,6 +27,8 @@ class Residents extends Model
         'user_id',
         'zone',
         'voter',
+        'permanent_address',
+        'current_address',
     ];
 
     public function barangay()

@@ -37,14 +37,14 @@ class Barangay_controller extends Controller
     public function proceeding(Request $request)
     {
         $validated = $request->validate([
-            'longitude' => 'required',
-            'latitude' => 'required',
+            // 'longitude' => 'required',
+            // 'latitude' => 'required',
             'barangay' => 'required',
         ]);
 
         return view('proceeding')
-            ->with('longitude', $request->input('longitude'))
-            ->with('latitude', $request->input('latitude'))
+            // ->with('longitude', $request->input('longitude'))
+            // ->with('latitude', $request->input('latitude'))
             ->with('barangay', $request->input('barangay'));
     }
 
@@ -62,8 +62,8 @@ class Barangay_controller extends Controller
         ]);
 
         $barangay = new Barangay([
-            'latitude' => $request->input('latitude'),
-            'longitude' => $request->input('longitude'),
+            // 'latitude' => $request->input('latitude'),
+            // 'longitude' => $request->input('longitude'),
             'barangay' => $request->input('barangay'),
             'status' => 'Pending Approval',
         ]);
@@ -188,21 +188,21 @@ class Barangay_controller extends Controller
 
         //return $request->input();
 
-        $validated = $request->validate([
-            'user_image' => 'required',
-            'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'gender' => 'required|not_in:0',
-            'civil_status' => 'required|not_in:0',
-            'position_type_id' => 'required|not_in:0',
-            'birth_date' => 'required',
-            'office_term' => 'required',
-            'contact_number' => ['required', 'numeric', 'min:11'],
-            'spouse' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:barangay_officials'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        // $validated = $request->validate([
+        //     'user_image' => 'required',
+        //     'first_name' => ['required', 'string', 'max:255'],
+        //     'middle_name' => ['required', 'string', 'max:255'],
+        //     'last_name' => ['required', 'string', 'max:255'],
+        //     'gender' => 'required|not_in:0',
+        //     'civil_status' => 'required|not_in:0',
+        //     // 'position_type_id' => 'required|not_in:0',
+        //     'birth_date' => 'required',
+        //     'office_term' => 'required',
+        //     'contact_number' => ['required', 'numeric', 'min:11'],
+        //     'spouse' => 'required',
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:barangay_officials'],
+        //     // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+        // ]);
 
         $user_image = $request->file('user_image');
         $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();
@@ -223,7 +223,7 @@ class Barangay_controller extends Controller
             'contact_number' => $request->input('contact_number'),
             'spouse' => $request->input('spouse'),
             'email' => $request->input('email'),
-            // 'password' => hash::make($request->input('password')),
+            'password' => hash::make($request->input('password')),
             'barangay_id' => $user->barangay_id,
         ]);
 
@@ -357,6 +357,8 @@ class Barangay_controller extends Controller
             'birth_date' => 'required',
             'mothers_name' => 'required',
             'fathers_name' => 'required',
+            'current_address' => 'required',
+            'permanent_address' => 'required',
             'contact_number' => ['required', 'numeric', 'min:11'],
             'spouse' => 'required',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:residents'],
@@ -380,6 +382,8 @@ class Barangay_controller extends Controller
             'birth_date' => $request->input('birth_date'),
             'mothers_name' => $request->input('mothers_name'),
             'fathers_name' => $request->input('fathers_name'),
+            'permanent_address' => $request->input('permanent_address'),
+            'current_address' => $request->input('current_address'),
             'contact_number' => $request->input('contact_number'),
             'spouse' => $request->input('spouse'),
             'email' => $request->input('email'),
