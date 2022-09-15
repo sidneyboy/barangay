@@ -30,13 +30,19 @@
                                 <td>{{ date('F j, Y h:i a', strtotime($data->created_at)) }}</td>
                                 <td>
                                     @if ($data->status == 'Pending Approval')
-                                        <a href="{{ url('status_approval',[
-                                                  'user_id' => $user->id,
-                                                  'status' => 'Pending Approval',
-                                                  'barangay_id' => $data->id,
-                                                  ]) }}" class="btn btn-warning btn-block btn-sm">Pending Approval</a>
+                                        <a href="{{ url('status_approval', [
+                                            'user_id' => $user->id,
+                                            'status' => 'Pending Approval',
+                                            'barangay_id' => $data->id,
+                                        ]) }}"
+                                            class="btn btn-warning btn-block btn-sm">Pending Approval</a>
                                     @else
-                                        <button class="btn btn-success btn-block btn-sm" disabled>Approved</button>
+                                        <a href="{{ url('status_approval', [
+                                            'user_id' => $user->id,
+                                            'status' => 'Approved',
+                                            'barangay_id' => $data->id,
+                                        ]) }}"
+                                            class="btn btn-success btn-block btn-sm">Approved</a>
                                     @endif
                                 </td>
                             </tr>

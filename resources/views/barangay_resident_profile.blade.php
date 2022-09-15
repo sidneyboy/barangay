@@ -29,7 +29,8 @@
                             <th>Fathers Name</th>
                             <th>Email</th>
                             <th>Zone</th>
-                            {{-- <th>Added By</th> --}}
+                            <th>Voter</th>
+                            <th>Status</th>
                             <th>Photo</th>
                             <th>Update</th>
                         </tr>
@@ -50,11 +51,11 @@
                                 <td>{{ $data->email }}</td>
                                 <td>
                                     @if ($data->zone != null)
-                                        {{ $data->zone->zone }}
+                                        {{ $data->res_zone->zone }}
                                     @endif
                                 </td>
-                                {{-- <td>{{ $data->barangay_official_id->first_name }}{{ $data->barangay_official_id->last_name }}
-                                </td> --}}
+                                <td>{{ $data->voter }}</td>
+                                <td>{{ $data->status }}</td>
                                 <td>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal"
@@ -151,6 +152,20 @@
                                                             @endif
                                                         </select>
 
+                                                        <label for="">Voter:</label>
+                                                        <select name="voter" class="form-control" required>
+                                                            <option value="{{ $data->voter }}">
+                                                                {{ $data->voter }}
+                                                                Current</option>
+                                                            @if ($data->voter == 'Voter')
+                                                                <option value="Non Voter">Non Voter
+                                                                </option>
+                                                            @else
+                                                                <option value="Voter">Voter
+                                                                </option>
+                                                            @endif
+                                                        </select>
+
                                                         <label for="">Birth Date:</label>
                                                         <input type="text" required name="birth_date"
                                                             class="form-control" value="{{ $data->birth_date }}">
@@ -170,6 +185,18 @@
                                                         <label for="">Fathers Name:</label>
                                                         <input type="text" required name="fathers_name"
                                                             class="form-control" value="{{ $data->fathers_name }}">
+
+                                                        <label for="">Current Address:</label>
+                                                        <input type="text" required name="current_address"
+                                                            class="form-control" value="{{ $data->current_address }}">
+
+                                                        <label for="">Permanent Address:</label>
+                                                        <input type="text" required name="permanent_address"
+                                                            class="form-control" value="{{ $data->permanent_address }}">
+
+                                                        <label for="">Status:</label>
+                                                        <input type="text" required name="status"
+                                                            class="form-control" value="{{ $data->status }}">
 
 
                                                         <label for="">Email:</label>

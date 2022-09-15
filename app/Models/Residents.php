@@ -29,6 +29,7 @@ class Residents extends Model
         'voter',
         'permanent_address',
         'current_address',
+        'status',
     ];
 
     public function barangay()
@@ -36,7 +37,7 @@ class Residents extends Model
         return $this->belongsTo('App\Models\Barangay', 'barangay_id');
     }
 
-    public function zone()
+    public function res_zone()
     {
         return $this->belongsTo('App\Models\Zone', 'zone');
     }

@@ -184,12 +184,16 @@ class Official_controller extends Controller
                 'civil_status' => $request->input('civil_status'),
                 'birth_date' => $request->input('birth_date'),
                 'mothers_name' => $request->input('mothers_name'),
+                'current_address' => $request->input('current_address'),
+                'permanent_address' => $request->input('permanent_address'),
+                'voter' => $request->input('voter'),
                 'fathers_name' => $request->input('fathers_name'),
                 'contact_number' => $request->input('contact_number'),
                 'spouse' => $request->input('spouse'),
+                'status' => $request->input('status'),
             ]);
 
-        return redirect()->route('official_res_profile', ['user_id' => $request->input('user_id')])->with('success', 'Successfully updated resident profile');
+        return redirect()->route('barangay_resident_profile', ['user_id' => $request->input('user_id')])->with('success', 'Successfully updated resident profile');
     }
 
     public function official_logout()

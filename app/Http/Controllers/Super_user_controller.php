@@ -50,9 +50,16 @@ class Super_user_controller extends Controller
 
     public function status_approval($user_id, $status, $barangay_id)
     {
-        Barangay::where('id', $barangay_id)
-            ->update(['status' => 'Approved']);
+        if ($status == 'Pending Approval') {
+            Barangay::where('id', $barangay_id)
+                ->update(['status' => 'Approved']);
 
-        return redirect()->route('super_user_dashboard', ['user_id' => $user_id])->with('success', 'Selected barangay approved successfully');
+            return redirect()->route('super_user_dashboard', ['user_id' => $user_id])->with('success', 'Selected barangay approved successfully');
+        } else {
+            Barangay::where('id', $barangay_id)
+                ->update(['status' => 'Pending Approval']);
+
+            return redirect()->route('super_user_dashboard', ['user_id' => $user_id])->with('success', 'Selected barangay deactivated successfully');
+        }
     }
 }

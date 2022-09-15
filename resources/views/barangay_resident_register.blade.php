@@ -256,7 +256,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="voter">{{ __('Voter:') }}</label>
-                                <select name="voter" id="voter" class="form-control">
+                                <select name="voter" id="voter" class="form-control" required>
                                     <option value="" default>Select</option>
                                     <option value="Voter">Voter</option>
                                     <option value="None Voter">None Voter</option>

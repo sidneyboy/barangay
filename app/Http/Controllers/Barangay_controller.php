@@ -52,6 +52,14 @@ class Barangay_controller extends Controller
     {
         //dd($request->all());
 
+        $check = Barangay::get();
+
+        foreach ($check as $key => $data) {
+            if ($data->barangay == $request->input('barangay')) {
+                return redirect('barangay_admin_login')->with('error', 'Already Registered');
+            }
+        }
+
         $validated = $request->validate([
             'user_image' => 'required',
             'name' => ['required', 'string', 'max:255'],
@@ -97,7 +105,18 @@ class Barangay_controller extends Controller
 
     public function home()
     {
-        return redirect('barangay_dashboard');
+        $user = User::find(auth()->user()->id);
+        $check = Barangay::where('id',$user->barangay_id)->first();
+        if ($check) {
+            if ($check->status == 'Approved') {
+                return redirect('barangay_dashboard');
+            }else{
+                return redirect('barangay_admin_login')->with('error','Please wait for admin approval');
+            }
+        }else{
+            return redirect('barangay_admin_login')->with('error','Unknown user cannot proceed');
+        }
+        
         // $user = User::find(auth()->user()->id);
         // $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         // $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
@@ -358,6 +377,7 @@ class Barangay_controller extends Controller
             'mothers_name' => 'required',
             'fathers_name' => 'required',
             'current_address' => 'required',
+            'voter' => 'required',
             'permanent_address' => 'required',
             'contact_number' => ['required', 'numeric', 'min:11'],
             'spouse' => 'required',
@@ -388,8 +408,10 @@ class Barangay_controller extends Controller
             'spouse' => $request->input('spouse'),
             'email' => $request->input('email'),
             'zone' => $request->input('zone'),
+            'voter' => $request->input('voter'),
             'password' => hash::make($password),
             'user_id' => $request->input('user_id'),
+            'status' => 'alive',
             'barangay_id' => $request->input('barangay_id'),
         ]);
 
