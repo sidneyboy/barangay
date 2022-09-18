@@ -105,17 +105,17 @@ class Barangay_controller extends Controller
 
     public function home()
     {
-        $user = User::find(auth()->user()->id);
-        $check = Barangay::where('id',$user->barangay_id)->first();
-        if ($check) {
+         $user = User::find(auth()->user()->id);
+         $check = Barangay::where('id',$user->barangay_id)->first();
+        // if ($check) {
             if ($check->status == 'Approved') {
                 return redirect('barangay_dashboard');
             }else{
                 return redirect('barangay_admin_login')->with('error','Please wait for admin approval');
             }
-        }else{
+        // }else{
             return redirect('barangay_admin_login')->with('error','Unknown user cannot proceed');
-        }
+        // }
         
         // $user = User::find(auth()->user()->id);
         // $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
