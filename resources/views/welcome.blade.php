@@ -22,87 +22,7 @@
                 <form action="{{ route('proceeding') }}" method="get">
                     <div class="row">
                         <div class="col-md-12">
-                            {{-- <div class="form-group">
-                                <label for="">Region:</label>
-                                <select class="form-control @error('region') is-invalid @enderror" name="region"
-                                    id="region" style="width:100%;">
-                                </select>
-
-                                @error('region')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="">Province:</label>
-                                <select class="form-control @error('province') is-invalid @enderror" name="province"
-                                    id="province" style="width:100%;"></select>
-
-                                @error('province')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="">City:</label>
-                                <select class="form-control @error('city') is-invalid @enderror" name="city"
-                                    id="city" style="width:100%;"></select>
-
-                                @error('city')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div> --}}
-                            <div class="form-group">
-                                <label for="">Barangay:</label>
-                                {{-- <select class="form-control @error('barangay') is-invalid @enderror" name="barangay"
-                                    id="barangay" style="width:100%;"></select> --}}
-
-                                <input id="barangay" type="barangay"
-                                    class="form-control @error('barangay') is-invalid @enderror" name="barangay"
-                                    value="{{ old('barangay') }}" required autocomplete="barangay" autofocus>
-
-                                @error('barangay')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            {{-- <div class="form-group">
-                                <label for="latitude" class="">{{ __('Latitude:') }}</label>
-
-
-                                <input id="latitude" type="latitude"
-                                    class="form-control @error('latitude') is-invalid @enderror" name="latitude"
-                                    value="{{ old('latitude') }}" required autocomplete="latitude" autofocus>
-
-                                @error('latitude')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="longitude" class="">{{ __('Longitude:') }}</label>
-
-
-                                <input id="longitude" type="longitude"
-                                    class="form-control @error('longitude') is-invalid @enderror" name="longitude"
-                                    value="{{ old('longitude') }}" required autocomplete="longitude" autofocus>
-
-                                @error('longitude')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-
-                            </div> --}}
+                           
                         </div>
                         <div class="col-md-12">
                             <br />
@@ -130,57 +50,6 @@
     </script>
 
 
-    <script>
-        var my_handlers = {
-
-            fill_provinces: function() {
-
-                var region_code = $(this).val();
-                $('#province').ph_locations('fetch_list', [{
-                    "region_code": region_code
-                }]);
-
-            },
-
-            fill_cities: function() {
-
-                var province_code = $(this).val();
-                $('#city').ph_locations('fetch_list', [{
-                    "province_code": province_code
-                }]);
-            },
-
-
-            fill_barangays: function() {
-
-                var city_code = $(this).val();
-                $('#barangay').ph_locations('fetch_list', [{
-                    "city_code": city_code
-                }]);
-            }
-        };
-
-        $(function() {
-            $('#region').on('change', my_handlers.fill_provinces);
-            $('#province').on('change', my_handlers.fill_cities);
-            $('#city').on('change', my_handlers.fill_barangays);
-
-            $('#region').ph_locations({
-                'location_type': 'regions'
-            });
-            $('#province').ph_locations({
-                'location_type': 'provinces'
-            });
-            $('#city').ph_locations({
-                'location_type': 'cities'
-            });
-            $('#barangay').ph_locations({
-                'location_type': 'barangays'
-            });
-
-            $('#region').ph_locations('fetch_list');
-        });
-    </script>
 </body>
 
 </html>

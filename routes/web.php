@@ -127,11 +127,11 @@ Route::post('/resident_document_request_process', [App\Http\Controllers\Resident
 
 
 
-
-Route::get('/barangay_admin', function () {return view('welcome');});
+// Route::get('/barangay_admin', function () {return view('trial');});
+// Route::get('/barangay_admin', function () {return view('welcome');});
 
 Auth::routes();
-
+Route::get('/barangay_admin', [App\Http\Controllers\Barangay_controller::class, 'barangay_admin'])->name('barangay_admin');
 Route::get('/proceeding', [App\Http\Controllers\Barangay_controller::class, 'proceeding'])->name('proceeding');
 Route::post('/proceeding_register', [App\Http\Controllers\Barangay_controller::class, 'proceeding_register'])->name('proceeding_register');
 

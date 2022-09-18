@@ -34,6 +34,12 @@ use DB;
 
 class Barangay_controller extends Controller
 {
+
+    public function barangay_admin()
+    {
+        return view('welcome');
+    }
+
     public function proceeding(Request $request)
     {
         $validated = $request->validate([
@@ -98,8 +104,14 @@ class Barangay_controller extends Controller
         return redirect('barangay_admin_login')->with('success', 'Successfully created admin account, You can now login');
     }
 
-    public function barangay_admin_login()
+    public function barangay_admin_login(Request $request)
     {
+        Auth::logout();
+ 
+        $request->session()->invalidate();
+     
+        $request->session()->regenerateToken();
+
         return view('barangay_admin_login');
     }
 
