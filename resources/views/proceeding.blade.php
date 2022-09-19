@@ -117,6 +117,24 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label for="zip_code"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Zip Code') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="zip_code" type="text"
+                                        required class="form-control @error('zip_code') is-invalid @enderror"
+                                        name="zip_code" value="{{ old('zip_code') }}"
+                                        autocomplete="zip_code" autofocus>
+
+                                    @error('zip_code')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
                                 <label for="email"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
@@ -197,6 +215,8 @@
                                     </span>
                                 @enderror
                             </div>
+
+                            
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

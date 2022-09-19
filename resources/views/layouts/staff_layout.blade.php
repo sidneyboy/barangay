@@ -95,20 +95,26 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('staff_document_request', $user->id) }}">
-                        <i class="fas fa-fw fa-chart-area"></i>
+                        <i class="bi bi-file-earmark"></i>  
                         <span>Document Approval</span></a>
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url('official_assistance_request', $user->id) }}">
+                        <i class="bi bi-person-hearts"></i>
+                        <span>Assistance</span></a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url('staff_resident_profile', $user->id) }}">
-                        <i class="fas fa-fw fa-chart-area"></i>
+                        <i class="bi bi-people-fill"></i>
                         <span>Resident Profile</span></a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('staff_complain_report', $user->id) }}">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Complain Report</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
+                        <i class="bi bi-chat-right-text-fill"></i>
+                        <span>Complain Record</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
                 </li>
 
                 {{-- <li class="nav-item">

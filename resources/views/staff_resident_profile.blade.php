@@ -28,7 +28,7 @@
                             <th>Mothers Name</th>
                             <th>Fathers Name</th>
                             <th>Email</th>
-                            <th>Zone</th>
+                            {{-- <th>Zone</th> --}}
                             {{-- <th>Added By</th> --}}
                             <th>Photo</th>
                             {{-- <th>Update</th> --}}
@@ -49,9 +49,9 @@
                                 <td>{{ $data->fathers_name }}</td>
                                 <td>{{ $data->email }}</td>
                                 <td>
-                                    @if ($data->zone != null)
+                                    {{-- @if ($data->zone != null)
                                         {{ $data->zone->zone }}
-                                    @endif
+                                    @endif --}}
                                 </td>
                                 {{-- <td>{{ $data->barangay_official_id->first_name }}{{ $data->barangay_official_id->last_name }}
                                 </td> --}}

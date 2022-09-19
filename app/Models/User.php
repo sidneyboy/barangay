@@ -27,6 +27,12 @@ class User extends Authenticatable
         'user_image',
         'barangay_id',
         'user_type',
+        'gender',
+        'civil_status',
+        'birth_date',
+        'position_type_id',
+        'spouse',
+        'office_term',
     ];
 
     public function barangay()

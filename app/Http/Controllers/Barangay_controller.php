@@ -16,6 +16,10 @@ use App\Models\refbrgy;
 use App\Models\refcitymun;
 use App\Models\refprovince;
 use App\Models\refregion;
+use App\Models\Assitance;
+use App\Models\Assistance_type;
+
+
 
 
 use App\Mail\send_mail_to_resident;
@@ -101,7 +105,8 @@ class Barangay_controller extends Controller
 
     public function proceeding_register(Request $request)
     {
-        //dd($request->all());
+        date_default_timezone_set('Asia/Manila');
+        $date_time = date('Y-m-d H:i:s');
 
         $check = Barangay::get();
 
@@ -128,7 +133,9 @@ class Barangay_controller extends Controller
             'latitude' => $request->input('latitude'),
             'longitude' => $request->input('longitude'),
             'barangay' => $request->input('brgyDesc'),
+            'zip_code' => $request->input('zip_code'),
             'status' => 'Pending Approval',
+            'created_at' => $date_time,
         ]);
 
         $barangay->save();
@@ -171,10 +178,14 @@ class Barangay_controller extends Controller
         $user = User::find(auth()->user()->id);
         $check = Barangay::where('id', $user->barangay_id)->first();
         // if ($check) {
-        if ($check->status == 'Approved') {
-            return redirect('barangay_dashboard');
+        if ($user->user_type == 'barangay_admin') {
+            if ($check->status == 'Approved') {
+                return redirect('barangay_dashboard');
+            } else {
+                return redirect('barangay_admin_login')->with('error', 'Please wait for admin approval');
+            }
         } else {
-            return redirect('barangay_admin_login')->with('error', 'Please wait for admin approval');
+            return redirect('barangay_dashboard');
         }
         // }else{
         return redirect('barangay_admin_login')->with('error', 'Unknown user cannot proceed');
@@ -291,6 +302,31 @@ class Barangay_controller extends Controller
         $path_user_image = $user_image->storeAs('public', $image_name);
 
         $user = User::find(auth()->user()->id);
+
+        // $user_image = $request->file('user_image');
+        // $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();
+        // $path_user_image = $user_image->storeAs('public', $image_name);
+
+
+        // $user = new User([
+        //     'name' => $request->input('first_name'),
+        //     'middle_name' => $request->input('middle_name'),
+        //     'last_name' => $request->input('last_name'),
+        //     'email' => $request->input('email'),
+        //     'password' => Hash::make($request->input('password')),
+        //     'contact_number' => $request->input('contact_number'),
+        //     'gender' => $request->input('gender'),
+        //     'civil_status' => $request->input('civil_status'),
+        //     'birth_date' => $request->input('birth_date'),
+        //     'spouse' => $request->input('spouse'),
+        //     'office_term' => $request->input('office_term'),
+        //     'position_type_id' => $request->input('position_type_id'),
+        //     'user_image' => $image_name,
+        //     'barangay_id' => $user->barangay_id,
+        //     'user_type' => 'barangay_staff',
+        // ]);
+
+        // $user->save();
 
         $officials = new Barangay_officials([
             'user_image' => $image_name,
@@ -480,10 +516,12 @@ class Barangay_controller extends Controller
 
         $officials->save();
 
+        $user = User::find(auth()->user()->id);
+        $barangay = $user->barangay->barangay;
         $first_name = $request->input('first_name');
         $last_name = $request->input('last_name');
         $email = $request->input('email');
-        Mail::to($request->input('email'))->send(new send_email_to_resident($email, $password, $first_name, $last_name));
+        Mail::to($request->input('email'))->send(new send_email_to_resident($email, $password, $first_name, $last_name, $barangay));
 
         return redirect()->route('barangay_resident_register')->with('success', 'Successfully added new resident');
     }
@@ -749,9 +787,28 @@ class Barangay_controller extends Controller
         ]);
     }
 
-    public function barangay_document_request_approved($document_request_id, $document_id, $resident_id)
+    public function barangay_document_request_list()
     {
+        $user = User::find(auth()->user()->id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
 
+        $document_request = Document_request::where('barangay_id', $user->barangay_id)->get();
+        return view('barangay_document_request_list', [
+            'request_count' => $request_count,
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
+            'document_request' => $document_request,
+        ]);
+    }
+
+
+
+    public function barangay_document_request_approved($document_request_id, $document_id, $resident_id, $user_id)
+    {
+        //return $user_id;
         $resident = Residents::find($resident_id);
         $document = Document_type::find($document_id);
 
@@ -806,48 +863,98 @@ class Barangay_controller extends Controller
     public function barangay_dashboard()
     {
         $user = User::find(auth()->user()->id);
-        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
-        $complain_count = Complain::where('barangay_id', $user->barangay_id)->count();
-        $pending_count = Complain::where('barangay_id', $user->barangay_id)->where('status', '')->count();
-        $approved_count = Complain::where('barangay_id', $user->barangay_id)->where('status', 'Approved')->count();
-        $progress_count = Complain::where('barangay_id', $user->barangay_id)->where('status', 'On Progress')->count();
-        $end_count = Complain::where('barangay_id', $user->barangay_id)->where('status', 'End')->count();
 
-        $document_count = Document_request::where('barangay_id', $user->barangay_id)->count();
-        $new_request_count = Document_request::where('barangay_id', $user->barangay_id)->where('status', 'New Request')->count();
-        $d_approved_count = Document_request::where('barangay_id', $user->barangay_id)->where('status', 'Approved')->count();
-        $received_count = Document_request::where('barangay_id', $user->barangay_id)->where('status', 'Received')->count();
+        if ($user->user_type == 'barangay_admin') {
+            $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+            $complain_count = Complain::where('barangay_id', $user->barangay_id)->count();
+            $pending_count = Complain::where('barangay_id', $user->barangay_id)->where('status', '')->count();
+            $approved_count = Complain::where('barangay_id', $user->barangay_id)->where('status', 'Approved')->count();
+            $progress_count = Complain::where('barangay_id', $user->barangay_id)->where('status', 'On Progress')->count();
+            $end_count = Complain::where('barangay_id', $user->barangay_id)->where('status', 'End')->count();
 
-        $resident_count = Residents::where('barangay_id', $user->barangay_id)->count();
-        $total_number_of_male = Residents::where('gender', 'male')->where('barangay_id', $user->barangay_id)->count();
-        $total_number_of_female = Residents::where('gender', 'female')->where('barangay_id', $user->barangay_id)->count();
-        $total_voter = Residents::where('voter', 'Voter')->where('barangay_id', $user->barangay_id)->count();
-        $total_none_voter = Residents::where('voter', 'None Voter')->where('barangay_id', $user->barangay_id)->count();
+            $document_count = Document_request::where('barangay_id', $user->barangay_id)->count();
+            $new_request_count = Document_request::where('barangay_id', $user->barangay_id)->where('status', 'New Request')->count();
+            $d_approved_count = Document_request::where('barangay_id', $user->barangay_id)->where('status', 'Approved')->count();
+            $received_count = Document_request::where('barangay_id', $user->barangay_id)->where('status', 'Received')->count();
+
+            $resident_count = Residents::where('barangay_id', $user->barangay_id)->count();
+            $total_number_of_male = Residents::where('gender', 'male')->where('barangay_id', $user->barangay_id)->count();
+            $total_number_of_female = Residents::where('gender', 'female')->where('barangay_id', $user->barangay_id)->count();
+            $total_voter = Residents::where('voter', 'Voter')->where('barangay_id', $user->barangay_id)->count();
+            $total_none_voter = Residents::where('voter', 'None Voter')->where('barangay_id', $user->barangay_id)->count();
 
 
-        $document = Document_type::where('barangay_id', $user->barangay_id)->get();
-        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+            $document = Document_type::where('barangay_id', $user->barangay_id)->get();
+            $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
 
-        return view('barangay_dashboard', [
-            'total_none_voter' => $total_none_voter,
-            'total_voter' => $total_voter,
-            'resident_count' => $resident_count,
-            'total_number_of_female' => $total_number_of_female,
-            'total_number_of_male' => $total_number_of_male,
-            'user' => $user,
-            'barangay_logo' => $barangay_logo,
-            'complain_count' => $complain_count,
-            'document' => $document,
-            'request_count' => $request_count,
-            'pending_count' => $pending_count,
-            'approved_count' => $approved_count,
-            'progress_count' => $progress_count,
-            'end_count' => $end_count,
-            'document_count' => $document_count,
-            'new_request_count' => $new_request_count,
-            'd_approved_count' => $d_approved_count,
-            'received_count' => $received_count,
-        ]);
+            date_default_timezone_set('Asia/Manila');
+            $year = date('Y');
+            $month = date('m');
+
+
+            $complain_status = DB::table('document_requests')
+                ->select('status', DB::raw('count(*) as total'))
+                ->groupBy('status')
+                ->get()
+                ->toArray();
+
+            foreach ($complain_status as $key => $row) {
+                $labels[] = $row->status;
+                $data[] = $row->total;
+            }
+
+            $assistance = DB::table('assitances')
+                ->select('status', DB::raw('count(*) as total'))
+                ->groupBy('status')
+                ->get()
+                ->toArray();
+
+            foreach ($assistance as $key => $row) {
+                $labels_assistance[] = $row->status;
+                $data_assistance[] = $row->total;
+            }
+
+            $complains = DB::table('complains')
+                ->select('status', DB::raw('count(*) as total'))
+                ->groupBy('status')
+                ->get()
+                ->toArray();
+
+            foreach ($complains as $key => $row) {
+                $labels_complains[] = $row->status;
+                $data_complains[] = $row->total;
+            }
+
+
+            return view('barangay_dashboard', [
+                'labels' => $labels,
+                'data' => $data,
+                'labels_assistance' => $labels_assistance,
+                'data_assistance' => $data_assistance,
+                'labels_complains' => $labels_complains,
+                'data_complains' => $data_complains,
+                'total_none_voter' => $total_none_voter,
+                'total_voter' => $total_voter,
+                'resident_count' => $resident_count,
+                'total_number_of_female' => $total_number_of_female,
+                'total_number_of_male' => $total_number_of_male,
+                'user' => $user,
+                'barangay_logo' => $barangay_logo,
+                'complain_count' => $complain_count,
+                'document' => $document,
+                'request_count' => $request_count,
+                'pending_count' => $pending_count,
+                'approved_count' => $approved_count,
+                'progress_count' => $progress_count,
+                'end_count' => $end_count,
+                'document_count' => $document_count,
+                'new_request_count' => $new_request_count,
+                'd_approved_count' => $d_approved_count,
+                'received_count' => $received_count,
+            ]);
+        } else {
+            return redirect('barangay_document_request');
+        }
     }
 
     public function barangay_staff_register()
@@ -908,5 +1015,58 @@ class Barangay_controller extends Controller
         $officials->save();
 
         return redirect('barangay_register')->with('success', 'Successfully added new barangay official');
+    }
+
+    public function barangay_assistance_request()
+    {
+        $user = Barangay_officials::find(auth()->user()->id);
+        $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
+
+        return view('barangay_assistance_request', [
+            'user' => $user,
+            'assistance' => $assistance,
+        ]);
+    }
+
+    public function barangay_admin_staff()
+    {
+        return view('barangay_admin_staff');
+    }
+
+    public function barangay_assistance_type()
+    {
+        $user = User::find(auth()->user()->id);
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $assistance = Assistance_type::get();
+        return view('barangay_assistance_type', [
+            'user' => $user,
+            'barangay_logo' => $barangay_logo,
+            'complain_count' => $complain_count,
+            'request_count' => $request_count,
+            'assistance' => $assistance,
+        ]);
+    }
+
+    public function barangay_assistance_type_process(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        $new = new Assistance_type([
+            'title' => $request->input('assistance_type'),
+            'user_id' => auth()->user()->id,
+            'barangay_id' => $user->barangay_id,
+        ]);
+
+        $new->save();
+
+        return redirect()->route('barangay_assistance_type')->with('success', 'Successfully added new assistance type');
+    }
+
+    public function assistance_type_update(Request $request)
+    {
+        Assistance_type::where('id', $request->input('id'))
+            ->update(['title' => $request->input('title')]);
+        return redirect()->route('barangay_assistance_type')->with('success', 'Successfully updated selected assistance type');
     }
 }

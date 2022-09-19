@@ -17,6 +17,7 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
@@ -26,13 +27,13 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" class="sidebar-toggled">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -52,30 +53,30 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('res_assistance', $resident->id) }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="bi bi-person-hearts"></i>
                     <span>Assistance</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('res_assistance_request', $resident->id) }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="bi bi-person-lines-fill"></i>
                     <span>Assistance Request</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('resident_complain', $resident->id) }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="bi bi-person-video2"></i>
                     <span>Complain</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('resident_complain_request', $resident->id) }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="bi bi-chat-right-text-fill"></i>
                     <span>Complain Request</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('resident_document_request', $resident->id) }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="bi bi-envelope-paper-fill"></i>
                     <span>Document Request</span></a>
             </li>
 
@@ -105,7 +106,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                   
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -138,13 +139,15 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $resident->first_name }} {{ $resident->last_name }}</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('/storage/'. $resident->user_image) }}">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $resident->first_name }}
+                                    {{ $resident->last_name }}</span>
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('/storage/' . $resident->user_image) }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ url('resident_profile/'. $resident->id) }}">
+                                <a class="dropdown-item" href="{{ url('resident_profile/' . $resident->id) }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -233,7 +236,7 @@
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
     <script>
-         $(document).ready(function() {
+        $(document).ready(function() {
             $('#example').DataTable();
             $('#example2').DataTable();
         });

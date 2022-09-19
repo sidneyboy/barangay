@@ -33,40 +33,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon">
-                    {{-- @if ($barangay_logo)
-                        <img src="{{ asset('/storage/' . $barangay_logo->logo) }}" alt=""
-                            class="img img-thumbnail" style="border:0px;">
-                    @else
-                    @endif --}}
-                </div>
-                <div class="sidebar-brand-text mx-3">SUPER USER</sup></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-            <!-- Nav Item - Pages Collapse Menu -->
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('barangay_list', $user->id) }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Barangay List</span> </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-
-        </ul>
+       
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -117,7 +84,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $user->name }}
-                                    </span>
+                                </span>
                                 {{-- <img class="img-profile rounded-circle"
                                     src="{{ asset('/storage/' . $user->user_image) }}"> --}}
                             </a>

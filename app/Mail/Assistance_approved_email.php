@@ -10,19 +10,20 @@ use Illuminate\Queue\SerializesModels;
 class Assistance_approved_email extends Mailable
 {
     use Queueable, SerializesModels;
-    public $first_name,$middle_name,$last_name,$assistance_title,$approved_cash;
+    public $first_name,$middle_name,$last_name,$assistance_title,$approved_cash,$barangay;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($first_name,$middle_name,$last_name,$assistance_title,$approved_cash)
+    public function __construct($first_name,$middle_name,$last_name,$assistance_title,$approved_cash,$barangay)
     {
         $this->first_name = $first_name;
         $this->middle_name = $middle_name;
         $this->last_name = $last_name;
         $this->assistance_title = $assistance_title;
         $this->approved_cash = $approved_cash;
+        $this->barangay = $barangay;
     }
 
     /**

@@ -44,11 +44,21 @@ Route::get('/official_complain_report/{user_id}', [App\Http\Controllers\Official
 
 Route::get('/staff_welcome/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_welcome'])->name('staff_welcome');
 Route::get('/staff_document_request/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_document_request'])->name('staff_document_request');
+// Route::get('/staff_document_request_approved/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_document_request_approved'])->name('staff_document_request_approved');
+
+Route::get('/staff_document_request_approved/{document_request_id}/{document_id}/{resident_id}/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_document_request_approved'])->name('staff_document_request_approved');
+Route::get('/staff_document_request_received/{document_request_id}/{document_id}/{resident_id}/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_document_request_received'])->name('staff_document_request_received');
+
+
+
+
 Route::get('/staff_complain_report/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_complain_report'])->name('staff_complain_report');
 Route::get('/staff_resident_profile/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_resident_profile'])->name('staff_resident_profile');
 Route::post('/staff_resident_search/', [App\Http\Controllers\Official_controller::class, 'staff_resident_search'])->name('staff_resident_search');
 
 
+
+Route::get('/staff_assistance/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_assistance'])->name('staff_assistance');
 
 
 
@@ -186,7 +196,7 @@ Route::post('/barangay_document_type_update_process', [App\Http\Controllers\Bara
 Route::post('/barangay_document_type_update_file_process', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_type_update_file_process'])->name('barangay_document_type_update_file_process');
 
 Route::get('/barangay_document_request/', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_request'])->name('barangay_document_request');
-Route::get('/barangay_document_request_approved/{document_request_id}/{document_id}/{resident_id}', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_request_approved'])->name('barangay_document_request_approved');
+Route::get('/barangay_document_request_approved/{document_request_id}/{document_id}/{resident_id}/{user_id}', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_request_approved'])->name('barangay_document_request_approved');
 Route::get('/barangay_document_request_received/{document_request_id}/{document_id}/{resident_id}', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_request_received'])->name('barangay_document_request_received');
 
 Route::get('/barangay_dashboard', [App\Http\Controllers\Barangay_controller::class, 'barangay_dashboard'])->name('barangay_dashboard');
@@ -200,6 +210,20 @@ Route::post('/barangay_staff_register_process', [App\Http\Controllers\Barangay_c
 Route::post('/barangay_admin_get_province', [App\Http\Controllers\Barangay_controller::class, 'barangay_admin_get_province'])->name('barangay_admin_get_province');
 Route::post('/barangay_admin_get_municipality', [App\Http\Controllers\Barangay_controller::class, 'barangay_admin_get_municipality'])->name('barangay_admin_get_municipality');
 Route::post('/barangay_admin_get_barangay', [App\Http\Controllers\Barangay_controller::class, 'barangay_admin_get_barangay'])->name('barangay_admin_get_barangay');
+Route::get('/barangay_admin_staff', [App\Http\Controllers\Barangay_controller::class, 'barangay_admin_staff'])->name('barangay_admin_staff');
+Route::get('/barangay_assistance_type', [App\Http\Controllers\Barangay_controller::class, 'barangay_assistance_type'])->name('barangay_assistance_type');
+Route::post('/barangay_assistance_type_process', [App\Http\Controllers\Barangay_controller::class, 'barangay_assistance_type_process'])->name('barangay_assistance_type_process');
+Route::post('/assistance_type_update', [App\Http\Controllers\Barangay_controller::class, 'assistance_type_update'])->name('assistance_type_update');
+Route::get('/barangay_document_request_list', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_request_list'])->name('barangay_document_request_list');
+
+
+
+
+
+
+
+
+
 
 
 

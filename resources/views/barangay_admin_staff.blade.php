@@ -13,37 +13,32 @@
     <title>Barangay Information & Management System</title>
 </head>
 
-<body style="background-color:#008080">
+<body>
     <br />
     <div class="container">
-        <ul class="nav justify-content-center">
-
-            <li class="nav-item" style="background-color:#62929E;margin-left:20px;border-radius:20px;">
-                <a style="color:white" class="nav-link" href="#services">Services</a>
-            </li>
-            <li class="nav-item" style="background-color:#62929E;margin-left:20px;border-radius:20px;">
-                <a style="color:white" class="nav-link active" href="#login">Login</a>
-            </li>
-            <li class="nav-item" style="background-color:#62929E;margin-left:20px;border-radius:20px;">
-                <a style="color:white" class="nav-link" href="#reminder">Reminder</a>
-            </li>
-        </ul>
-    </div>
-    <br />
-    <div class="container" id="login">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                @if (session('success'))
+                    <div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger border-left-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                    <div class="card-header">{{ __('Staff/Officials Credentials') }}</div>
+
                     <div class="card-body">
-                        @if (session('error'))
-                            <div class="alert alert-danger" role="alert">
-                                {{ session('error') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @endif
+
                         <form method="POST" action="{{ route('official_login_process') }}">
                             @csrf
 
@@ -86,7 +81,7 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                             {{ old('remember') ? 'checked' : '' }}>
-  
+
                                         <label class="form-check-label" for="remember">
                                             {{ __('Remember Me') }}
                                         </label>
@@ -113,57 +108,12 @@
             </div>
         </div>
     </div>
-    <br />
-    <div id="services" class="container">
-        <div class="card">
-            <div class="card-header">
-                Services
-            </div>
-            <div class="card-body">
-                <b>In this application you are able to do these actions</b> :<br />
-                <br />
-
-                <ul>
-                    <li>Request documents</li>
-                    <li>Request Assistance</li>
-                    <li>Complain</li>
-                    <li>Check your record of complaints
-                    </li>
-                    <li>Check your record of requested documents
-                    </li>
-                    <li> Check your record of requested assistance
-                    </li>
-                    <li>Modify your photo
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <br />
-    <div id="reminder" class="container">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-body">
-                    Online transactions are made easier by providing each resident a credentials that will be use to log
-                    in. <br /><br />
-                    ​
-                    <li>*Make sure that you are registered to your barangay</li>
-                    <li>*Use active email address</li>
-                    <li>*Check email to know your credentials</li>
-                    <li>*Use your account gently</li>
-                    <li>*If you forget your password, check email.</li>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     {{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script> --}}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js">
-        < button class = "btn btn-success btn-sm" > HOME < /button>
-    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
     <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">

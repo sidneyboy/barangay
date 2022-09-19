@@ -17,7 +17,7 @@
                     <thead>
                         <tr>
                             <th>Requester</th>
-                            <th>Approved</th>
+                            {{-- <th>Approved</th> --}}
                             <th>Purpose</th>
                             <th>Document Name</th>
                             <th>Document</th>
@@ -33,12 +33,12 @@
                             <tr>
                                 <td>{{ $data->resident->first_name }} {{ $data->resident->middle_name }}
                                     {{ $data->resident->last_name }}</td>
-                                <td>
+                                {{-- <td>
                                     @if ($data->user_id != '')
                                         {{ $data->staff->name }}
                                     @else
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td>{{ $data->reason }}</td>
                                 <td>{{ $data->document->document_name }}</td>
                                 <td><a href="{{ asset('/storage/' . $data->document->file) }}"
@@ -61,18 +61,20 @@
                                 <td>
                                     @if ($data->status == 'New Request')
                                         <a style="width:100px;"
-                                            href="{{ url('barangay_document_request_approved', [
+                                            href="{{ url('staff_document_request_approved', [
                                                 'document_request_id' => $data->id,
                                                 'document_id' => $data->document_type_id,
                                                 'resident_id' => $data->resident_id,
+                                                'user_id' => $user->id,
                                             ]) }}"
                                             class="btn btn-sm btn-primary btn-block">Approved ?</a>
                                     @elseif ($data->status == 'Approved')
                                         <a style="width:100px;"
-                                            href="{{ url('barangay_document_request_received', [
+                                            href="{{ url('staff_document_request_received', [
                                                 'document_request_id' => $data->id,
                                                 'document_id' => $data->document_type_id,
                                                 'resident_id' => $data->resident_id,
+                                                'user_id' => $user->id,
                                             ]) }}"
                                             class="btn btn-sm btn-primary btn-block">Received ?</a>
                                     @else

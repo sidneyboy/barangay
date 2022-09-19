@@ -26,7 +26,13 @@
                         @foreach ($barangay as $data)
                             <tr>
                                 <td>{{ $data->barangay }}</td>
-                                <td>{{ $data->status }}</td>
+                                <td>
+                                    @if ($data->status == 'Approved')
+                                        Enabled
+                                    @else
+                                        Disabled
+                                    @endif
+                                </td>
                                 <td>{{ date('F j, Y h:i a', strtotime($data->created_at)) }}</td>
                                 <td>
                                     @if ($data->status == 'Pending Approval')
@@ -35,14 +41,14 @@
                                             'status' => 'Pending Approval',
                                             'barangay_id' => $data->id,
                                         ]) }}"
-                                            class="btn btn-warning btn-block btn-sm">Pending Approval</a>
+                                            class="btn btn-warning btn-block btn-sm">Disabled</a>
                                     @else
                                         <a href="{{ url('status_approval', [
                                             'user_id' => $user->id,
                                             'status' => 'Approved',
                                             'barangay_id' => $data->id,
                                         ]) }}"
-                                            class="btn btn-success btn-block btn-sm">Approved</a>
+                                            class="btn btn-success btn-block btn-sm">Enabled</a>
                                     @endif
                                 </td>
                             </tr>

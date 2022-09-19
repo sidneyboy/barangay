@@ -18,7 +18,8 @@ class Assitance extends Model
         'approved_cash',
         'approved_by_official_id',
         'approved_date',
-        'image'
+        'image',
+        'reason',
     ];
 
     public function barangay()

@@ -9,10 +9,17 @@ use App\Models\Assitance;
 use App\Models\Complain;
 use App\Models\User;
 use App\Models\Document_request;
+use App\Models\Document_type;
 use App\Models\Barangay_logo;
 
 use App\Mail\send_email_to_resident;
 use App\Mail\Assistance_approved_email;
+use App\Mail\Disapproved;
+use App\Mail\Document_approved_request;
+use App\Mail\Document_received;
+
+
+
 
 use Illuminate\Support\Facades\Mail;
 
@@ -208,18 +215,75 @@ class Official_controller extends Controller
     {
         $user = Barangay_officials::find($user_id);
         $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
         return view('official_assistance_request', [
             'user' => $user,
             'assistance' => $assistance,
+            'barangay_logo' => $barangay_logo,
             'assistance_count' => $assistance_count,
             'complain_count' => $complain_count,
         ]);
     }
 
+    public function staff_document_request_approved($document_request_id, $document_id, $resident_id, $user_id)
+    {
+       // return $user_id;
+        $resident = Residents::find($resident_id);
+        $document = Document_type::find($document_id);
+
+        $first_name = $resident->first_name;
+        $middle_name = $resident->middle_name;
+        $last_name = $resident->last_name;
+        $document_name = $document->document_name;
+        $document_amount = $document->amount;
+        $barangay = $resident->barangay->barangay;
+
+        Mail::to($resident->email)->send(new Document_approved_request($first_name, $middle_name, $last_name, $document_name, $document_amount, $barangay));
+
+
+        date_default_timezone_set('Asia/Manila');
+        $date_time = date('Y-m-d H:i:s');
+        Document_request::where('id', $document_request_id)
+            ->update([
+                'user_id' => $user_id,
+                'status' => 'Approved',
+                'time_approved' => $date_time,
+            ]);
+
+        return redirect()->route('staff_document_request',['user_id' => $user_id])->with('success', 'Approved Request');
+    }
+
+    public function staff_document_request_received($document_request_id, $document_id, $resident_id,$user_id)
+    {
+        $resident = Residents::find($resident_id);
+        $document = Document_type::find($document_id);
+
+        $first_name = $resident->first_name;
+        $middle_name = $resident->middle_name;
+        $last_name = $resident->last_name;
+        $document_name = $document->document_name;
+        $document_amount = $document->amount;
+        $barangay = $resident->barangay->barangay;
+
+        Mail::to($resident->email)->send(new Document_received($first_name, $middle_name, $last_name, $document_name, $barangay));
+
+        date_default_timezone_set('Asia/Manila');
+        $date_time = date('Y-m-d H:i:s');
+        Document_request::where('id', $document_request_id)
+            ->update([
+                'user_id' => $user_id,
+                'status' => 'Received',
+                'time_received' => $date_time,
+            ]);
+
+        return redirect()->route('staff_document_request',['user_id' => $user_id])->with('success', 'Document Received Successfully');
+    }
+
     public function official_assistance_approved(Request $request)
     {
+        //return $request->input();
         date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d H:i:s');
         Assitance::where('id', $request->input('assistance_id'))
@@ -227,7 +291,8 @@ class Official_controller extends Controller
                 'approved_cash' => $request->input('approved_cash'),
                 'approved_by_official_id' => $request->input('approved_by_official_id'),
                 'approved_date' => $date,
-                'status' => 'approved',
+                'reason' => $request->input('reason'),
+                'status' => $request->input('status'),
             ]);
 
         $email = $request->input('resident_email');
@@ -235,9 +300,15 @@ class Official_controller extends Controller
         $middle_name = $request->input('middle_name');
         $last_name = $request->input('last_name');
         $assistance_title = $request->input('assistance_title');
+        $barangay = $request->input('barangay');
+        $reason = $request->input('reason');
         $approved_cash = number_format($request->input('approved_cash'), 2, ".", ",");
 
-        Mail::to($email)->send(new Assistance_approved_email($middle_name, $first_name, $last_name, $assistance_title, $approved_cash));
+        if ($request->input('status') == 'approved') {
+            Mail::to($email)->send(new Assistance_approved_email($middle_name, $first_name, $last_name, $assistance_title, $approved_cash, $barangay));
+        } else {
+            Mail::to($email)->send(new Disapproved($middle_name, $first_name, $last_name, $assistance_title, $approved_cash, $barangay, $reason));
+        }
 
         return redirect()->route('official_assistance_request', ['user_id' => $request->input('approved_by_official_id')])->with('success', 'Successfully approved request cash assistance');
     }
@@ -353,6 +424,8 @@ class Official_controller extends Controller
         ]);
     }
 
+    
+
     public function staff_complain_report($user_id)
     {
         $user = Barangay_officials::find($user_id);
@@ -407,4 +480,15 @@ class Official_controller extends Controller
             'resident_search' => $resident_search,
         ]);
     }
+
+    // public function staff_assistance($user_id)
+    // {
+    //     $user = Barangay_officials::where('id',$user_id)->first();
+    //     $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
+
+    //     return view('staff_assistance',[
+    //         'user' => $user,
+    //         'assistance' => $assistance,
+    //     ]);
+    // }
 }

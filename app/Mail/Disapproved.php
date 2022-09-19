@@ -7,23 +7,24 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class send_email_to_resident extends Mailable
+class Disapproved extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $email,$password,$first_name,$last_name,$barangay;
+    public $first_name,$middle_name,$last_name,$assistance_title,$approved_cash,$barangay,$reason;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($email,$password,$first_name,$last_name,$barangay)
+    public function __construct($first_name,$middle_name,$last_name,$assistance_title,$approved_cash,$barangay,$reason)
     {
-        $this->email = $email;
-        $this->password = $password;
         $this->first_name = $first_name;
+        $this->middle_name = $middle_name;
         $this->last_name = $last_name;
+        $this->assistance_title = $assistance_title;
+        $this->approved_cash = $approved_cash;
         $this->barangay = $barangay;
+        $this->reason = $reason;
     }
 
     /**
@@ -33,6 +34,6 @@ class send_email_to_resident extends Mailable
      */
     public function build()
     {
-        return $this->from('barangay_information@gmail.com')->markdown('send_email_to_resident');
+        return $this->markdown('disapproved');
     }
 }

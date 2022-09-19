@@ -30,12 +30,14 @@ class Resident_controller extends Controller
     {
 
         $resident = Residents::find($resident_id);
+        $assistance = Assitance::where('resident_id',$resident_id)->where('status','New Request')->get();
         $assistance_type = Assistance_type::get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('res_assistance', [
             'resident' => $resident,
             'assistance_type' => $assistance_type,
             'barangay_logo' => $barangay_logo,
+            'assistance' => $assistance,
         ]);
     }
 

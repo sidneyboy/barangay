@@ -5,5 +5,5 @@
     has been approved. Please go to our office and bring 2 valid ID.
 
     Regards,
-    Management
+    {{ $barangay }}
 @endcomponent

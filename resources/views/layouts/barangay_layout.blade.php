@@ -26,13 +26,13 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" class="sidebar-toggled">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -49,65 +49,80 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('barangay_dashboard') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Dashboard</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Officials Profile</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ url('barangay_register') }}">Register</a>
-                        <a class="collapse-item" href="{{ url('barangay_officials_profile') }}">Profiles</a>
-                        <a class="collapse-item" href="{{ url('barangay_position') }}">Position Type</a>
+           
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('barangay_dashboard') }}">
+                        <i class="bi bi-speedometer"></i>
+                        <span>Dashboard</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                        aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Officials Profile</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="{{ url('barangay_register') }}">Register</a>
+                            <a class="collapse-item" href="{{ url('barangay_officials_profile') }}">Profiles</a>
+                            <a class="collapse-item" href="{{ url('barangay_position') }}">Position Type</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseResidentPage"
-                    aria-expanded="true" aria-controls="collapseResidentPage">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Residents Profile</span>
-                </a>
-                <div id="collapseResidentPage" class="collapse" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ url('barangay_resident_register') }}">Register</a>
-                        <a class="collapse-item" href="{{ url('barangay_resident_profile') }}">Profiles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                        data-target="#collapseResidentPage" aria-expanded="true" aria-controls="collapseResidentPage">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Residents Profile</span>
+                    </a>
+                    <div id="collapseResidentPage" class="collapse" aria-labelledby="headingPages"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="{{ url('barangay_resident_register') }}">Register</a>
+                            <a class="collapse-item" href="{{ url('barangay_resident_profile') }}">Profiles</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('barangay_complain_report') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Complain Report</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
-            </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('barangay_complain_report') }}">
+                        <i class="bi bi-chat-right-text-fill"></i>
+                        <span>Complain Report</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
+                </li>
+                <!-- Nav Item - Charts -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('barangay_logo') }}">
+                        <i class="bi bi-image"></i>
+                        <span>Barangay Logo</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('barangay_document_type') }}">
+                        <i class="bi bi-card-checklist"></i>
+                        <span>Document Type</span></a>
+                </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('barangay_logo') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Barangay Logo</span></a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('barangay_document_request') }}">
+                        <i class="bi bi-envelope-paper-fill"></i>
+                        <span>Document Records</span></a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('barangay_document_type') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Document Type</span></a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('barangay_assistance_type') }}">
+                        <i class="bi bi-person-hearts"></i>
+                        <span>Assistance Type</span></a>
+                </li>
+           
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('barangay_document_request') }}">
+            {{-- <li class="nav-item">
+                <a class="nav-link" href="{{ url('#') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Document Request</span> <span class="badge badge-light">{{ $request_count }}</span></a>
-            </li>
+                    <span>Document Approval</span></a>
+            </li> --}}
+
+
+
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -164,7 +179,7 @@
                             </div>
                         </li>
 
-                        
+
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -248,7 +263,7 @@
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     <!-- Bootstrap core JavaScript-->
- 
+
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
@@ -263,6 +278,8 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+
+
 
     <script>
         $(document).ready(function() {
