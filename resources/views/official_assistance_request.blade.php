@@ -71,7 +71,7 @@
                                                             <input type="hidden" name="assistance_id"
                                                                 value="{{ $data->id }}">
 
-                                                            <input type="text" name="resident_email"
+                                                            <input type="hidden" name="resident_email"
                                                                 value="{{ $data->resident->email }}">
 
                                                             <input type="hidden" name="first_name"
