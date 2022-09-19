@@ -9,7 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
     <title>Barangay Information & Management System</title>
 </head>
 
@@ -31,7 +32,7 @@
 
                                 <div class="col-md-6">
                                     <input id="invitation_code" type="text"
-                                        class="form-control @error('invitation_code') is-invalid @enderror"
+                                        required class="form-control @error('invitation_code') is-invalid @enderror"
                                         name="invitation_code" value="{{ old('invitation_code') }}"
                                         autocomplete="invitation_code" autofocus>
 
@@ -46,14 +47,50 @@
 
                             <div class="row mb-3">
                                 <label for="name"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('First Name') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
-                                        class="form-control @error('name') is-invalid @enderror" name="name"
+                                        required class="form-control @error('name') is-invalid @enderror" name="name"
                                         value="{{ old('name') }}" autocomplete="name" autofocus>
 
                                     @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="middle_name"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Middle Name') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="middle_name" type="text"
+                                        required class="form-control @error('middle_name') is-invalid @enderror"
+                                        name="middle_name" value="{{ old('middle_name') }}"
+                                        autocomplete="middle_name" autofocus>
+
+                                    @error('middle_name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="last_name"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Last Name') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="last_name" type="text"
+                                        required class="form-control @error('last_name') is-invalid @enderror"
+                                        name="last_name" value="{{ old('last_name') }}" autocomplete="last_name"
+                                        autofocus>
+
+                                    @error('last_name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -67,7 +104,7 @@
 
                                 <div class="col-md-6">
                                     <input id="contact_number" type="text"
-                                        class="form-control @error('contact_number') is-invalid @enderror"
+                                        required class="form-control @error('contact_number') is-invalid @enderror"
                                         name="contact_number" value="{{ old('contact_number') }}"
                                         autocomplete="contact_number" autofocus>
 
@@ -85,7 +122,7 @@
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        required class="form-control @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email') }}" autocomplete="email">
 
                                     @error('email')
@@ -101,9 +138,17 @@
                                     class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        autocomplete="new-password">
+                                    <div class="input-group mb-3">
+                                        <input id="password" type="password"
+                                            required class="form-control @error('password') is-invalid @enderror"
+                                            name="password" autocomplete="new-password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" onclick="password_show_hide();">
+                                                <i class="fas fa-eye" id="show_eye"></i>
+                                                <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                                            </span>
+                                        </div>
+                                    </div>
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -118,8 +163,16 @@
                                     class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
-                                        name="password_confirmation" autocomplete="new-password">
+                                    <div class="input-group mb-3">
+                                        <input id="password-confirm" type="password" required class="form-control"
+                                            name="password_confirmation" autocomplete="new-password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" onclick="password_cofirm_show_hide();">
+                                                <i class="fas fa-eye" id="show_eye_2"></i>
+                                                <i class="fas fa-eye-slash d-none" id="hide_eye_2"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -129,7 +182,7 @@
 
                                 <div class="col-md-6">
                                     <input type="file" min="0"
-                                        class="form-control form-control-user  @error('user_image') is-invalid @enderror"
+                                        required class="form-control form-control-user  @error('user_image') is-invalid @enderror"
                                         name="user_image" value="{{ old('user_image') }}" autofocus accept="image/*"
                                         id="imgInp" />
 
@@ -149,7 +202,13 @@
                                 <div class="col-md-6 offset-md-4">
                                     {{-- <input type="hidden" name="latitude" value="{{ $latitude }}">
                                     <input type="hidden" name="longitude" value="{{ $longitude }}"> --}}
-                                    <input type="hidden" name="barangay" value="{{ $barangay }}">
+                                    <input type="hidden" name="provCode" value="{{ $provCode }}">
+                                    <input type="hidden" name="citymunCode" value="{{ $citymunCode }}">
+                                    <input type="hidden" name="regCode" value="{{ $regCode }}">
+                                    <input type="hidden" name="brgyCode" value="{{ $brgyCode }}">
+                                    <input type="hidden" name="brgyDesc" value="{{ $brgyDesc }}">
+                                    <input type="hidden" name="latitude" value="{{ $latitude }}">
+                                    <input type="hidden" name="longitude" value="{{ $longitude }}">
                                     <button type="submit" class="btn btn-success btn-sm float-right">
                                         {{ __('Register') }}
                                     </button>
@@ -176,6 +235,38 @@
     </script>
 
     <script>
+        function password_show_hide() {
+            var x = document.getElementById("password");
+            var show_eye = document.getElementById("show_eye");
+            var hide_eye = document.getElementById("hide_eye");
+            hide_eye.classList.remove("d-none");
+            if (x.type === "password") {
+                x.type = "text";
+                show_eye.style.display = "none";
+                hide_eye.style.display = "block";
+            } else {
+                x.type = "password";
+                show_eye.style.display = "block";
+                hide_eye.style.display = "none";
+            }
+        }
+
+        function password_cofirm_show_hide() {
+            var x = document.getElementById("password-confirm");
+            var show_eye_2 = document.getElementById("show_eye_2");
+            var hide_eye_2 = document.getElementById("hide_eye_2");
+            hide_eye_2.classList.remove("d-none");
+            if (x.type === "password-confirm") {
+                x.type = "text";
+                show_eye_2.style.display = "none";
+                hide_eye_2.style.display = "block";
+            } else {
+                x.type = "password-confirm";
+                show_eye_2.style.display = "block";
+                hide_eye_2.style.display = "none";
+            }
+        }
+
         imgInp.onchange = evt => {
             const [file] = imgInp.files
             if (file) {

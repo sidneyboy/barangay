@@ -43,10 +43,14 @@ class Official_controller extends Controller
         } else {
             $resident = Residents::where('email', $request->input('email'))->first();
             if ($resident) {
-                if (Hash::check($request->input('password'), $resident->password)) {
-                    return redirect()->route('resident_welcome', ['resident_id' => $resident->id]);
+                if ($resident->status == 'alive') {
+                    if (Hash::check($request->input('password'), $resident->password)) {
+                        return redirect()->route('resident_welcome', ['resident_id' => $resident->id]);
+                    } else {
+                        return redirect('/')->with('error', 'Wrong Credentials');
+                    }
                 } else {
-                    return redirect('/')->with('error', 'Wrong Credentials');
+                    return redirect('/')->with('error', 'Account Deactivated. User Dead');
                 }
             } else {
                 return redirect('/')->with('error', 'Wrong Credentials');
@@ -82,7 +86,6 @@ class Official_controller extends Controller
     {
         $new = new Assistance_type([
             'title' => $request->input('title'),
-            'description' => $request->input('description'),
             'user_id' => $request->input('user_id'),
             'barangay_id' => $request->input('barangay_id'),
         ]);

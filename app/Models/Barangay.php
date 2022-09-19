@@ -17,5 +17,9 @@ class Barangay extends Model
         'latitude',
         'longitude',
         'status',
+        'provCode',
+        'citymunCode',
+        'regCode',
+        'brgyCode',
     ];
 }

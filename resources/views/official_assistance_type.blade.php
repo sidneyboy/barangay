@@ -22,10 +22,6 @@
                             <input type="text" class="form-control" required name="title">
                         </div>
                         <div class="col-md-12">
-                            <label for="">Description:</label>
-                            <input type="text" class="form-control" required name="description">
-                        </div>
-                        <div class="col-md-12">
                             <br />
                             <input type="hidden" value="{{ $user->id }}" name="user_id">
                             <input type="hidden" value="{{ $user->barangay_id }}" name="barangay_id">
@@ -40,7 +36,6 @@
                         <thead>
                             <tr>
                                 <th>Title</th>
-                                <th>Description</th>
                                 <th>Added By</th>
                                 <th>Created At</th>
                             </tr>
@@ -49,7 +44,6 @@
                             @foreach ($type as $data)
                                 <tr>
                                     <td>{{ $data->title }}</td>
-                                    <td>{{ $data->description }}</td>
                                     <td>{{ $data->user->first_name }} {{ $data->user->last_name }}</td>
                                     <td>{{ date('F j, Y', strtotime($data->created_at)) }}</td>
                                 </tr>

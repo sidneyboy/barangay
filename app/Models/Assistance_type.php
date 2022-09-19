@@ -11,7 +11,6 @@ class Assistance_type extends Model
 
     protected $fillable = [
         'title',
-        'description',
         'user_id',
         'barangay_id',
     ];

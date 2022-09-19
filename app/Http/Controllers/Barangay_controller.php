@@ -12,6 +12,11 @@ use App\Models\Complain;
 use App\Models\Document_type;
 use App\Models\Document_request;
 use App\Models\Zone;
+use App\Models\refbrgy;
+use App\Models\refcitymun;
+use App\Models\refprovince;
+use App\Models\refregion;
+
 
 use App\Mail\send_mail_to_resident;
 use App\Mail\Approved_complains;
@@ -19,6 +24,7 @@ use App\Mail\Approved_complains_respondent;
 use App\Mail\Approved_complains_lupon;
 use App\Mail\Document_approved_request;
 use App\Mail\Document_received;
+
 
 
 
@@ -37,21 +43,60 @@ class Barangay_controller extends Controller
 
     public function barangay_admin()
     {
-        return view('welcome');
+        $reqion = refregion::get();
+        return view('welcome', [
+            'region' => $reqion,
+        ]);
+    }
+
+    public function barangay_admin_get_province(Request $request)
+    {
+        $province = refprovince::where('regCode', $request->input('regCode'))->get();
+
+        return view('barangay_admin_get_province', [
+            'province' => $province,
+        ]);
+    }
+
+    public function barangay_admin_get_municipality(Request $request)
+    {
+        $city = refcitymun::where('provCode', $request->input('provCode'))->get();
+        return view('barangay_admin_get_municipality', [
+            'city' => $city,
+        ]);
+    }
+
+    public function barangay_admin_get_barangay(Request $request)
+    {
+        $barangay_data = Barangay::select('brgyCode')->get();
+        if (count($barangay_data)) {
+            foreach ($barangay_data as $key => $data) {
+                $id[] = $data->brgyCode;
+            }
+            $barangay = refbrgy::whereNotIn('brgyCode', $id)->where('citymunCode', $request->input('citymunCode'))->get();
+        } else {
+            $barangay = refbrgy::where('citymunCode', $request->input('citymunCode'))->get();
+        }
+
+        return view('barangay_admin_get_barangay', [
+            'barangay' => $barangay,
+        ]);
     }
 
     public function proceeding(Request $request)
     {
-        $validated = $request->validate([
-            // 'longitude' => 'required',
-            // 'latitude' => 'required',
-            'barangay' => 'required',
-        ]);
+        $explode = explode('-', $request->input('brgyCode'));
+        $brgyCode = $explode[0];
+        $brgyDesc = $explode[1];
 
         return view('proceeding')
-            // ->with('longitude', $request->input('longitude'))
-            // ->with('latitude', $request->input('latitude'))
-            ->with('barangay', $request->input('barangay'));
+            ->with('latitude', $request->input('latitude'))
+            ->with('longitude', $request->input('longitude'))
+            ->with('provCode', $request->input('provCode'))
+            ->with('citymunCode', $request->input('citymunCode'))
+            ->with('regCode', $request->input('regCode'))
+            ->with('brgyCode', $brgyCode)
+            ->with('brgyDesc', $brgyDesc);
     }
 
     public function proceeding_register(Request $request)
@@ -76,9 +121,13 @@ class Barangay_controller extends Controller
         ]);
 
         $barangay = new Barangay([
-            // 'latitude' => $request->input('latitude'),
-            // 'longitude' => $request->input('longitude'),
-            'barangay' => $request->input('barangay'),
+            'provCode' => $request->input('provCode'),
+            'citymunCode' => $request->input('citymunCode'),
+            'regCode' => $request->input('regCode'),
+            'brgyCode' => $request->input('brgyCode'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude'),
+            'barangay' => $request->input('brgyDesc'),
             'status' => 'Pending Approval',
         ]);
 
@@ -91,6 +140,8 @@ class Barangay_controller extends Controller
 
         $user = new User([
             'name' => $request->input('name'),
+            'middle_name' => $request->input('middle_name'),
+            'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'contact_number' => $request->input('contact_number'),
@@ -107,28 +158,28 @@ class Barangay_controller extends Controller
     public function barangay_admin_login(Request $request)
     {
         Auth::logout();
- 
-        $request->session()->invalidate();
-     
-        $request->session()->regenerateToken();
+
+        // $request->session()->invalidate();
+
+        // $request->session()->regenerateToken();
 
         return view('barangay_admin_login');
     }
 
     public function home()
     {
-         $user = User::find(auth()->user()->id);
-         $check = Barangay::where('id',$user->barangay_id)->first();
+        $user = User::find(auth()->user()->id);
+        $check = Barangay::where('id', $user->barangay_id)->first();
         // if ($check) {
-            if ($check->status == 'Approved') {
-                return redirect('barangay_dashboard');
-            }else{
-                return redirect('barangay_admin_login')->with('error','Please wait for admin approval');
-            }
+        if ($check->status == 'Approved') {
+            return redirect('barangay_dashboard');
+        } else {
+            return redirect('barangay_admin_login')->with('error', 'Please wait for admin approval');
+        }
         // }else{
-            return redirect('barangay_admin_login')->with('error','Unknown user cannot proceed');
+        return redirect('barangay_admin_login')->with('error', 'Unknown user cannot proceed');
         // }
-        
+
         // $user = User::find(auth()->user()->id);
         // $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         // $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();

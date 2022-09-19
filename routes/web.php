@@ -197,6 +197,13 @@ Route::get('/barangay_staff_register', [App\Http\Controllers\Barangay_controller
 
 Route::post('/barangay_staff_register_process', [App\Http\Controllers\Barangay_controller::class, 'barangay_staff_register_process'])->name('barangay_staff_register_process');
 
+Route::post('/barangay_admin_get_province', [App\Http\Controllers\Barangay_controller::class, 'barangay_admin_get_province'])->name('barangay_admin_get_province');
+Route::post('/barangay_admin_get_municipality', [App\Http\Controllers\Barangay_controller::class, 'barangay_admin_get_municipality'])->name('barangay_admin_get_municipality');
+Route::post('/barangay_admin_get_barangay', [App\Http\Controllers\Barangay_controller::class, 'barangay_admin_get_barangay'])->name('barangay_admin_get_barangay');
+
+
+
+
 
 
 

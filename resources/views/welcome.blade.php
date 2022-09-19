@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -13,7 +13,7 @@
     <title>Barangay Information & Management System</title>
 </head>
 
-<body>
+<body onload="getLocation()">
     <div class="container" style="width:100%;">
         <br />
         <div class="card" style="width: 100%;">
@@ -22,7 +22,25 @@
                 <form action="{{ route('proceeding') }}" method="get">
                     <div class="row">
                         <div class="col-md-12">
-                           
+                            <div class="form-group">
+                                <label for="">Region</label>
+                                <select name="regCode" class="form-control" id="regCode" required>
+                                    <option value="" default>Select</option>
+                                    @foreach ($region as $data)
+                                        <option value="{{ $data->regCode }}">{{ $data->regDesc }}</option>
+                                    @endforeach
+                                </select>
+
+                                <div id="show_province"></div>
+                                <div id="show_city"></div>
+                                <div id="show_barangay"></div>
+
+                                <label for="">Latitude</label>
+                                <input type="text" class="form-control" id="latitude" name="latitude" required>
+
+                                <label for="">Longitude</label>
+                                <input type="text" class="form-control" id="longitude" name="longitude" required>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <br />
@@ -49,6 +67,48 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
 
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $("#regCode").change(function() {
+            var regCode = $(this).val();
+            $.post({
+                type: "POST",
+                url: "/barangay_admin_get_province",
+                data: 'regCode=' + regCode,
+                success: function(data) {
+                    console.log(data);
+                    $('#show_province').html(data);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+
+
+
+
+        // var x = document.getElementById("latitude");
+        // var y = document.getElementById("longitude");
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+
+        function showPosition(position) {
+            $('#latitude').val(position.coords.latitude);
+            $('#longitude').val(position.coords.longitude);
+        }
+    </script>
 
 </body>
 

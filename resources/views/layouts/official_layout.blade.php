@@ -94,11 +94,11 @@
                         <span>Document Archive</span></a>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>News</span></a>
-                </li>
+                </li> --}}
             @endif
 
             <!-- Divider -->

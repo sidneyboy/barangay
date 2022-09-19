@@ -20,11 +20,15 @@ class Super_user_controller extends Controller
         //return $request->input();
         $user = User::where('email', $request->input('email'))->first();
         if ($user) {
-            if (Hash::check($request->input('password'), $user->password)) {
-                return redirect()->route('super_user_dashboard', ['user_id' => $user->id]);
+            if ($user->user_type == 'barangay_super_user') {
+                if (Hash::check($request->input('password'), $user->password)) {
+                    return redirect()->route('super_user_dashboard', ['user_id' => $user->id]);
+                } else {
+                    return redirect('super_user_login')->with('error', 'Wrong Credentials');
+                    // return redirect('/')->with('error', 'Wrong Credentials');
+                }
             } else {
-                return redirect('super_user_login')->with('error', 'Wrong Credentials');
-                // return redirect('/')->with('error', 'Wrong Credentials');
+                return redirect('super_user_login')->with('error', 'You dont have permission to access this site!');
             }
         } else {
             return redirect('super_user_login')->with('error', 'Wrong Credentials');
@@ -41,9 +45,11 @@ class Super_user_controller extends Controller
         ]);
     }
 
-    public function super_user_logut()
+    public function super_user_logut(Request $request)
     {
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect('super_user_login');
     }

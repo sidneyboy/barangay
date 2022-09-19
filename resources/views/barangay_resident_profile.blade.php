@@ -195,8 +195,18 @@
                                                             class="form-control" value="{{ $data->permanent_address }}">
 
                                                         <label for="">Status:</label>
-                                                        <input type="text" required name="status"
-                                                            class="form-control" value="{{ $data->status }}">
+                                                        {{-- <input type="text" required name="status"
+                                                            class="form-control" value="{{ $data->status }}"> --}}
+
+                                                        <select name="status" class="form-control" required>
+                                                            <option value="" default>Select</option>
+                                                            <option value="{{ $data->status }}" selected>{{ $data->status }}</option>
+                                                            @if ($data->status == 'alive')
+                                                                <option value="dead">dead</option>
+                                                            @else
+                                                                <option value="alive">alive</option>
+                                                            @endif
+                                                        </select>
 
 
                                                         <label for="">Email:</label>
