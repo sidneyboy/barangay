@@ -36,6 +36,7 @@ Route::post('/official_profile_update', [App\Http\Controllers\Official_controlle
 Route::post('/official_profile_update_image', [App\Http\Controllers\Official_controller::class, 'official_profile_update_image'])->name('official_profile_update_image');
 
 Route::get('/official_logout', [App\Http\Controllers\Official_controller::class, 'official_logout'])->name('official_logout');
+Route::get('/resident_logout', [App\Http\Controllers\Official_controller::class, 'resident_logout'])->name('resident_logout');
 
 Route::get('/official_complain_report/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_complain_report'])->name('official_complain_report');
 

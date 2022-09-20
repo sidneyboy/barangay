@@ -41,7 +41,7 @@
 
                         <form method="POST" action="{{ route('official_login_process') }}">
                             @csrf
-
+                            <input type="hidden" name="barangay_staff" value="{{ $barangay_staff }}">
                             <div class="row mb-3">
                                 <label for="email"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>

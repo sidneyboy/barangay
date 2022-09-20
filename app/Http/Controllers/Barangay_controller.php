@@ -281,21 +281,10 @@ class Barangay_controller extends Controller
 
         //return $request->input();
 
-        // $validated = $request->validate([
-        //     'user_image' => 'required',
-        //     'first_name' => ['required', 'string', 'max:255'],
-        //     'middle_name' => ['required', 'string', 'max:255'],
-        //     'last_name' => ['required', 'string', 'max:255'],
-        //     'gender' => 'required|not_in:0',
-        //     'civil_status' => 'required|not_in:0',
-        //     // 'position_type_id' => 'required|not_in:0',
-        //     'birth_date' => 'required',
-        //     'office_term' => 'required',
-        //     'contact_number' => ['required', 'numeric', 'min:11'],
-        //     'spouse' => 'required',
-        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:barangay_officials'],
-        //     // 'password' => ['required', 'string', 'min:8', 'confirmed'],
-        // ]);
+        $validated = $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:barangay_officials'],
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
 
         $user_image = $request->file('user_image');
         $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();
@@ -466,20 +455,6 @@ class Barangay_controller extends Controller
     public function barangay_resident_register_process(Request $request)
     {
         $validated = $request->validate([
-            'user_image' => 'required',
-            'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'gender' => 'required|not_in:0',
-            'civil_status' => 'required|not_in:0',
-            'birth_date' => 'required',
-            'mothers_name' => 'required',
-            'fathers_name' => 'required',
-            'current_address' => 'required',
-            'voter' => 'required',
-            'permanent_address' => 'required',
-            'contact_number' => ['required', 'numeric', 'min:11'],
-            'spouse' => 'required',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:residents'],
         ]);
 
@@ -925,33 +900,97 @@ class Barangay_controller extends Controller
                 $data_complains[] = $row->total;
             }
 
-
-            return view('barangay_dashboard', [
-                'labels' => $labels,
-                'data' => $data,
-                'labels_assistance' => $labels_assistance,
-                'data_assistance' => $data_assistance,
-                'labels_complains' => $labels_complains,
-                'data_complains' => $data_complains,
-                'total_none_voter' => $total_none_voter,
-                'total_voter' => $total_voter,
-                'resident_count' => $resident_count,
-                'total_number_of_female' => $total_number_of_female,
-                'total_number_of_male' => $total_number_of_male,
-                'user' => $user,
-                'barangay_logo' => $barangay_logo,
-                'complain_count' => $complain_count,
-                'document' => $document,
-                'request_count' => $request_count,
-                'pending_count' => $pending_count,
-                'approved_count' => $approved_count,
-                'progress_count' => $progress_count,
-                'end_count' => $end_count,
-                'document_count' => $document_count,
-                'new_request_count' => $new_request_count,
-                'd_approved_count' => $d_approved_count,
-                'received_count' => $received_count,
-            ]);
+            if (count($complain_status) == 0) {
+                return view('404_no_data',[
+                    'total_none_voter' => $total_none_voter,
+                    'total_voter' => $total_voter,
+                    'resident_count' => $resident_count,
+                    'total_number_of_female' => $total_number_of_female,
+                    'total_number_of_male' => $total_number_of_male,
+                    'user' => $user,
+                    'barangay_logo' => $barangay_logo,
+                    'complain_count' => $complain_count,
+                    'document' => $document,
+                    'request_count' => $request_count,
+                    'pending_count' => $pending_count,
+                    'approved_count' => $approved_count,
+                    'progress_count' => $progress_count,
+                    'end_count' => $end_count,
+                    'document_count' => $document_count,
+                    'new_request_count' => $new_request_count,
+                    'd_approved_count' => $d_approved_count,
+                    'received_count' => $received_count,
+                ]);
+            } else if (count($assistance) == 0) {
+                return view('404_no_data',[
+                    'total_none_voter' => $total_none_voter,
+                    'total_voter' => $total_voter,
+                    'resident_count' => $resident_count,
+                    'total_number_of_female' => $total_number_of_female,
+                    'total_number_of_male' => $total_number_of_male,
+                    'user' => $user,
+                    'barangay_logo' => $barangay_logo,
+                    'complain_count' => $complain_count,
+                    'document' => $document,
+                    'request_count' => $request_count,
+                    'pending_count' => $pending_count,
+                    'approved_count' => $approved_count,
+                    'progress_count' => $progress_count,
+                    'end_count' => $end_count,
+                    'document_count' => $document_count,
+                    'new_request_count' => $new_request_count,
+                    'd_approved_count' => $d_approved_count,
+                    'received_count' => $received_count,
+                ]);
+            } else if (count($complains) == 0) {
+                return view('404_no_data',[
+                    'total_none_voter' => $total_none_voter,
+                    'total_voter' => $total_voter,
+                    'resident_count' => $resident_count,
+                    'total_number_of_female' => $total_number_of_female,
+                    'total_number_of_male' => $total_number_of_male,
+                    'user' => $user,
+                    'barangay_logo' => $barangay_logo,
+                    'complain_count' => $complain_count,
+                    'document' => $document,
+                    'request_count' => $request_count,
+                    'pending_count' => $pending_count,
+                    'approved_count' => $approved_count,
+                    'progress_count' => $progress_count,
+                    'end_count' => $end_count,
+                    'document_count' => $document_count,
+                    'new_request_count' => $new_request_count,
+                    'd_approved_count' => $d_approved_count,
+                    'received_count' => $received_count,
+                ]);
+            } else {
+                return view('barangay_dashboard', [
+                    'labels' => $labels,
+                    'data' => $data,
+                    'labels_assistance' => $labels_assistance,
+                    'data_assistance' => $data_assistance,
+                    'labels_complains' => $labels_complains,
+                    'data_complains' => $data_complains,
+                    'total_none_voter' => $total_none_voter,
+                    'total_voter' => $total_voter,
+                    'resident_count' => $resident_count,
+                    'total_number_of_female' => $total_number_of_female,
+                    'total_number_of_male' => $total_number_of_male,
+                    'user' => $user,
+                    'barangay_logo' => $barangay_logo,
+                    'complain_count' => $complain_count,
+                    'document' => $document,
+                    'request_count' => $request_count,
+                    'pending_count' => $pending_count,
+                    'approved_count' => $approved_count,
+                    'progress_count' => $progress_count,
+                    'end_count' => $end_count,
+                    'document_count' => $document_count,
+                    'new_request_count' => $new_request_count,
+                    'd_approved_count' => $d_approved_count,
+                    'received_count' => $received_count,
+                ]);
+            }
         } else {
             return redirect('barangay_document_request');
         }
@@ -1030,7 +1069,7 @@ class Barangay_controller extends Controller
 
     public function barangay_admin_staff()
     {
-        return view('barangay_admin_staff');
+        return view('barangay_admin_staff')->with('barangay_staff', 'barangay_staff');
     }
 
     public function barangay_assistance_type()

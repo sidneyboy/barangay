@@ -207,7 +207,7 @@
                         <div class="form-group">
                             <label for="password">{{ __('Password:') }}</label>
                             <input id="password" type="password"
-                                required class="form-control @error('password') is-invalid @enderror" name="password"
+                                 class="form-control @error('password') is-invalid @enderror" name="password"
                                 value="{{ old('password') }}" autocomplete="password" autofocus>
 
                             @error('password')
@@ -221,7 +221,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="password-confirm">{{ __('Confirm_password:') }}</label>
-                            <input id="password-confirm" type="password" required class="form-control"
+                            <input id="password-confirm" type="password"  class="form-control"
                                 name="password_confirmation" autocomplete="new-password">
 
                             @error('password-confirm')

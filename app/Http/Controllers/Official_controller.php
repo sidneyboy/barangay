@@ -31,20 +31,23 @@ class Official_controller extends Controller
 {
     public function official_login_process(Request $request)
     {
+
         $user = Barangay_officials::where('email', $request->input('email'))->first();
+        $barangay_staff = $request->input('barangay_staff');
+
 
         if ($user) {
             if ($user->position->title != 'Staff') {
                 if (Hash::check($request->input('password'), $user->password)) {
                     return redirect()->route('official_welcome', ['user_id' => $user->id]);
                 } else {
-                    return redirect('/')->with('error', 'Wrong Credentials');
+                    return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
                 }
             } elseif ($user->position->title == 'Staff') {
                 if (Hash::check($request->input('password'), $user->password)) {
                     return redirect()->route('staff_welcome', ['user_id' => $user->id]);
                 } else {
-                    return redirect('/')->with('error', 'Wrong Credentials');
+                    return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
                 }
             }
         } else {
@@ -60,7 +63,11 @@ class Official_controller extends Controller
                     return redirect('/')->with('error', 'Account Deactivated. User Dead');
                 }
             } else {
-                return redirect('/')->with('error', 'Wrong Credentials');
+                if (isset($barangay_staff)) {
+                    return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
+                } else {
+                    return redirect('/')->with('error', 'Wrong Credentials');
+                }
             }
         }
     }
@@ -208,6 +215,11 @@ class Official_controller extends Controller
 
     public function official_logout()
     {
+        return redirect('barangay_admin_staff');
+    }
+
+    public function resident_logout()
+    {
         return redirect('/');
     }
 
@@ -229,7 +241,7 @@ class Official_controller extends Controller
 
     public function staff_document_request_approved($document_request_id, $document_id, $resident_id, $user_id)
     {
-       // return $user_id;
+        // return $user_id;
         $resident = Residents::find($resident_id);
         $document = Document_type::find($document_id);
 
@@ -252,10 +264,10 @@ class Official_controller extends Controller
                 'time_approved' => $date_time,
             ]);
 
-        return redirect()->route('staff_document_request',['user_id' => $user_id])->with('success', 'Approved Request');
+        return redirect()->route('staff_document_request', ['user_id' => $user_id])->with('success', 'Approved Request');
     }
 
-    public function staff_document_request_received($document_request_id, $document_id, $resident_id,$user_id)
+    public function staff_document_request_received($document_request_id, $document_id, $resident_id, $user_id)
     {
         $resident = Residents::find($resident_id);
         $document = Document_type::find($document_id);
@@ -278,7 +290,7 @@ class Official_controller extends Controller
                 'time_received' => $date_time,
             ]);
 
-        return redirect()->route('staff_document_request',['user_id' => $user_id])->with('success', 'Document Received Successfully');
+        return redirect()->route('staff_document_request', ['user_id' => $user_id])->with('success', 'Document Received Successfully');
     }
 
     public function official_assistance_approved(Request $request)
@@ -424,7 +436,7 @@ class Official_controller extends Controller
         ]);
     }
 
-    
+
 
     public function staff_complain_report($user_id)
     {
