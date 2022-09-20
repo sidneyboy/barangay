@@ -9,15 +9,40 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
     <title>Barangay Information & Management System</title>
 </head>
 
-<body>
+<body style="background-image: url({{ asset('/storage/modern-building-office-blue-sky-background_35761-198.jpg') }});-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;">
+    <br />
+    <div class="container">
+        {{-- <center>
+            <img src="{{ asset('/storage/barangay_logo.jpeg') }}"
+                style="width:60px;
+            float: left; 
+            margin-left: 30px;border:0px;" alt="">
+            <div style="font-size: 20px;color:black">Barangay Information Management System</div>
+        </center> --}}
+        <div class="row">
+            <div class="col-md-5">
+                <img src="{{ asset('/storage/barangay_logo.jpeg') }}" style="width:60px;margin-left:410px;"
+                    class="img img-thumbnail">
+            </div>
+            <div class="col-md-7">
+                <div style="font-size: 20px;color:black" class="float-left">Barangay Information<br /> Management System
+                </div>
+            </div>
+        </div>
+    </div>
     <br />
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 @if (session('success'))
                     <div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
@@ -34,74 +59,51 @@
                         </button>
                     </div>
                 @endif
-                <div class="card">
-                    <div class="card-header">{{ __('Staff/Officials Credentials') }}</div>
-
+                <div class="card" style="border-radius: 30px;">
                     <div class="card-body">
-
                         <form method="POST" action="{{ route('official_login_process') }}">
                             @csrf
-                            <input type="hidden" name="barangay_staff" value="{{ $barangay_staff }}">
-                            <div class="row mb-3">
-                                <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                            <center>
+                                <h3>
+                                    Login
+                                </h3>
+                            </center>
+                            <label for="">Email</label>
+                            <div class="input-group mb-3">
+                                <input id="email" type="email"
+                                    class="form-control @error('email') is-invalid @enderror" name="email"
+                                    value="{{ old('email') }}" required autocomplete="email" autofocus
+                                    aria-label="Username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2"
+                                        style="background-color:transparent;"><i
+                                            class="bi bi-person-check-fill"></i></span>
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="current-password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                            <label>Password</label>
+                            <div class="input-group mb-3">
+                                <input id="password" type="password" required
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    autocomplete="new-password">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" style="background-color: transparent"
+                                        onclick="password_show_hide();">
+                                        <i class="fas fa-eye" id="show_eye"></i>
+                                        <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                                    </span>
                                 </div>
                             </div>
 
-                            {{-- <div class="row mb-3">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                            {{ old('remember') ? 'checked' : '' }}>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
 
-                                        <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div> --}}
-
-                            <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-success btn-sm">
-                                        {{ __('Login') }}
-                                    </button>
-
-                                    {{-- @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                    @endif --}}
-                                </div>
-                            </div>
+                            <button type="submit" class="btn btn-success btn-block btn-sm">
+                                {{ __('Login') }}
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -123,6 +125,29 @@
     </script>
 
     <script>
+        function password_show_hide() {
+            var x = document.getElementById("password");
+            var show_eye = document.getElementById("show_eye");
+            var hide_eye = document.getElementById("hide_eye");
+            hide_eye.classList.remove("d-none");
+            if (x.type === "password") {
+                x.type = "text";
+                show_eye.style.display = "none";
+                hide_eye.style.display = "block";
+            } else {
+                x.type = "password";
+                show_eye.style.display = "block";
+                hide_eye.style.display = "none";
+            }
+        }
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                blah.src = URL.createObjectURL(file)
+            }
+        }
+
+
         imgInp.onchange = evt => {
             const [file] = imgInp.files
             if (file) {

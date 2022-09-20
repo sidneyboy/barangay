@@ -341,6 +341,24 @@
                         </table>
                     </div>
                 </div>
+                <div class="card-footer">
+                    <form action="{{ route('complain_report_print') }}" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-4">
+                                From: <input type="date" class="form-control" required name="date_from">
+                            </div>
+                            <div class="col-md-4">
+                                To: <input type="date" class="form-control" required name="date_to">
+                            </div>
+                            <div class="col-md-4">
+                                <br />
+                                <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                <button type="submit" class="btn btn-primary">Print Report</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     @endsection

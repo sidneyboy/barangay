@@ -59,7 +59,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('res_assistance_request', $resident->id) }}">
                     <i class="bi bi-person-lines-fill"></i>
-                    <span>Assistance Request</span></a>
+                    <span>Assistance Record</span></a>
             </li>
 
             <li class="nav-item">
@@ -71,13 +71,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('resident_complain_request', $resident->id) }}">
                     <i class="bi bi-chat-right-text-fill"></i>
-                    <span>Complain Request</span></a>
+                    <span>Complain Record</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('resident_document_request', $resident->id) }}">
                     <i class="bi bi-envelope-paper-fill"></i>
-                    <span>Document Request</span></a>
+                    <span>Document Record</span></a>
             </li>
 
             <!-- Divider -->

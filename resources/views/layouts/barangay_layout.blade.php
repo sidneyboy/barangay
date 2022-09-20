@@ -87,7 +87,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('barangay_complain_report') }}">
                         <i class="bi bi-chat-right-text-fill"></i>
-                        <span>Complain Report</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
+                        <span>Complain Record</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
                 </li>
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">
@@ -111,6 +111,12 @@
                     <a class="nav-link" href="{{ url('barangay_assistance_type') }}">
                         <i class="bi bi-person-hearts"></i>
                         <span>Assistance Type</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('barangay_assistance_record') }}">
+                        <i class="bi bi-envelope-paper-fill"></i>
+                        <span>Assistance Record</span></a>
                 </li>
            
 
@@ -185,13 +191,17 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $user->name }}</span>
-                                <img class="img-profile rounded-circle"
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $user->name }}</span><span class="badge badge-secondary">{{ $message_count }}</span> &nbsp;&nbsp;
+                                &nbsp;                                <img class="img-profile rounded-circle"
                                     src="{{ asset('/storage/' . $user->user_image) }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ url('barangay_message/') }}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Message
+                                </a>
                                 <a class="dropdown-item" href="{{ url('barangay_profile/') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile

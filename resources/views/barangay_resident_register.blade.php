@@ -102,6 +102,9 @@
                                     <option value="" default>Select</option>
                                     <option value="Single">Single</option>
                                     <option value="Married">Married</option>
+                                    <option value="Widow">Widow</option>
+                                    <option value="Divorced">Divorced</option>
+                                    
                                 </select>
 
                                 @error('civil_status')

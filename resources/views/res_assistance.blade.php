@@ -35,7 +35,7 @@
                                     </span>
                                 @enderror
 
-                                <label for="explanation">{{ __('Explanation') }}</label>
+                                <label for="explanation">{{ __('Reason') }}</label>
                                 <textarea id="explanation" type="explanation" class="form-control @error('explanation') is-invalid @enderror"
                                     name="explanation" value="{{ old('explanation') }}" autocomplete="explanation" autofocus>
                                       </textarea>

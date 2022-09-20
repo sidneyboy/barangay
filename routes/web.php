@@ -216,6 +216,14 @@ Route::get('/barangay_assistance_type', [App\Http\Controllers\Barangay_controlle
 Route::post('/barangay_assistance_type_process', [App\Http\Controllers\Barangay_controller::class, 'barangay_assistance_type_process'])->name('barangay_assistance_type_process');
 Route::post('/assistance_type_update', [App\Http\Controllers\Barangay_controller::class, 'assistance_type_update'])->name('assistance_type_update');
 Route::get('/barangay_document_request_list', [App\Http\Controllers\Barangay_controller::class, 'barangay_document_request_list'])->name('barangay_document_request_list');
+Route::get('/barangay_message', [App\Http\Controllers\Barangay_controller::class, 'barangay_message'])->name('barangay_message');
+Route::post('/complain_report_print', [App\Http\Controllers\Barangay_controller::class, 'complain_report_print'])->name('complain_report_print');
+Route::post('/document_report_print', [App\Http\Controllers\Barangay_controller::class, 'document_report_print'])->name('document_report_print');
+Route::get('/barangay_assistance_record', [App\Http\Controllers\Barangay_controller::class, 'barangay_assistance_record'])->name('barangay_assistance_record');
+Route::post('/assistance_report_print', [App\Http\Controllers\Barangay_controller::class, 'assistance_report_print'])->name('assistance_report_print');
+
+
+
 
 
 
@@ -253,6 +261,8 @@ Route::post('/super_user_login_process', [App\Http\Controllers\Super_user_contro
 Route::get('/super_user_dashboard/{user_id}', [App\Http\Controllers\Super_user_controller::class, 'super_user_dashboard'])->name('super_user_dashboard');
 Route::get('/super_user_logut', [App\Http\Controllers\Super_user_controller::class, 'super_user_logut'])->name('super_user_logut');
 Route::get('/status_approval/{user_id}/{status}/{barangay_id}', [App\Http\Controllers\Super_user_controller::class, 'status_approval'])->name('status_approval');
+
+Route::post('/super_user_message_barangay', [App\Http\Controllers\Super_user_controller::class, 'super_user_message_barangay'])->name('super_user_message_barangay');
 
 
 

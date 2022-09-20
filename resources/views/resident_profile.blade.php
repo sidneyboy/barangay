@@ -21,22 +21,22 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label for="">First Name:</label>
-                                    <input type="text" required name="first_name" class="form-control"
+                                    <input type="text" required disabled name="first_name" class="form-control"
                                         value="{{ $resident->first_name }}">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">Middle Name:</label>
-                                    <input type="text" required name="middle_name" class="form-control"
+                                    <input type="text" required disabled name="middle_name" class="form-control"
                                         value="{{ $resident->middle_name }}">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">Last Name:</label>
-                                    <input type="text" required name="last_name" class="form-control"
+                                    <input type="text" required disabled name="last_name" class="form-control"
                                         value="{{ $resident->last_name }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="">Gender:</label>
-                                    <select name="gender" class="form-control" required>
+                                    <select name="gender" class="form-control" required disabled>
                                         <option value="{{ $resident->gender }}">{{ $resident->gender }}
                                             Current</option>
                                         @if ($resident->gender == 'Male')
@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="">Civil Status:</label>
-                                    <select name="civil_status" class="form-control" required>
+                                    <select name="civil_status" class="form-control" required disabled>
                                         <option value="{{ $resident->civil_status }}">
                                             {{ $resident->civil_status }}
                                             Current</option>
@@ -65,17 +65,17 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">Birth Date:</label>
-                                    <input type="text" required name="birth_date" class="form-control"
+                                    <input type="text" required disabled name="birth_date" class="form-control"
                                         value="{{ $resident->birth_date }}">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">Contact Number:</label>
-                                    <input type="text" required name="contact_number" class="form-control"
+                                    <input type="text" required disabled name="contact_number" class="form-control"
                                         value="{{ $resident->contact_number }}">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">Email:</label>
-                                    <input type="text" required name="email" id="email"
+                                    <input type="text" required disabled name="email" id="email"
                                         class="form-control @error('email') is-invalid @enderror"
                                         value="{{ $resident->email }}">
 
@@ -87,12 +87,12 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label for="">Spouse:</label>
-                                    <input type="text" required name="spouse" class="form-control"
+                                    <input type="text" required disabled name="spouse" class="form-control"
                                         value="{{ $resident->spouse }}">
 
                                     <input type="hidden" value="{{ $resident->id }}" name="resident_id">
                                 </div>
-                                <div class="col-md-4">
+                                {{-- <div class="col-md-4">
                                     <label for="password">{{ __('New Password') }}</label>
 
                                     <input id="password" type="password"
@@ -111,12 +111,12 @@
                                     <input id="password-confirm" type="password" class="form-control"
                                         name="password_confirmation" required autocomplete="new-password">
 
-                                </div>
-                                <div class="col-md-12">
+                                </div> --}}
+                                {{-- <div class="col-md-12">
                                     <br />
                                     
                                     <button class="btn btn-success btn-sm float-right">Update Profile</button>
-                                </div>
+                                </div> --}}
                             </div>
                         </form>
                     </div>
