@@ -53,6 +53,15 @@ class Resident_controller extends Controller
             'explanation' => 'required',
         ]);
 
+
+        $check = Assitance::where('barangay_id',$request->input('barangay_id'))->latest()->first();
+
+        if ($check) {
+            $assistance_number = $check->assistance_number + 1;
+        }else{
+            $assistance_number = 1;
+        }
+
         $assistance = new Assitance([
             'assistance_type_id' => $request->input('assistance_type_id'),
             'resident_id' => $request->input('resident_id'),
@@ -60,6 +69,7 @@ class Resident_controller extends Controller
             'explanation' => $request->input('explanation'),
             'status' => 'New Request',
             'image' => $image_name,
+            'assistance_number' => $assistance_number,
         ]);
 
         $assistance->save();
@@ -70,7 +80,7 @@ class Resident_controller extends Controller
     public function res_assistance_request($resident_id)
     {
         $resident = Residents::find($resident_id);
-        $assistance = Assitance::orderBy('id', 'desc')->get();
+        $assistance = Assitance::orderBy('id', 'desc')->where('barangay_id',$resident->barangay_id)->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('res_assistance_request', [
             'resident' => $resident,
@@ -82,7 +92,7 @@ class Resident_controller extends Controller
     public function resident_profile($resident_id)
     {
         $resident = Residents::find($resident_id);
-        $assistance = Assitance::orderBy('id', 'desc')->get();
+        $assistance = Assitance::orderBy('id', 'desc')->where('barangay_id',$resident->barangay_id)->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('resident_profile', [
             'resident' => $resident,
@@ -137,7 +147,7 @@ class Resident_controller extends Controller
     public function resident_complain($resident_id)
     {
         $resident = Residents::find($resident_id);
-        $assistance = Assitance::orderBy('id', 'desc')->get();
+        $assistance = Assitance::orderBy('id', 'desc')->where('barangay_id',$resident->barangay_id)->get();
         $respondent = Residents::where('id', '!=', $resident_id)->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();
         return view('resident_complain', [
@@ -167,7 +177,7 @@ class Resident_controller extends Controller
     public function resident_complain_request($resident_id)
     {
         $resident = Residents::find($resident_id);
-        $assistance = Assitance::orderBy('id', 'desc')->get();
+        $assistance = Assitance::orderBy('id', 'desc')->where('barangay_id',$resident->barangay_id)->get();
         $complain = Complain::where('complainant_id',$resident_id)->orderBy('id', 'desc')->get();
         $respondent = Complain::where('respondent_id',$resident_id)->orderBy('id', 'desc')->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $resident->barangay_id)->first();

@@ -443,7 +443,7 @@ class Official_controller extends Controller
         $user = Barangay_officials::find($user_id);
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
-        $complain = Complain::orderBy('id', 'desc')->get();
+        $complain = Complain::orderBy('id', 'desc')->where('barangay_id',$user->barangay_id)->get();
         $lupon = Barangay_officials::where('barangay_id', $user->barangay_id)->get();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
 

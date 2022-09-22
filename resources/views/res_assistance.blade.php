@@ -37,8 +37,7 @@
 
                                 <label for="explanation">{{ __('Reason') }}</label>
                                 <textarea id="explanation" type="explanation" class="form-control @error('explanation') is-invalid @enderror"
-                                    name="explanation" value="{{ old('explanation') }}" autocomplete="explanation" autofocus>
-                                      </textarea>
+                                    name="explanation" value="{{ old('explanation') }}" autocomplete="explanation" autofocus></textarea>
 
                                 @error('explanation')
                                     <span class="invalid-feedback" role="alert">

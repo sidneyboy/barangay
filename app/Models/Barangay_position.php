@@ -13,6 +13,7 @@ class Barangay_position extends Model
         'title',
         'description',
         'status',
+        'barangay_id',
     ];
 
     public function barangay()

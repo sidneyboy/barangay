@@ -20,7 +20,7 @@
                             <h6 class="card-header">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        Request No: {{ $data->id }}
+                                        Request No: {{ $data->assistance_number }}
                                     </div>
                                     <div class="col-md-4">
                                         Approved Amount: {{ $data->approved_cash }}
@@ -33,10 +33,10 @@
                                 </div>
                             </h6>
                             <div class="card-body">
-                                <b>Assitance Type:</b> {{ $data->assistance->title }}<br />
-                                <b> Brief Explanation:</b> {{ $data->explanation }}
+                                <b>Assistance Type:</b> {{ $data->assistance->title }}<br />
+                                <b>Purpose:</b> {{ $data->explanation }}
                                 <br /><br />
-                                <img src="{{ asset('/storage/'. $data->image) }}" class="img img-thumbnail" alt="">
+                                <img src="{{ asset('/storage/' . $data->image) }}" class="img img-thumbnail" alt="">
                             </div>
                             <div class="card-footer">
                                 <span class="float-right">

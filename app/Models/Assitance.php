@@ -20,6 +20,7 @@ class Assitance extends Model
         'approved_date',
         'image',
         'reason',
+        'assistance_number',
     ];
 
     public function barangay()

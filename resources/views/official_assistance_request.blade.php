@@ -17,7 +17,7 @@
                     <h6 class="card-header">
                         <div class="row">
                             <div class="col-md-4">
-                                Request No: {{ $data->id }}
+                                Request No: {{ $data->assistance_number }}
                             </div>
                             <div class="col-md-4">
                                 Approved Amount: {{ number_format($data->approved_cash, 2, '.', ',') }}

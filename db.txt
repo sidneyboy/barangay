@@ -1,12 +1,4 @@
-
-e null ang password sa barangay_officials and residents
-
-
-
-
-
-
-
+barangay-position add barangay_id
 
 
 
