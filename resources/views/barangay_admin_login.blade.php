@@ -62,6 +62,7 @@ background-size: cover;">
                 <div class="card" style="border-radius: 30px;">
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
+                            @csrf
                             <center>
                                 <h3>
                                     Login

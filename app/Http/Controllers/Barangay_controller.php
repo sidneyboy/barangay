@@ -896,6 +896,7 @@ class Barangay_controller extends Controller
 
             $complain_status = DB::table('document_requests')
                 ->select('status', DB::raw('count(*) as total'))
+                ->where('barangay_id',$user->barangay_id)
                 ->groupBy('status')
                 ->get()
                 ->toArray();
@@ -907,6 +908,7 @@ class Barangay_controller extends Controller
 
             $assistance = DB::table('assitances')
                 ->select('status', DB::raw('count(*) as total'))
+                ->where('barangay_id',$user->barangay_id)
                 ->groupBy('status')
                 ->get()
                 ->toArray();
@@ -918,6 +920,7 @@ class Barangay_controller extends Controller
 
             $complains = DB::table('complains')
                 ->select('status', DB::raw('count(*) as total'))
+                ->where('barangay_id',$user->barangay_id)
                 ->groupBy('status')
                 ->get()
                 ->toArray();
