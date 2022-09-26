@@ -178,13 +178,13 @@
                     </center>
                     <br />
                     Online transactions are made easier by providing each resident a credentials that will be use to log
-                    in. <br /><br />
+                    in. <br />
                     ​
-                    <li>*Make sure that you are registered to your barangay</li>
-                    <li>*Use active email address</li>
-                    <li>*Check email to know your credentials</li>
-                    <li>*Use your account gently</li>
-                    <li>*If you forget your password, check email.</li>
+                    <li>Make sure that you are registered to your barangay</li>
+                    <li>Use active email address</li>
+                    <li>Check email to know your credentials</li>
+                    <li>Use your account gently</li>
+                    <li>If you forget your password, check email.</li>
                 </div>
             </div>
         </div>

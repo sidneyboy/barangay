@@ -17,5 +17,5 @@
     Thankyou.
 
     Regards,
-    Company Name
+    CAMSTECH
 @endcomponent

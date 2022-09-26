@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {return view('official_login');});
+Route::get('/', function () {return view('background');});
+Route::get('/official_login', function () {return view('official_login');});
+
+// official_login
 Route::post('/official_login_process', [App\Http\Controllers\Official_controller::class, 'official_login_process'])->name('official_login_process');
 
 Route::get('/official_welcome/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_welcome'])->name('official_welcome');

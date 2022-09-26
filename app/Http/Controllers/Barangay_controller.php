@@ -596,7 +596,7 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $complain = Complain::orderBy('id', 'desc')->where('barangay_id', $user->barangay_id)->get();
-        $lupon = Barangay_officials::where('barangay_id', $user->barangay_id)->get();
+        $lupon = Barangay_officials::where('barangay_id', $user->barangay_id)->where('position_type_id','!=',1)->get();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
 
@@ -629,14 +629,14 @@ class Barangay_controller extends Controller
         $complainant_email = $request->input('complainant_email');
         $respondent_email = $request->input('respondent_email');
         $hearing_date = $request->input('hearing_date');
-        $time = $request->input('time');
+        $hearing_time = $request->input('time');
         $barangay = $request->input('barangay');
 
-        if ($time == 'Morning') {
-            $hearing_time = '9:00am';
-        } else {
-            $hearing_time = '1:30pm';
-        }
+        // if ($time == 'Morning') {
+        //     $hearing_time = $time;
+        // } else {
+        //     $hearing_time = $time;
+        // }
 
 
 

@@ -13,10 +13,35 @@
     <title>Barangay Information & Management System</title>
 </head>
 
-<body onload="getLocation()">
-    <div class="container" style="width:100%;">
+<body onload="getLocation()"
+    style="background-image: url({{ asset('/storage/modern-building-office-blue-sky-background_35761-198.jpg') }});-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;">
+    <br />
+    <div class="container">
+        {{-- <center>
+        <img src="{{ asset('/storage/barangay_logo.jpeg') }}"
+            style="width:60px;
+        float: left; 
+        margin-left: 30px;border:0px;" alt="">
+        <div style="font-size: 20px;color:black">Barangay Information Management System</div>
+    </center> --}}
+        <div class="row">
+            <div class="col-md-5">
+                <img src="{{ asset('/storage/barangay_logo.jpeg') }}" style="width:60px;margin-left:410px;"
+                    class="img img-thumbnail">
+            </div>
+            <div class="col-md-7">
+                <div style="font-size: 20px;color:black" class="float-left">
+                    Barangay Information<br /> Management System
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- <div class="container" style="width:100%;">
         <br />
-        <div class="card" style="width: 100%;">
+        <div class="card" style="width: 100%;border-radius: 30px;">
             <h6 class="card-header">Barangay Info & Management System Portal</h6>
             <div class="card-body">
                 <form action="{{ route('proceeding') }}" method="get">
@@ -49,6 +74,56 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div> --}}
+
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <br />
+            <div class="card" style="width: 100%;border-radius: 30px;">
+                <h6 class="card-header">
+                    {{-- <center style="font-weight:bold;">Barangay Info & Management System Portal</center> --}}
+                    <ul style="list-style-type: none;">
+                        <li><center>This site is only for authorized barangay personnel.</center></li>
+                        <li><center>Welcome to the system, you may now register your barangay.</center></li>
+                        <li>Remember that you only register your barangay once for security
+                            purposes.</li>
+                    </ul>
+                </h6>
+                <div class="card-body">
+                    <form action="{{ route('proceeding') }}" method="get">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">Region</label>
+                                    <select name="regCode" class="form-control" id="regCode" required>
+                                        <option value="" default>Select</option>
+                                        @foreach ($region as $data)
+                                            <option value="{{ $data->regCode }}">{{ $data->regDesc }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <div id="show_province"></div>
+                                    <div id="show_city"></div>
+                                    <div id="show_barangay"></div>
+
+                                    <label for="">Latitude</label>
+                                    <input type="text" class="form-control" id="latitude" name="latitude" required>
+
+                                    <label for="">Longitude</label>
+                                    <input type="text" class="form-control" id="longitude" name="longitude" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <br />
+                                <button type="submit"
+                                    class="btn btn-submit btn-success btn-sm float-right">Proceed</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

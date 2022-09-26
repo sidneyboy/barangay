@@ -167,12 +167,13 @@
                                                                             name="hearing_date" required>
 
                                                                         <label>Time</label>
-                                                                        <select name="time" class="form-control"
+                                                                        <input type="time" name="time" class="form-control" required>
+                                                                        {{-- <select name="time" class="form-control"
                                                                             required>
                                                                             <option value="" default>Select</option>
                                                                             <option value="Morning">Morning</option>
                                                                             <option value="Afternoon">Afternoon</option>
-                                                                        </select>
+                                                                        </select> --}}
 
                                                                         <label for="">Lupon</label>
                                                                         <select name="lupon_id" required
