@@ -19,6 +19,27 @@ Route::get('/official_login', function () {return view('official_login');});
 // official_login
 Route::post('/official_login_process', [App\Http\Controllers\Official_controller::class, 'official_login_process'])->name('official_login_process');
 
+
+
+
+Route::get('/finance_welcome/{user_id}', [App\Http\Controllers\Official_controller::class, 'finance_welcome'])->name('finance_welcome');
+
+Route::get('/chairman_welcome/{user_id}', [App\Http\Controllers\Official_controller::class, 'chairman_welcome'])->name('chairman_welcome');
+
+
+
+// Route::get('/finance_document_request_received_payment/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_welcome'])->name('official_welcome');
+
+
+Route::get('/finance_document_request_received_payment/{document_request_id}/{document_id}/{resident_id}/{user_id}', [App\Http\Controllers\Official_controller::class, 'finance_document_request_received_payment'])->name('finance_document_request_received_payment');
+
+
+
+
+
+
+
+
 Route::get('/official_welcome/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_welcome'])->name('official_welcome');
 
 Route::get('/official_assistance_type/{user_id}', [App\Http\Controllers\Official_controller::class, 'official_assistance_type'])->name('official_assistance_type');
@@ -266,6 +287,11 @@ Route::get('/super_user_logut', [App\Http\Controllers\Super_user_controller::cla
 Route::get('/status_approval/{user_id}/{status}/{barangay_id}', [App\Http\Controllers\Super_user_controller::class, 'status_approval'])->name('status_approval');
 
 Route::post('/super_user_message_barangay', [App\Http\Controllers\Super_user_controller::class, 'super_user_message_barangay'])->name('super_user_message_barangay');
+
+Route::get('/super_user_registration/{user_id}', [App\Http\Controllers\Super_user_controller::class, 'super_user_registration'])->name('super_user_registration');
+Route::post('/super_user_registration_process/', [App\Http\Controllers\Super_user_controller::class, 'super_user_registration_process'])->name('super_user_registration_process');
+
+
 
 
 

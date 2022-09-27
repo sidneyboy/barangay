@@ -29,7 +29,7 @@
     </div>
     <br />
 
-    <div class="container">
+    {{-- <div class="container">
         <ul class="nav justify-content-center">
             <li class="nav-item" style="background-color:#62929E;margin-left:20px;border-radius:20px;">
                 <a style="color:white" class="nav-link active" href="#login">Login</a>
@@ -41,7 +41,7 @@
                 <a style="color:white" class="nav-link" href="#reminder">Reminder</a>
             </li>
         </ul>
-    </div>
+    </div> --}}
     <br />
 
     <div class="container" id="login">
@@ -142,7 +142,7 @@
         </div>
     </div>
     <br />
-    <div id="services" class="container">
+    {{-- <div id="services" class="container">
         <div class="card" style="border-radius: 30px;">
             <div class="card-body">
                 <center>
@@ -188,7 +188,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     {{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

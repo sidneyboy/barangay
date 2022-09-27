@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Barangay;
 use App\Models\Barangay_message;
 use App\Models\User;
+use App\Models\User_logs;
 
 use App\Mail\Message_barangay_mail;
+
+
+
+
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -90,5 +95,36 @@ class Super_user_controller extends Controller
         Mail::to($barangay->email)->send(new Message_barangay_mail($barangay_name,$message));
 
         return redirect()->route('super_user_dashboard', ['user_id' => $request->input('user_id')])->with('success', 'Message successfully sent');
+    }
+
+    public function super_user_registration($user_id)
+    {
+        $user = User::find($user_id);
+        return view('super_user_registration',[
+            'user' => $user,
+        ]);
+    }
+
+    public function super_user_registration_process(Request $request)
+    {
+        $new = new User([
+            'name' => $request->input('name'),
+            'middle_name' => $request->input('middle_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'user_type' => 'barangay_super_user',
+        ]);
+
+        $new->save();
+
+        $new_logs = new User_logs([
+            'user_id' => $request->input('user_id'),
+            'content' => 'Registered new user '. $request->input('name') ." ". $request->input('middle_name') ." ". $request->input('last_name'),
+        ]);
+
+        $new_logs->save();
+
+        return redirect()->route('super_user_registration', ['user_id' => $request->input('user_id')])->with('success', 'Registered successfully');
     }
 }

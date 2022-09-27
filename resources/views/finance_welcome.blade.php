@@ -42,9 +42,9 @@
                                 <td>{{ $data->reason }}</td>
                                 <td>{{ $data->document->document_name }}</td>
                                 <td><a href="{{ asset('/storage/' . $data->document->file) }}"
-                                    download>{{ $data->document->file }}</td>
+                                        download>{{ $data->document->file }}</td>
                                 <td>{{ number_format($data->document->amount, 2, '.', ',') }}</td>
-                               
+
                                 </td>
                                 <td>{{ $data->status }}</td>
                                 <td>
@@ -59,7 +59,7 @@
                                 </td>
 
                                 <td>
-                                    @if ($data->status == 'New Request')
+                                    {{-- @if ($data->status == 'New Request')
                                         <a style="width:100px;"
                                             href="{{ url('staff_document_request_approved', [
                                                 'document_request_id' => $data->id,
@@ -68,8 +68,29 @@
                                                 'user_id' => $user->id,
                                             ]) }}"
                                             class="btn btn-sm btn-primary btn-block">Approved ?</a>
+                                    @elseif ($data->status == 'Approved')
+                                        <a style="width:100px;"
+                                            href="{{ url('staff_document_request_received', [
+                                                'document_request_id' => $data->id,
+                                                'document_id' => $data->document_type_id,
+                                                'resident_id' => $data->resident_id,
+                                                'user_id' => $user->id,
+                                            ]) }}"
+                                            class="btn btn-sm btn-primary btn-block">Received ?</a>
                                     @else
-                                        <button type="button" class="btn btn-success btn-sm" disabled>Ready for Payment at Finance</button>
+                                        <button type="button" class="btn btn-success btn-sm" disabled>Received</button>
+                                    @endif --}}
+                                    @if ($data->status == 'Approved')
+                                        <a style="width:100px;"
+                                            href="{{ url('staff_document_request_received', [
+                                                'document_request_id' => $data->id,
+                                                'document_id' => $data->document_type_id,
+                                                'resident_id' => $data->resident_id,
+                                                'user_id' => $user->id,
+                                            ]) }}"
+                                            class="btn btn-sm btn-primary btn-block">Paid</a>
+                                    @elseif($data->status == 'Received')
+                                        <button type="button" class="btn btn-success btn-sm" disabled>Paid</button>
                                     @endif
                                 </td>
                             </tr>

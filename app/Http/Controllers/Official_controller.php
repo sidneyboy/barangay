@@ -35,9 +35,9 @@ class Official_controller extends Controller
         $user = Barangay_officials::where('email', $request->input('email'))->first();
         $barangay_staff = $request->input('barangay_staff');
 
-
+        //return $request->input();
         if ($user) {
-            if ($user->position->title != 'Staff') {
+            if ($user->position->title == 'Lupon') {
                 if (Hash::check($request->input('password'), $user->password)) {
                     return redirect()->route('official_welcome', ['user_id' => $user->id]);
                 } else {
@@ -46,6 +46,18 @@ class Official_controller extends Controller
             } elseif ($user->position->title == 'Staff') {
                 if (Hash::check($request->input('password'), $user->password)) {
                     return redirect()->route('staff_welcome', ['user_id' => $user->id]);
+                } else {
+                    return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
+                }
+            } else if ($user->position->title == 'finance') {
+                if (Hash::check($request->input('password'), $user->password)) {
+                    return redirect()->route('finance_welcome', ['user_id' => $user->id]);
+                } else {
+                    return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
+                }
+            } else if ($user->position->title == 'chairman') {
+                if (Hash::check($request->input('password'), $user->password)) {
+                    return redirect()->route('chairman_welcome', ['user_id' => $user->id]);
                 } else {
                     return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
                 }
@@ -70,6 +82,49 @@ class Official_controller extends Controller
                 }
             }
         }
+    }
+
+
+
+    public function finance_welcome($user_id)
+    {
+        $user = Barangay_officials::find($user_id);
+        $complain_report = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->orderBy('id', 'desc')->get();
+        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+
+        $document_request = Document_request::where('barangay_id', $user->barangay_id)
+            ->where('status', 'Approved')->orWhere('status', 'Received')->get();
+
+        return view('finance_welcome', [
+            'user' => $user,
+            'complain_report' => $complain_report,
+            'document_request' => $document_request,
+            'complain_count' => $complain_count,
+            'assistance_count' => $assistance_count,
+            'barangay_logo' => $barangay_logo,
+        ]);
+    }
+
+    public function chairman_welcome($user_id)
+    {
+        $user = Barangay_officials::find($user_id);
+        $complain_report = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->orderBy('id', 'desc')->get();
+        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+
+        $document_request = Document_request::where('barangay_id', $user->barangay_id)->orWhere('status', 'Received')->get();
+
+        return view('chairman_welcome', [
+            'user' => $user,
+            'complain_report' => $complain_report,
+            'document_request' => $document_request,
+            'complain_count' => $complain_count,
+            'assistance_count' => $assistance_count,
+            'barangay_logo' => $barangay_logo,
+        ]);
     }
 
     public function official_welcome($user_id)
@@ -290,7 +345,7 @@ class Official_controller extends Controller
                 'time_received' => $date_time,
             ]);
 
-        return redirect()->route('staff_document_request', ['user_id' => $user_id])->with('success', 'Document Received Successfully');
+        return redirect()->route('finance_welcome', ['user_id' => $user_id])->with('success', 'Document Received Successfully');
     }
 
     public function official_assistance_approved(Request $request)
@@ -443,7 +498,7 @@ class Official_controller extends Controller
         $user = Barangay_officials::find($user_id);
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
-        $complain = Complain::orderBy('id', 'desc')->where('barangay_id',$user->barangay_id)->get();
+        $complain = Complain::orderBy('id', 'desc')->where('barangay_id', $user->barangay_id)->get();
         $lupon = Barangay_officials::where('barangay_id', $user->barangay_id)->get();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
 

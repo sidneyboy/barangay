@@ -70,7 +70,7 @@
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Complain Report</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
                 </li>
-            @else
+            @elseif($user->position->title == 'Staff')
                 {{-- <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                         aria-expanded="true" aria-controls="collapsePages">
@@ -95,7 +95,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('staff_document_request', $user->id) }}">
-                        <i class="bi bi-file-earmark"></i>  
+                        <i class="bi bi-file-earmark"></i>
                         <span>Document Approval</span></a>
                 </li>
 
@@ -128,6 +128,12 @@
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>News</span></a>
                 </li> --}}
+            @elseif($user->position->title == 'finance')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('staff_document_request', $user->id) }}">
+                        <i class="bi bi-file-earmark"></i>
+                        <span>Document Approval</span></a>
+                </li>
             @endif
 
             <!-- Divider -->

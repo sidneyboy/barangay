@@ -22,8 +22,8 @@
                             <img id="blah" class="img img-thumbnail" src="{{ asset('storage/default_image.jpg') }}"
                                 alt="your image" />
 
-                            <input type="file" min="0"
-                                required class="form-control form-control-user  @error('user_image') is-invalid @enderror"
+                            <input type="file" min="0" required
+                                class="form-control form-control-user  @error('user_image') is-invalid @enderror"
                                 name="user_image" value="{{ old('user_image') }}" autofocus accept="image/*"
                                 id="imgInp" />
 
@@ -43,8 +43,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="first_name">{{ __('First Name:') }}</label>
-                            <input id="first_name" type="text"
-                                required class="form-control @error('first_name') is-invalid @enderror" name="first_name"
+                            <input id="first_name" type="text" required
+                                class="form-control @error('first_name') is-invalid @enderror" name="first_name"
                                 value="{{ old('first_name') }}" autocomplete="first_name" autofocus>
 
                             @error('first_name')
@@ -57,8 +57,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="middle_name">{{ __('Middle Name:') }}</label>
-                            <input id="middle_name" type="text"
-                                required class="form-control @error('middle_name') is-invalid @enderror" name="middle_name"
+                            <input id="middle_name" type="text" required
+                                class="form-control @error('middle_name') is-invalid @enderror" name="middle_name"
                                 value="{{ old('middle_name') }}" autocomplete="middle_name" autofocus>
 
                             @error('middle_name')
@@ -71,8 +71,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="last_name">{{ __('Last Name:') }}</label>
-                            <input id="last_name" type="text"
-                                required class="form-control @error('last_name') is-invalid @enderror" name="last_name"
+                            <input id="last_name" type="text" required
+                                class="form-control @error('last_name') is-invalid @enderror" name="last_name"
                                 value="{{ old('last_name') }}" autocomplete="last_name" autofocus>
 
                             @error('last_name')
@@ -114,8 +114,8 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="birth_date">{{ __('Birth Date:') }}</label>
-                            <input id="birth_date" type="date"
-                                required class="form-control @error('birth_date') is-invalid @enderror" name="birth_date"
+                            <input id="birth_date" type="date" required
+                                class="form-control @error('birth_date') is-invalid @enderror" name="birth_date"
                                 value="{{ old('birth_date') }}" autocomplete="birth_date" autofocus>
 
                             @error('birth_date')
@@ -129,8 +129,8 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="contact_number">{{ __('Contact Number:') }}</label>
-                            <input id="contact_number" type="text"
-                                required class="form-control @error('contact_number') is-invalid @enderror" name="contact_number"
+                            <input id="contact_number" type="text" required
+                                class="form-control @error('contact_number') is-invalid @enderror" name="contact_number"
                                 value="{{ old('contact_number') }}" autocomplete="contact_number" autofocus>
 
                             @error('contact_number')
@@ -145,8 +145,8 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="spouse">{{ __('Spouse Name:') }}</label>
-                            <input id="spouse" type="text"
-                                required class="form-control @error('spouse') is-invalid @enderror" name="spouse"
+                            <input id="spouse" type="text" required
+                                class="form-control @error('spouse') is-invalid @enderror" name="spouse"
                                 value="{{ old('spouse') }}" autocomplete="spouse" autofocus>
 
                             @error('spouse')
@@ -160,8 +160,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="office_term">{{ __('Office Term:') }}</label>
-                            <input id="office_term" type="text"
-                                required class="form-control @error('office_term') is-invalid @enderror" name="office_term"
+                            <input id="office_term" type="text" required
+                                class="form-control @error('office_term') is-invalid @enderror" name="office_term"
                                 value="{{ old('office_term') }}" autocomplete="office_term" autofocus>
 
                             @error('office_term')
@@ -193,8 +193,8 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="email">{{ __('Email:') }}</label>
-                            <input id="email" type="text"
-                                required class="form-control @error('email') is-invalid @enderror" name="email"
+                            <input id="email" type="text" required
+                                class="form-control @error('email') is-invalid @enderror" name="email"
                                 value="{{ old('email') }}" autocomplete="email" autofocus>
 
                             @error('email')
@@ -209,7 +209,7 @@
                         <div class="form-group">
                             <label for="password">{{ __('Password:') }}</label>
                             <input id="password" type="password"
-                                 class="form-control @error('password') is-invalid @enderror" name="password"
+                                class="form-control @error('password') is-invalid @enderror" name="password"
                                 value="{{ old('password') }}" autocomplete="password" autofocus>
 
                             @error('password')
@@ -223,7 +223,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="password-confirm">{{ __('Confirm_password:') }}</label>
-                            <input id="password-confirm" type="password"  class="form-control"
+                            <input id="password-confirm" type="password" class="form-control"
                                 name="password_confirmation" autocomplete="new-password">
 
                             @error('password-confirm')
@@ -246,4 +246,15 @@
             </form>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script>
+        $("#civil_status").change(function() {
+            if ($(this).val() == 'Single') {
+                $('#spouse').val('na');
+            } else {
+                $('#spouse').val('');
+            }
+        });
+    </script>
 @endsection
