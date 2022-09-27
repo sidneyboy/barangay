@@ -271,7 +271,7 @@ class Barangay_controller extends Controller
     public function barangay_register()
     {
         $user = User::find(auth()->user()->id);
-        $position = Barangay_position::get();
+        $position = Barangay_position::where('barangay_id',$user->barangay_id)->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
