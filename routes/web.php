@@ -291,6 +291,8 @@ Route::post('/super_user_message_barangay', [App\Http\Controllers\Super_user_con
 Route::get('/super_user_registration/{user_id}', [App\Http\Controllers\Super_user_controller::class, 'super_user_registration'])->name('super_user_registration');
 Route::post('/super_user_registration_process/', [App\Http\Controllers\Super_user_controller::class, 'super_user_registration_process'])->name('super_user_registration_process');
 
+Route::get('/super_user_logs/{user_id}', [App\Http\Controllers\Super_user_controller::class, 'super_user_logs'])->name('super_user_logs');
+
 
 
 

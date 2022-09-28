@@ -45,7 +45,7 @@ class Official_controller extends Controller
                 }
             } elseif ($user->position->title == 'Staff') {
                 if (Hash::check($request->input('password'), $user->password)) {
-                    return redirect()->route('staff_welcome', ['user_id' => $user->id]);
+                    return redirect()->route('staff_document_request', ['user_id' => $user->id]);
                 } else {
                     return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
                 }

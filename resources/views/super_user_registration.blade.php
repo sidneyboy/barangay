@@ -28,15 +28,23 @@
                             <label>Last Name</label>
                             <input type="text" class="form-control" name="last_name" required>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <label>User Type</label>
+                            <select name="user_type" class="form-control" required>
+                                <option value="" default>Select</option>
+                                <option value="barangay_super_user">Super User</option>
+                                <option value="barangay_validator">Barangay Validator</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
                             <label>Email</label>
                             <input type="email" class="form-control" name="email" required>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label>Password</label>
                             <input type="password" class="form-control" name="password" required>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label>Confirm Password</label>
                             <input type="password" class="form-control" name="confirm_password" required>
                         </div>

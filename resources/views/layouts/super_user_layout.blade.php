@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
-
+ 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 </head>
@@ -51,17 +51,26 @@
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Pages Collapse Menu -->
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('super_user_dashboard',$user->id) }}">
-                    <i class="bi bi-chat-right-text-fill"></i>
-                    <span>Dashboard</span></a>
-            </li>
+            @if ($user->user_type == 'barangay_super_user')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('super_user_registration', $user->id) }}">
+                        <i class="bi bi-chat-right-text-fill"></i>
+                        <span>Register Super User</span></a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('super_user_registration',$user->id) }}">
-                    <i class="bi bi-chat-right-text-fill"></i>
-                    <span>Register Super User</span></a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('super_user_logs', $user->id) }}">
+                        <i class="bi bi-chat-right-text-fill"></i>
+                        <span>User Logs</span></a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('super_user_dashboard', $user->id) }}">
+                        <i class="bi bi-chat-right-text-fill"></i>
+                        <span>Dashboard</span></a>
+                </li>
+            @endif
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -89,7 +98,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -200,7 +209,9 @@
     {{-- <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+   
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    
 
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -221,7 +232,12 @@
 
     <script>
         $(document).ready(function() {
-            $('#example').DataTable();
+            $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel'
+                ]
+            });
         });
 
         imgInp.onchange = evt => {

@@ -13,4 +13,9 @@ class User_logs extends Model
         'user_id',
         'content',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
 }

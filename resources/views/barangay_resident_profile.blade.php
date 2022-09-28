@@ -14,7 +14,8 @@
         <h6 class="card-header">Resident Registration</h6>
         <div class="card-body">
             <div class="table table-responsive">
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                {{-- <table id="example" class="table table-striped table-bordered" style="width:100%"> --}}
+                <table id="example" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>First Name</th>
@@ -200,7 +201,8 @@
 
                                                         <select name="status" class="form-control" required>
                                                             <option value="" default>Select</option>
-                                                            <option value="{{ $data->status }}" selected>{{ $data->status }}</option>
+                                                            <option value="{{ $data->status }}" selected>
+                                                                {{ $data->status }}</option>
                                                             @if ($data->status == 'alive')
                                                                 <option value="dead">dead</option>
                                                             @else
