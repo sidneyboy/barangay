@@ -109,11 +109,11 @@ background-size: cover;">
                                     <div id="show_city"></div>
                                     <div id="show_barangay"></div>
 
-                                    <label for="">Latitude</label>
-                                    <input type="text" class="form-control" id="latitude" name="latitude" required>
-
-                                    <label for="">Longitude</label>
-                                    <input type="text" class="form-control" id="longitude" name="longitude" required>
+                                    {{-- <label for="">Latitude</label> --}}
+                                    <input type="hidden" class="form-control" value="{{ 'wala' }}" id="latitude" name="latitude" required>
+{{-- 
+                                    <label for="">Longitude</label> --}}
+                                    <input type="hidden" class="form-control" value="{{ 'wala' }}" id="longitude" name="longitude" required>
                                 </div>
                             </div>
                             <div class="col-md-12">

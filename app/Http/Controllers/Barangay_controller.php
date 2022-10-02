@@ -20,10 +20,6 @@ use App\Models\refregion;
 use App\Models\Assitance;
 use App\Models\Assistance_type;
 
-
-
-
-
 use App\Mail\send_mail_to_resident;
 use App\Mail\Approved_complains;
 
