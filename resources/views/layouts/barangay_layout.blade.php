@@ -52,12 +52,12 @@
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Pages Collapse Menu -->
 
-            <li class="nav-item">
+            <li class="nav-item @if ($active == 'barangay_dashboard') active @else @endif">
                 <a class="nav-link" href="{{ url('barangay_dashboard') }}">
                     <i class="bi bi-speedometer"></i>
                     <span>Dashboard</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @if ($active == 'official') active @else @endif">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @if ($active == 'residents') active @else @endif">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseResidentPage"
                     aria-expanded="true" aria-controls="collapseResidentPage">
                     <i class="fas fa-fw fa-folder"></i>
@@ -85,43 +85,43 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @if ($active == 'barangay_complain_report') active @else @endif">
                 <a class="nav-link" href="{{ url('barangay_complain_report') }}">
                     <i class="bi bi-chat-right-text-fill"></i>
                     <span>Complain Record</span> <span class="badge badge-light">{{ $complain_count }}</span></a>
             </li>
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <li class="nav-item @if ($active == 'barangay_logo') active @else @endif">
                 <a class="nav-link" href="{{ url('barangay_logo') }}">
                     <i class="bi bi-image"></i>
                     <span>Barangay Logo</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @if ($active == 'barangay_document_type') active @else @endif">
                 <a class="nav-link" href="{{ url('barangay_document_type') }}">
                     <i class="bi bi-card-checklist"></i>
                     <span>Document Type</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item @if ($active == 'barangay_document_request') active @else @endif">
                 <a class="nav-link" href="{{ url('barangay_document_request') }}">
                     <i class="bi bi-envelope-paper-fill"></i>
                     <span>Document Records</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item @if ($active == 'barangay_assistance_type') active @else @endif">
                 <a class="nav-link" href="{{ url('barangay_assistance_type') }}">
                     <i class="bi bi-person-hearts"></i>
                     <span>Assistance Type</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item @if ($active == 'barangay_assistance_record') active @else @endif">
                 <a class="nav-link" href="{{ url('barangay_assistance_record') }}">
                     <i class="bi bi-envelope-paper-fill"></i>
                     <span>Assistance Record</span></a>
             </li>
 
 
-            {{-- <li class="nav-item">
+            {{-- <li class="nav-item @if ($active == 'dashboard') active @else @endif">
                 <a class="nav-link" href="{{ url('#') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Document Approval</span></a>

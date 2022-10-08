@@ -31,7 +31,7 @@ class Super_user_controller extends Controller
         if ($user) {
             if ($user->user_type == 'barangay_super_user') {
                 if (Hash::check($request->input('password'), $user->password)) {
-                    return redirect()->route('super_user_registration', ['user_id' => $user->id]);
+                    return redirect()->route('super_user_dashboard', ['user_id' => $user->id]);
                 } else {
                     return redirect('super_user_login')->with('error', 'Wrong Credentials');
                 }
@@ -53,9 +53,11 @@ class Super_user_controller extends Controller
     {
         $barangay = Barangay::get();
         $user = User::find($user_id);
+        $active = 'dashboard';
         return view('super_user_dashboard', [
             'user' => $user,
             'barangay' => $barangay,
+            'active' => $active,
         ]);
     }
 
@@ -134,8 +136,10 @@ class Super_user_controller extends Controller
     public function super_user_registration($user_id)
     {
         $user = User::find($user_id);
+        $active = 'super_user_registration';
         return view('super_user_registration', [
             'user' => $user,
+            'active' => $active,
         ]);
     }
 
@@ -168,10 +172,12 @@ class Super_user_controller extends Controller
     public function super_user_logs($user_id)
     {
         $user = User::find($user_id);
+        $active = 'super_user_logs';
         $user_logs = User_logs::get();
         return view('super_user_logs', [
             'user' => $user,
             'user_logs' => $user_logs,
+            'active' => $active,
         ]);
     }
 }

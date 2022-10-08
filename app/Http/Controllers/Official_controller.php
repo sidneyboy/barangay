@@ -93,6 +93,7 @@ class Official_controller extends Controller
         $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $active = 'active';
 
         $document_request = Document_request::where('barangay_id', $user->barangay_id)
             ->where('status', 'Approved')->orWhere('status', 'Received')->get();
@@ -104,6 +105,7 @@ class Official_controller extends Controller
             'complain_count' => $complain_count,
             'assistance_count' => $assistance_count,
             'barangay_logo' => $barangay_logo,
+            'active' => $active,
         ]);
     }
 
@@ -235,11 +237,14 @@ class Official_controller extends Controller
         $resident = Residents::where('barangay_id', $user->barangay_id)->get();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $active = 'official_res_profile';
+
         return view('official_res_profile', [
             'resident' => $resident,
             'user' => $user,
             'assistance_count' => $assistance_count,
             'complain_count' => $complain_count,
+            'official_res_profile' => $official_res_profile,
         ]);
     }
 
@@ -285,12 +290,15 @@ class Official_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $active = 'official_assistance_request';
+
         return view('official_assistance_request', [
             'user' => $user,
             'assistance' => $assistance,
             'barangay_logo' => $barangay_logo,
             'assistance_count' => $assistance_count,
             'complain_count' => $complain_count,
+            'active' => $active,
         ]);
     }
 
@@ -386,11 +394,15 @@ class Official_controller extends Controller
         $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $active = 'official_profile';
         return view('official_profile', [
             'user' => $user,
             'assistance' => $assistance,
             'assistance_count' => $assistance_count,
             'complain_count' => $complain_count,
+            'barangay_logo' => $barangay_logo,
+            'active' => $active,
         ]);
     }
 
@@ -448,11 +460,14 @@ class Official_controller extends Controller
         $complain_report = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->orderBy('id', 'desc')->get();
         $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $active = 'official_complain_report';
+
         return view('official_complain_report', [
             'user' => $user,
             'complain_report' => $complain_report,
             'complain_count' => $complain_count,
             'assistance_count' => $assistance_count,
+            'active' => $active,
         ]);
     }
 
@@ -481,6 +496,8 @@ class Official_controller extends Controller
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
 
         $document_request = Document_request::where('barangay_id', $user->barangay_id)->get();
+        $active = 'staff_document_request';
+
 
         return view('staff_document_request', [
             'request_count' => $request_count,
@@ -488,6 +505,7 @@ class Official_controller extends Controller
             'barangay_logo' => $barangay_logo,
             'complain_count' => $complain_count,
             'document_request' => $document_request,
+            'active' => $active,
         ]);
     }
 
@@ -501,7 +519,9 @@ class Official_controller extends Controller
         $complain = Complain::orderBy('id', 'desc')->where('barangay_id', $user->barangay_id)->get();
         $lupon = Barangay_officials::where('barangay_id', $user->barangay_id)->get();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $active = 'staff_complain_report';
 
+        
         return view('staff_complain_report', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
@@ -509,6 +529,7 @@ class Official_controller extends Controller
             'complain' => $complain,
             'lupon' => $lupon,
             'request_count' => $request_count,
+            'active' => $active,
         ]);
     }
 
@@ -519,12 +540,15 @@ class Official_controller extends Controller
         $resident = Residents::where('barangay_id', $user->barangay_id)->get();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        $active = 'staff_resident_profile';
+
         return view('staff_resident_profile', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'resident' => $resident,
             'request_count' => $request_count,
             'complain_count' => $complain_count,
+            'active' => $active,
         ]);
     }
 

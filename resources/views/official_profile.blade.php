@@ -1,4 +1,4 @@
-@extends('layouts.official_layout')
+@extends('layouts.staff_layout')
 
 @section('content')
     @if (session('success'))

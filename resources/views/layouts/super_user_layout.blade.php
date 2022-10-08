@@ -38,8 +38,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon">
-                    <img src="{{ asset('/storage/barangay_logo.jpeg') }}" alt=""
-                    class="img img-thumbnail">
+                    <img src="{{ asset('/storage/barangay_logo.jpeg') }}" alt="" class="img img-thumbnail">
                 </div>
                 <div class="sidebar-brand-text mx-3">CAMSTECH</sup></div>
             </a>
@@ -49,26 +48,26 @@
             <!-- Nav Item - Pages Collapse Menu -->
 
             @if ($user->user_type == 'barangay_super_user')
-                <li class="nav-item">
+                <li class="nav-item @if ($active == 'dashboard') active @else @endif">
                     <a class="nav-link" href="{{ url('super_user_dashboard', $user->id) }}">
                         <i class="bi bi-chat-right-text-fill"></i>
                         <span>Dashboard</span></a>
                 </li>
-                
-                <li class="nav-item">
+
+                <li class="nav-item @if ($active == 'super_user_registration') active @else @endif">
                     <a class="nav-link" href="{{ url('super_user_registration', $user->id) }}">
                         <i class="bi bi-chat-right-text-fill"></i>
                         <span>Register Super User</span></a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item @if ($active == 'super_user_logs') active @else @endif">
                     <a class="nav-link" href="{{ url('super_user_logs', $user->id) }}">
                         <i class="bi bi-chat-right-text-fill"></i>
                         <span>User Logs</span></a>
                 </li>
             @else
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('super_user_dashboard', $user->id) }}">
+                    <a class="nav-link @if ($active == 'dashboard') active @else @endif" href="{{ url('super_user_dashboard', $user->id) }}">
                         <i class="bi bi-chat-right-text-fill"></i>
                         <span>Dashboard</span></a>
                 </li>
