@@ -20,7 +20,8 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <label for="">Complainant:</label>
-                                <input type="text" required name="complainant" class="form-control"
+                                <input type="text" class="form-control" disabled value="{{ ucfirst($resident->first_name) }} {{ ucfirst($resident->middle_name) }} {{ ucfirst($resident->last_name) }}">
+                                <input type="hidden" required name="complainant" class="form-control"
                                     value="{{ ucfirst($resident->first_name) }} {{ ucfirst($resident->middle_name) }} {{ ucfirst($resident->last_name) }}">
                             </div>
                             <div class="col-md-12">

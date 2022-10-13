@@ -46,7 +46,7 @@
                                         <td>{{ $data->hearing_date }}</td>
                                         <td>{{ $data->image }}</td>
                                         <td>{{ $data->status }}</td>
-                                        <td>{{ date('F j, Y h:i a', strtotime($data->created_at)) }}</td>
+                                        <td>{{ date('F j, Y', strtotime($data->created_at)) }}</td>
                                      
                                     </tr>
                                 @endforeach
@@ -91,7 +91,7 @@
                                         <td>{{ $data->hearing_date }}</td>
                                         <td>{{ $data->image }}</td>
                                         <td>{{ $data->status }}</td>
-                                        <td>{{ date('F j, Y h:i a', strtotime($data->created_at)) }}</td>
+                                        <td>{{ date('F j, Y', strtotime($data->created_at)) }}</td>
                                      
                                     </tr>
                                 @endforeach
