@@ -164,11 +164,6 @@ class Barangay_controller extends Controller
     public function barangay_admin_login(Request $request)
     {
         Auth::logout();
-
-        // $request->session()->invalidate();
-
-        // $request->session()->regenerateToken();
-
         return view('barangay_admin_login');
     }
 
@@ -352,7 +347,7 @@ class Barangay_controller extends Controller
     public function barangay_officials_profile()
     {
         $user = User::find(auth()->user()->id);
-        $position = Barangay_position::get();
+        $position = Barangay_position::where('barangay_id', $user->barangay_id)->get();
         $officials = Barangay_officials::where('barangay_id', $user->barangay_id)->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();

@@ -33,9 +33,13 @@ class Official_controller extends Controller
     {
 
         $user = Barangay_officials::where('email', $request->input('email'))->first();
+        
+
+        return $user;
+
         $barangay_staff = $request->input('barangay_staff');
 
-        //return $request->input();
+       
         if ($user) {
             if ($user->position->title == 'Lupon') {
                 if (Hash::check($request->input('password'), $user->password)) {

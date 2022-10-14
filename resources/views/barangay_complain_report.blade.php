@@ -18,7 +18,7 @@
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Complain No</th>
+                                    {{-- <th>Complain No</th> --}}
                                     <th>Complainant</th>
                                     <th>Respondent</th>
                                     <th>Reason</th>
@@ -34,7 +34,7 @@
                             <tbody>
                                 @foreach ($complain as $data)
                                     <tr>
-                                        <td>{{ $data->id }}</td>
+                                        {{-- <td>{{ $data->id }}</td> --}}
                                         <td>{{ Str::ucfirst($data->complainant->first_name) }}
                                             {{ Str::ucfirst($data->complainant->middle_name) }}
                                             {{ Str::ucfirst($data->complainant->last_name) }}</td>
