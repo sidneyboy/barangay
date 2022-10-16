@@ -32,51 +32,55 @@ class Official_controller extends Controller
     public function official_login_process(Request $request)
     {
 
-        $user = Barangay_officials::where('email', $request->input('email'))->first();
-        
-
-        return $user;
+         $user = Barangay_officials::where('email', $request->input('email'))->first();
 
         $barangay_staff = $request->input('barangay_staff');
-
-       
         if ($user) {
-            if ($user->position->title == 'Lupon') {
-                if (Hash::check($request->input('password'), $user->password)) {
-                    return redirect()->route('official_welcome', ['user_id' => $user->id]);
-                } else {
-                    return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
+            if ($user->barangay->status != 'Pending Approval') {
+                if ($user->position->title == 'Lupon') {
+                    if (Hash::check($request->input('password'), $user->password)) {
+                        return redirect()->route('official_welcome', ['user_id' => $user->id]);
+                    } else {
+                        return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
+                    }
+                } elseif ($user->position->title == 'Staff') {
+                    if (Hash::check($request->input('password'), $user->password)) {
+                        return redirect()->route('staff_document_request', ['user_id' => $user->id]);
+                    } else {
+                        return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
+                    }
+                } else if ($user->position->title == 'finance') {
+                    if (Hash::check($request->input('password'), $user->password)) {
+                        return redirect()->route('finance_welcome', ['user_id' => $user->id]);
+                    } else {
+                        return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
+                    }
+                } else if ($user->position->title == 'chairman') {
+                    if (Hash::check($request->input('password'), $user->password)) {
+                        return redirect()->route('chairman_welcome', ['user_id' => $user->id]);
+                    } else {
+                        return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
+                    }
                 }
-            } elseif ($user->position->title == 'Staff') {
-                if (Hash::check($request->input('password'), $user->password)) {
-                    return redirect()->route('staff_document_request', ['user_id' => $user->id]);
-                } else {
-                    return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
-                }
-            } else if ($user->position->title == 'finance') {
-                if (Hash::check($request->input('password'), $user->password)) {
-                    return redirect()->route('finance_welcome', ['user_id' => $user->id]);
-                } else {
-                    return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
-                }
-            } else if ($user->position->title == 'chairman') {
-                if (Hash::check($request->input('password'), $user->password)) {
-                    return redirect()->route('chairman_welcome', ['user_id' => $user->id]);
-                } else {
-                    return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
-                }
+            } else {
+                return redirect('barangay_admin_staff')->with('error', 'Barangay Deactivated. Cannot Login!');
             }
         } else {
+            //return 'asdasd';
             $resident = Residents::where('email', $request->input('email'))->first();
             if ($resident) {
-                if ($resident->status == 'alive') {
-                    if (Hash::check($request->input('password'), $resident->password)) {
-                        return redirect()->route('resident_welcome', ['resident_id' => $resident->id]);
+                if ($resident->barangay->status != 'Pending Approval') {
+                    if ($resident->status == 'alive') {
+                        if (Hash::check($request->input('password'), $resident->password)) {
+                            return redirect()->route('resident_welcome', ['resident_id' => $resident->id]);
+                        } else {
+                            return redirect('/')->with('error', 'Wrong Credentials');
+                        }
                     } else {
-                        return redirect('/')->with('error', 'Wrong Credentials');
+                        return redirect('/')->with('error', 'Account Deactivated. User Dead');
                     }
                 } else {
-                    return redirect('/')->with('error', 'Account Deactivated. User Dead');
+                    return redirect('official_login')->with('error', 'Barangay Deactivated. Cannot Login!');
                 }
             } else {
                 if (isset($barangay_staff)) {
@@ -525,7 +529,7 @@ class Official_controller extends Controller
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $active = 'staff_complain_report';
 
-        
+
         return view('staff_complain_report', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,

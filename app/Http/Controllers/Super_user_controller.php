@@ -173,7 +173,7 @@ class Super_user_controller extends Controller
     {
         $user = User::find($user_id);
         $active = 'super_user_logs';
-        $user_logs = User_logs::get();
+        $user_logs = User_logs::orderBy('id','desc')->get();
         return view('super_user_logs', [
             'user' => $user,
             'user_logs' => $user_logs,
