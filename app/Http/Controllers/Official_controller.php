@@ -66,7 +66,6 @@ class Official_controller extends Controller
                 return redirect('barangay_admin_staff')->with('error', 'Barangay Deactivated. Cannot Login!');
             }
         } else {
-            //return 'asdasd';
             $resident = Residents::where('email', $request->input('email'))->first();
             if ($resident) {
                 if ($resident->barangay->status != 'Pending Approval') {
