@@ -9,5 +9,5 @@
     password: {{ $password }}
 
     Regards,
-    {{ $barangay }}
+    Barangay {{ $barangay }}
 @endcomponent

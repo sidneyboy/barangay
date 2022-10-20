@@ -84,7 +84,10 @@ Route::post('/staff_resident_search/', [App\Http\Controllers\Official_controller
 
 
 Route::get('/staff_assistance/{user_id}', [App\Http\Controllers\Official_controller::class, 'staff_assistance'])->name('staff_assistance');
+Route::get('/census_register_resident/{user_id}', [App\Http\Controllers\Official_controller::class, 'census_register_resident'])->name('census_register_resident');
+Route::post('/offical_resident_registration_process/', [App\Http\Controllers\Official_controller::class, 'offical_resident_registration_process'])->name('offical_resident_registration_process');
 
+Route::get('/print_document/{id}', [App\Http\Controllers\Official_controller::class, 'print_document'])->name('print_document');
 
 
 

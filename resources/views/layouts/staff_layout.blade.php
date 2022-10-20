@@ -134,6 +134,12 @@
                         <i class="bi bi-file-earmark"></i>
                         <span>Document Approval</span></a>
                 </li>
+            @elseif($user->position->title == 'Census')
+                <li class="nav-item @if ($active == 'census_register_resident') active @else @endif">
+                    <a class="nav-link" href="{{ url('census_register_resident', $user->id) }}">
+                        <i class="bi bi-file-earmark"></i>
+                        <span>Register Resident</span></a>
+                </li>
             @endif
 
             <!-- Divider -->

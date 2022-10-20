@@ -11,12 +11,18 @@ use App\Models\User;
 use App\Models\Document_request;
 use App\Models\Document_type;
 use App\Models\Barangay_logo;
+use App\Models\Employement_record;
+use App\Models\Resident_education;
+use App\Models\Resident_households;
+
 
 use App\Mail\send_email_to_resident;
 use App\Mail\Assistance_approved_email;
 use App\Mail\Disapproved;
 use App\Mail\Document_approved_request;
 use App\Mail\Document_received;
+
+use App\Models\Zone;
 
 
 
@@ -32,7 +38,7 @@ class Official_controller extends Controller
     public function official_login_process(Request $request)
     {
 
-         $user = Barangay_officials::where('email', $request->input('email'))->first();
+        $user = Barangay_officials::where('email', $request->input('email'))->first();
 
         $barangay_staff = $request->input('barangay_staff');
         if ($user) {
@@ -61,15 +67,24 @@ class Official_controller extends Controller
                     } else {
                         return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
                     }
+                } else if ($user->position->title == 'Census') {
+
+                    if (Hash::check($request->input('password'), $user->password)) {
+                        return redirect()->route('census_register_resident', ['user_id' => $user->id]);
+                    } else {
+                        return redirect('official_login')->with('error', 'Wrong Credentials');
+                    }
                 }
             } else {
                 return redirect('barangay_admin_staff')->with('error', 'Barangay Deactivated. Cannot Login!');
             }
         } else {
+            
             $resident = Residents::where('email', $request->input('email'))->first();
             if ($resident) {
                 if ($resident->barangay->status != 'Pending Approval') {
                     if ($resident->status == 'alive') {
+                      ;
                         if (Hash::check($request->input('password'), $resident->password)) {
                             return redirect()->route('resident_welcome', ['resident_id' => $resident->id]);
                         } else {
@@ -91,7 +106,202 @@ class Official_controller extends Controller
         }
     }
 
+    public function census_register_resident($user_id)
+    {
+        $user = Barangay_officials::find($user_id);
+        $zone = Zone::get();
+        $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        $active = 'census_register_resident';
+        return view('census_register_resident', [
+            'user' => $user,
+            'zone' => $zone,
+            'active' => $active,
+            'barangay_logo' => $barangay_logo,
+        ]);
+    }
 
+    public function official_resident_registration_process(Request $request)
+    {
+        $user_image = $request->file('user_image');
+        $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();
+        $path_user_image = $user_image->storeAs('public', $image_name);
+
+        // $user = Barangay_officials::find($request->input('user_id'));
+
+        $password = uniqid();
+
+        $officials = new Residents([
+            'user_image' => $image_name,
+            'first_name' => $request->input('first_name'),
+            'middle_name' => $request->input('middle_name'),
+            'last_name' => $request->input('last_name'),
+            'gender' => $request->input('gender'),
+            'civil_status' => $request->input('civil_status'),
+            'birth_date' => $request->input('birth_date'),
+            'mothers_name' => $request->input('mothers_name'),
+            'fathers_name' => $request->input('fathers_name'),
+            'permanent_address' => $request->input('permanent_address'),
+            'current_address' => $request->input('current_address'),
+            'contact_number' => $request->input('contact_number'),
+            'spouse' => $request->input('spouse'),
+            'email' => $request->input('email'),
+            'zone' => $request->input('zone'),
+            'voter' => $request->input('voter'),
+            'password' => hash::make($password),
+            'user_id' => $request->input('user_id'),
+            'status' => 'alive',
+            'barangay_id' => $request->input('barangay_id'),
+            'present_house_block' => $request->input('present_house_block'),
+            'present_subd' => $request->input('present_subd'),
+            'present_municipality' => $request->input('present_municipality'),
+            'present_province' => $request->input('present_province'),
+            'present_living_status' => $request->input('present_living_status'),
+            'present_length_of_stay' => $request->input('present_length_of_stay'),
+            'provincial_house_block' => $request->input('provincial_house_block'),
+            'provincial_subd' => $request->input('provincial_subd'),
+            'provincial_municipality' => $request->input('provincial_municipality'),
+            'provincial_province' => $request->input('provincial_province'),
+        ]);
+
+        $officials->save();
+    }
+
+    public function offical_resident_registration_process(Request $request)
+    {
+        $user_image = $request->file('user_image');
+        $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();
+        $path_user_image = $user_image->storeAs('public', $image_name);
+
+        // $user = Barangay_officials::find($request->input('user_id'));
+
+        $password = uniqid();
+
+        $officials = new Residents([
+            'user_image' => $image_name,
+            'first_name' => $request->input('first_name'),
+            'middle_name' => $request->input('middle_name'),
+            'last_name' => $request->input('last_name'),
+            'gender' => $request->input('gender'),
+            'civil_status' => $request->input('civil_status'),
+            'birth_date' => $request->input('birth_date'),
+            'mothers_name' => $request->input('mothers_name'),
+            'fathers_name' => $request->input('fathers_name'),
+            'permanent_address' => $request->input('permanent_address'),
+            'current_address' => $request->input('current_address'),
+            'contact_number' => $request->input('contact_number'),
+            'spouse' => $request->input('spouse'),
+            'email' => $request->input('email'),
+            'zone' => $request->input('zone'),
+            'voter' => $request->input('voter'),
+            'password' => hash::make($password),
+            'user_id' => $request->input('user_id'),
+            'status' => 'alive',
+            'barangay_id' => $request->input('barangay_id'),
+            'present_house_block' => $request->input('present_house_block'),
+            'present_subd' => $request->input('present_subd'),
+            'present_municipality' => $request->input('present_municipality'),
+            'present_province' => $request->input('present_province'),
+            'present_living_status' => $request->input('present_living_status'),
+            'present_length_of_stay' => $request->input('present_length_of_stay'),
+            'provincial_house_block' => $request->input('provincial_house_block'),
+            'provincial_subd' => $request->input('provincial_subd'),
+            'provincial_municipality' => $request->input('provincial_municipality'),
+            'provincial_province' => $request->input('provincial_province'),
+        ]);
+
+        $officials->save();
+        //return $request->input();
+        if (count($request->input('elementary_school')) != 0) {
+            for ($i = 0; $i < count($request->input('elementary_school')); $i++) {
+
+                $new_education_elementary = new Resident_education([
+                    'resident_id' => $officials->id,
+                    'level_of_education' => 'Elementary',
+                    'school' => $request->input('elementary_school')[$i],
+                    'address' => $request->input('elementary_address')[$i],
+                ]);
+
+                $new_education_elementary->save();
+            }
+        }
+
+        if (count($request->input('highschool_school')) != 0) {
+            for ($x = 0; $x < count($request->input('highschool_school')); $x++) {
+                $new_education_highschool = new Resident_education([
+                    'resident_id' => $officials->id,
+                    'level_of_education' => 'High School',
+                    'school' => $request->input('highschool_school')[$x],
+                    'address' => $request->input('highschool_address')[$x],
+                ]);
+
+                $new_education_highschool->save();
+            }
+        }
+
+        if (count($request->input('vocation_course_school')) != 0) {
+            for ($y = 0; $y < count($request->input('vocation_course_school')); $y++) {
+                $new_education_vocation = new Resident_education([
+                    'resident_id' => $officials->id,
+                    'level_of_education' => 'Vocational Course',
+                    'school' => $request->input('vocation_course_school')[$y],
+                    'address' => $request->input('vocation_course_address')[$y],
+                ]);
+
+                $new_education_vocation->save();
+            }
+        }
+
+        if (count($request->input('college_school')) != 0) {
+            for ($p = 0; $p < count($request->input('college_school')); $p++) {
+                $new_education_college = new Resident_education([
+                    'resident_id' => $officials->id,
+                    'level_of_education' => 'College',
+                    'school' => $request->input('college_school')[$p],
+                    'address' => $request->input('college_address')[$p],
+                ]);
+
+                $new_education_college->save();
+            }
+        }
+
+        if (count($request->input('duration')) != 0) {
+            for ($u = 0; $u < count($request->input('duration')); $u++) {
+                $new_employment = new Employement_record([
+                    'resident_id' => $officials->id,
+                    'duration' => $request->input('duration')[$u],
+                    'company' => $request->input('company')[$u],
+                    'address' => $request->input('address')[$u],
+                ]);
+
+                $new_employment->save();
+            }
+        }
+
+        if (count($request->input('house_hold_name')) != 0) {
+            for ($b = 0; $b < count($request->input('house_hold_name')); $b++) {
+                $new_house = new Resident_households([
+                    'resident_id' => $officials->id,
+                    'name' => $request->input('name'),
+                    'position' => $request->input('position'),
+                    'age' => $request->input('age'),
+                    'birth_date' => $request->input('birth_date'),
+                    'civil_status' => $request->input('civil_status'),
+                    'occupation' => $request->input('occupation'),
+                ]);
+
+                $new_house->save();
+            }
+        }
+
+        $user = User::find($request->input('user_id'));
+        $barangay = $user->barangay->barangay;
+        $first_name = $request->input('first_name');
+        $last_name = $request->input('last_name');
+        $email = $request->input('email');
+        Mail::to($request->input('email'))->send(new send_email_to_resident($email, $password, $first_name, $last_name, $barangay));
+
+        return redirect()->route('census_register_resident',['user_id' => $request->input('user_id')])->with('success', 'Successfully added new resident');
+    }
 
     public function finance_welcome($user_id)
     {
@@ -589,4 +799,21 @@ class Official_controller extends Controller
     //         'assistance' => $assistance,
     //     ]);
     // }
+
+    public function print_document($id)
+    {
+        date_default_timezone_set('Asia/Manila');
+        $year = date('Y');
+        $month = date('m');
+        $day = date('d');
+        $month_label_for_agent_performance = date('F');
+        $resident = Residents::find($id);
+        return view('print_document',[
+            'resident' => $resident,
+            'year' => $year,
+            'month' => $month,
+            'day' => $day,
+            'month_label_for_agent_performance' => $month_label_for_agent_performance,
+        ]);
+    }
 }

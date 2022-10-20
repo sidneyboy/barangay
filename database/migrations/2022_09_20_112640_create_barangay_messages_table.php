@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('barangay_messages', function (Blueprint $table) {
-            $table->id();
-            $table->BigInteger('barangay_id');
-            $table->LongText('message');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('barangay_messages')) {
+            Schema::create('barangay_messages', function (Blueprint $table) {
+                $table->id();
+                $table->BigInteger('barangay_id');
+                $table->LongText('message');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

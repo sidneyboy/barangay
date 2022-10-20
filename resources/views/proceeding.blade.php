@@ -26,7 +26,7 @@
                         <form method="POST" action="{{ route('proceeding_register') }}" enctype="multipart/form-data">
                             @csrf
 
-                            <div class="row mb-3">
+                            {{-- <div class="row mb-3">
                                 <label for="invitation_code"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Invitation Code') }}</label>
 
@@ -42,7 +42,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                             <div class="row mb-3">

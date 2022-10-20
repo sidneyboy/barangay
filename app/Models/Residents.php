@@ -30,6 +30,16 @@ class Residents extends Model
         'permanent_address',
         'current_address',
         'status',
+        'present_house_block',
+        'present_subd',
+        'present_municipality',
+        'present_province',
+        'present_living_status',
+        'present_length_of_stay',
+        'provincial_house_block',
+        'provincial_subd',
+        'provincial_municipality',
+        'provincial_province',
     ];
 
     public function barangay()
@@ -46,8 +56,4 @@ class Residents extends Model
     {
         return $this->belongsTo('App\Models\Barangay_officials', 'user_id');
     }
-
 }
-
-
-

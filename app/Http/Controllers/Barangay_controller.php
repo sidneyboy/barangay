@@ -121,7 +121,7 @@ class Barangay_controller extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'contact_number' => ['required', 'numeric', 'min:11'],
-            'invitation_code' => ['required', 'regex:(sample)'],
+            // 'invitation_code' => ['required', 'regex:(sample)'],
         ]);
 
         $barangay = new Barangay([
@@ -716,13 +716,13 @@ class Barangay_controller extends Controller
 
     public function barangay_document_save(Request $request)
     {
-        $user_image = $request->file('file');
-        $image_name = $user_image->getClientOriginalName();
-        $path_user_image = $user_image->storeAs('public', $image_name);
+        // $user_image = $request->file('file');
+        // $image_name = $user_image->getClientOriginalName();
+        // $path_user_image = $user_image->storeAs('public', $image_name);
 
         $new = new Document_type([
             'document_name' => $request->input('document_name'),
-            'file' => $image_name,
+            // 'file' => $image_name,
             'amount' => $request->input('amount'),
             'barangay_id' => $request->input('barangay_id'),
         ]);

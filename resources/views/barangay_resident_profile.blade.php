@@ -51,9 +51,10 @@
                                 <td>{{ $data->fathers_name }}</td>
                                 <td>{{ $data->email }}</td>
                                 <td>
-                                    @if ($data->zone != null)
+                                    {{-- @if ($data->zone != null)
                                         {{ $data->res_zone->zone }}
-                                    @endif
+                                    @endif --}}
+                                    {{ $data->zone }}
                                 </td>
                                 <td>{{ $data->voter }}</td>
                                 <td>{{ $data->status }}</td>

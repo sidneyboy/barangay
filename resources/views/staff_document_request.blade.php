@@ -22,7 +22,7 @@
                             <th>Document Name</th>
                             <th>Document</th>
                             <th>Amount</th>
-                            <th>status</th>
+                            {{-- <th>status</th> --}}
                             <th>time_approved</th>
                             <th>time_received</th>
                             <th>option</th>
@@ -41,12 +41,13 @@
                                 </td> --}}
                                 <td>{{ $data->reason }}</td>
                                 <td>{{ $data->document->document_name }}</td>
-                                <td><a href="{{ asset('/storage/' . $data->document->file) }}"
-                                    download>{{ $data->document->file }}</td>
+                                {{-- <td><a href="{{ asset('/storage/' . $data->document->file) }}"
+                                    download>{{ $data->document->file }}</td> --}}
+                                <td><a href="{{ url('print_document',['id' => $data->user_id]) }}">Print Document</a></td>
                                 <td>{{ number_format($data->document->amount, 2, '.', ',') }}</td>
-                               
+
                                 </td>
-                                <td>{{ $data->status }}</td>
+                                {{-- <td>{{ $data->status }}</td> --}}
                                 <td>
                                     @if ($data->time_approved != '')
                                         {{ date('F j, Y h:i:s a', strtotime($data->time_approved)) }}
@@ -57,7 +58,6 @@
                                         {{ date('F j, Y h:i:s a', strtotime($data->time_received)) }}
                                     @endif
                                 </td>
-
                                 <td>
                                     @if ($data->status == 'New Request')
                                         <a style="width:100px;"
@@ -68,8 +68,11 @@
                                                 'user_id' => $user->id,
                                             ]) }}"
                                             class="btn btn-sm btn-primary btn-block">Approved ?</a>
+                                    @elseif($data->status == 'Received')
+                                        Ready For Printing
                                     @else
-                                        <button type="button" class="btn btn-success btn-sm" disabled>Ready for Payment at Finance</button>
+                                        <button type="button" class="btn btn-success btn-sm" disabled>Ready for Payment at
+                                            Finance</button>
                                     @endif
                                 </td>
                             </tr>
