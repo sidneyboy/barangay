@@ -87,19 +87,98 @@
                                 @if ($user->user_type == 'barangay_validator')
                                     <td>
                                         @if ($data->status == 'Pending Approval')
-                                            <a href="{{ url('status_approval', [
+                                            {{-- <a href="{{ url('status_approval', [
                                                 'user_id' => $user->id,
                                                 'status' => 'Pending Approval',
                                                 'barangay_id' => $data->id,
                                             ]) }}"
-                                                class="btn btn-warning btn-block btn-sm">Disabled</a>
+                                                class="btn btn-warning btn-block btn-sm">Disabled</a> --}}
+
+
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                data-target="#exampleModal_disabled{{ $data->id }}">
+                                               Deactivated
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal_disabled{{ $data->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            {{-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> --}}
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="{{ route('status_approval') }}" method="POST">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                are you sure you want to activate this barangay?
+                                                                <input type="hidden" value="{{ $user->id }}"
+                                                                    name="user_id">
+                                                                <input type="hidden" value="Pending Approval"
+                                                                    name="status">
+                                                                <input type="hidden" value="{{ $data->id }}"
+                                                                    name="barangay_id">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary btn-sm">Save
+                                                                    changes</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @else
-                                            <a href="{{ url('status_approval', [
+                                            {{-- <a href="{{ url('status_approval', [
                                                 'user_id' => $user->id,
                                                 'status' => 'Approved',
                                                 'barangay_id' => $data->id,
                                             ]) }}"
-                                                class="btn btn-success btn-block btn-sm">Enabled</a>
+                                                class="btn btn-success btn-block btn-sm">Enabled</a> --}}
+                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
+                                                data-target="#exampleModal_enabled{{ $data->id }}">
+                                                Activated
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal_enabled{{ $data->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            {{-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> --}}
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="{{ route('status_approval') }}" method="POST">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                are you sure you want to deactivate this barangay?
+                                                                <input type="hidden" value="{{ $user->id }}"
+                                                                    name="user_id">
+                                                                <input type="hidden" value="Approved"
+                                                                    name="status">
+                                                                <input type="hidden" value="{{ $data->id }}"
+                                                                    name="barangay_id">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary btn-sm">Save
+                                                                    changes</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endif
                                     </td>
                                 @endif

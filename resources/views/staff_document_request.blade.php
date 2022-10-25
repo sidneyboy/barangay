@@ -43,7 +43,14 @@
                                 <td>{{ $data->document->document_name }}</td>
                                 {{-- <td><a href="{{ asset('/storage/' . $data->document->file) }}"
                                     download>{{ $data->document->file }}</td> --}}
-                                <td><a href="{{ url('print_document',['id' => $data->user_id]) }}">Print Document</a></td>
+                                <td>
+                                    @if ($data->status == 'Received')
+                                    <a href="{{ url('print_document',[
+                                        'id' => $data->resident_id,
+                                        'document_id' => $data->id,
+                                    ]) }}">Print Document</a>
+                                    @endif
+                                </td>
                                 <td>{{ number_format($data->document->amount, 2, '.', ',') }}</td>
 
                                 </td>

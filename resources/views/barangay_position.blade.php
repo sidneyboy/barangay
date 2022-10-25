@@ -57,7 +57,7 @@
                             <th>Position</th>
                             <th>Date Created</th>
                             <th>Update</th>
-                            <th>Delete</th>
+                            {{-- <th>Delete</th> --}}
                             {{-- <th>Enable/Disable</th> --}}
                         </tr>
                     </thead>
@@ -111,10 +111,10 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <a href="{{ url('barangay_position_delete/' . $data->id) }}"
                                         class="btn btn-sm btn-danger btn-block">Delete</a>
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>

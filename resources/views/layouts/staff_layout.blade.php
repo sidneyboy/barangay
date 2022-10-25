@@ -128,7 +128,7 @@
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>News</span></a>
                 </li> --}}
-            @elseif($user->position->title == 'finance')
+            @elseif($user->position->title == 'Finance')
                 <li class="nav-item @if ($active == 'staff_document_request') active @else @endif">
                     <a class="nav-link" href="{{ url('staff_document_request', $user->id) }}">
                         <i class="bi bi-file-earmark"></i>

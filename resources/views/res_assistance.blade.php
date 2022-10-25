@@ -51,7 +51,7 @@
 
                                 <input type="file" min="0"
                                     class="form-control form-control-user  @error('image') is-invalid @enderror"
-                                    name="image" value="{{ old('image') }}" autofocus accept="image/*" id="imgInp" />
+                                    name="image" value="{{ old('image') }}" required autofocus accept="image/*" id="imgInp" />
 
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">

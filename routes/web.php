@@ -87,7 +87,7 @@ Route::get('/staff_assistance/{user_id}', [App\Http\Controllers\Official_control
 Route::get('/census_register_resident/{user_id}', [App\Http\Controllers\Official_controller::class, 'census_register_resident'])->name('census_register_resident');
 Route::post('/offical_resident_registration_process/', [App\Http\Controllers\Official_controller::class, 'offical_resident_registration_process'])->name('offical_resident_registration_process');
 
-Route::get('/print_document/{id}', [App\Http\Controllers\Official_controller::class, 'print_document'])->name('print_document');
+Route::get('/print_document/{id}/{document_id}', [App\Http\Controllers\Official_controller::class, 'print_document'])->name('print_document');
 
 
 
@@ -170,6 +170,10 @@ Route::post('/resident_document_request_process', [App\Http\Controllers\Resident
 
 Auth::routes();
 Route::get('/barangay_admin', [App\Http\Controllers\Barangay_controller::class, 'barangay_admin'])->name('barangay_admin');
+
+Route::get('/contract', [App\Http\Controllers\Barangay_controller::class, 'contract'])->name('contract');
+
+
 Route::get('/proceeding', [App\Http\Controllers\Barangay_controller::class, 'proceeding'])->name('proceeding');
 Route::post('/proceeding_register', [App\Http\Controllers\Barangay_controller::class, 'proceeding_register'])->name('proceeding_register');
 
@@ -287,7 +291,7 @@ Route::get('/super_user_login', [App\Http\Controllers\Super_user_controller::cla
 Route::post('/super_user_login_process', [App\Http\Controllers\Super_user_controller::class, 'super_user_login_process'])->name('super_user_login_process');
 Route::get('/super_user_dashboard/{user_id}', [App\Http\Controllers\Super_user_controller::class, 'super_user_dashboard'])->name('super_user_dashboard');
 Route::get('/super_user_logut', [App\Http\Controllers\Super_user_controller::class, 'super_user_logut'])->name('super_user_logut');
-Route::get('/status_approval/{user_id}/{status}/{barangay_id}', [App\Http\Controllers\Super_user_controller::class, 'status_approval'])->name('status_approval');
+Route::post('/status_approval/', [App\Http\Controllers\Super_user_controller::class, 'status_approval'])->name('status_approval');
 
 Route::post('/super_user_message_barangay', [App\Http\Controllers\Super_user_controller::class, 'super_user_message_barangay'])->name('super_user_message_barangay');
 

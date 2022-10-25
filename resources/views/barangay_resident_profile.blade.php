@@ -18,10 +18,13 @@
                 <table id="example" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
+                            <th>Show Additional Info</th>
                             <th>First Name</th>
                             <th>Middle Name</th>
                             <th>Last Name</th>
                             <th>Gender</th>
+                            <th>Height</th>
+                            <th>Weight</th>
                             <th>Civil Status</th>
                             <th>Birth Date</th>
                             <th>Contact Number</th>
@@ -30,6 +33,18 @@
                             <th>Fathers Name</th>
                             <th>Email</th>
                             <th>Zone</th>
+                            <th>House/Block</th>
+                            <th>Subd</th>
+                            <th>City/municipality</th>
+                            <th>Province</th>
+                            <th>Home Status</th>
+                            <th>Lenght of stay</th>
+                            <th>Province House Block</th>
+                            <th>Province Subd</th>
+                            <th>Province Municipality</th>
+                            <th>Province</th>
+                            <th>Weight</th>
+                            <th>Height</th>
                             <th>Voter</th>
                             <th>Status</th>
                             <th>Photo</th>
@@ -39,10 +54,128 @@
                     <tbody>
                         @foreach ($resident as $data)
                             <tr>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#exampleModal_addition{{ $data->id }}">
+                                        Show
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal_addition{{ $data->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Additional Information
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="table table-responsive">
+                                                        <div class="form-group">
+                                                            <table class="table table-bordered table-hover table-sm">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th colspan="3" style="text-align: center;">
+                                                                            EDUCATIONAL ATTAINMENT</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="text-align: center;width:200px;">Level of
+                                                                            Education</th>
+                                                                        <th style="text-align: center;">School</th>
+                                                                        <th style="text-align: center;">Address</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($data->resident_education as $educ)
+                                                                        <tr>
+                                                                            <td>{{ $educ->level_of_education }}</td>
+                                                                            <td>{{ $educ->school }}</td>
+                                                                            <td>{{ $educ->address }}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            <table class="table table-bordered table-hover table-sm">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th colspan="3" style="text-align: center;">
+                                                                            EMPLOYMENT RECORD</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="text-align: center;width:200px;">Duration
+                                                                        </th>
+                                                                        <th style="text-align: center;">Company</th>
+                                                                        <th style="text-align: center;">Address</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($data->resident_employment as $emp)
+                                                                        <tr>
+                                                                            <td>{{ $emp->duration }}</td>
+                                                                            <td>{{ $emp->company }}</td>
+                                                                            <td>{{ $emp->address }}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <table class="table table-bordered table-hover table-sm">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th colspan="3" style="text-align: center;">OTHER
+                                                                            HOUSE OCCUPANTS</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="text-align: center;width:200px;">NAME
+                                                                        </th>
+                                                                        <th style="text-align: center;">Position</th>
+                                                                        <th style="text-align: center;">Age</th>
+                                                                        <th style="text-align: center;">Birth Date</th>
+                                                                        <th style="text-align: center;">Civil Status</th>
+                                                                        <th style="text-align: center;">Occupation</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($data->resident_household as $house)
+                                                                        <tr>
+                                                                            <td>{{ $house->name }}</td>
+                                                                            <td>{{ $house->position }}</td>
+                                                                            <td>{{ $house->age }}</td>
+                                                                            <td>{{ $house->birth_date }}</td>
+                                                                            <td>{{ $house->civil_status }}</td>
+                                                                            <td>{{ $house->occupation }}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td>{{ $data->first_name }}</td>
                                 <td>{{ $data->middle_name }}</td>
                                 <td>{{ $data->last_name }}</td>
                                 <td>{{ $data->gender }}</td>
+                                <td>{{ $data->height }}</td>
+                                <td>{{ $data->weight }}</td>
                                 <td>{{ $data->civil_status }}</td>
                                 <td>{{ $data->birth_date }}</td>
                                 <td>{{ $data->contact_number }}</td>
@@ -56,6 +189,18 @@
                                     @endif --}}
                                     {{ $data->zone }}
                                 </td>
+                                <td>{{ $data->present_house_block }}</td>
+                                <td>{{ $data->present_subd }}</td>
+                                <td>{{ $data->present_municipality }}</td>
+                                <td>{{ $data->present_province }}</td>
+                                <td>{{ $data->present_living_status }}</td>
+                                <td>{{ $data->present_length_of_stay }}</td>
+                                <td>{{ $data->provincial_house_block }}</td>
+                                <td>{{ $data->provincial_subd }}</td>
+                                <td>{{ $data->provincial_municipality }}</td>
+                                <td>{{ $data->provincial_province }}</td>
+                                <td>{{ $data->weight }}</td>
+                                <td>{{ $data->height }}</td>
                                 <td>{{ $data->voter }}</td>
                                 <td>{{ $data->status }}</td>
                                 <td>
@@ -71,7 +216,8 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">{{ $data->first_name }}
+                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                        {{ $data->first_name }}
                                                         {{ $data->middle_name }} {{ $data->last_name }}</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
@@ -124,8 +270,8 @@
                                                             class="form-control" value="{{ $data->middle_name }}">
 
                                                         <label for="">Last Name:</label>
-                                                        <input type="text" required name="last_name" class="form-control"
-                                                            value="{{ $data->last_name }}">
+                                                        <input type="text" required name="last_name"
+                                                            class="form-control" value="{{ $data->last_name }}">
 
                                                         <label for="">Gender:</label>
                                                         <select name="gender" class="form-control" required>

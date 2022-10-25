@@ -16,7 +16,7 @@
                     <img src="{{ asset('storage/' . $data->user_image) }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ $data->first_name }} {{ $data->middle_name }} {{ $data->last_anem }}</h5>
-                        <p class="card-text">Position: {{ $data->position->title }}</p>
+                        {{-- <p class="card-text">Position: {{ $data->position}}</p> --}}
                         <p class="card-text">Term: {{ $data->office_term }}</p>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal"
@@ -78,8 +78,8 @@
                                                 <label for="">Position:</label>
                                                 <select name="position_type_id" id="" class="form-control"
                                                     required>
-                                                    <option value="{{ $data->position_type_id }}" selected>
-                                                        {{ $data->position->title }}</option>
+                                                    {{-- <option value="{{ $data->position_type_id }}" selected>
+                                                        {{ $data->position->title }}</option> --}}
                                                     @foreach ($position as $position_data)
                                                         <option value="{{ $position_data->id }}">
                                                             {{ $position_data->title }} Current</option>

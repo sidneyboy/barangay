@@ -55,13 +55,13 @@ class Official_controller extends Controller
                     } else {
                         return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
                     }
-                } else if ($user->position->title == 'finance') {
+                } else if ($user->position->title == 'Finance') {
                     if (Hash::check($request->input('password'), $user->password)) {
                         return redirect()->route('finance_welcome', ['user_id' => $user->id]);
                     } else {
                         return redirect('barangay_admin_staff')->with('error', 'Wrong Credentials');
                     }
-                } else if ($user->position->title == 'chairman') {
+                } else if ($user->position->title == 'Chairman') {
                     if (Hash::check($request->input('password'), $user->password)) {
                         return redirect()->route('chairman_welcome', ['user_id' => $user->id]);
                     } else {
@@ -120,51 +120,51 @@ class Official_controller extends Controller
         ]);
     }
 
-    public function official_resident_registration_process(Request $request)
-    {
-        $user_image = $request->file('user_image');
-        $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();
-        $path_user_image = $user_image->storeAs('public', $image_name);
+    // public function official_resident_registration_process(Request $request)
+    // {
+    //     $user_image = $request->file('user_image');
+    //     $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();
+    //     $path_user_image = $user_image->storeAs('public', $image_name);
 
-        // $user = Barangay_officials::find($request->input('user_id'));
+    //     // $user = Barangay_officials::find($request->input('user_id'));
 
-        $password = uniqid();
+    //     $password = uniqid();
 
-        $officials = new Residents([
-            'user_image' => $image_name,
-            'first_name' => $request->input('first_name'),
-            'middle_name' => $request->input('middle_name'),
-            'last_name' => $request->input('last_name'),
-            'gender' => $request->input('gender'),
-            'civil_status' => $request->input('civil_status'),
-            'birth_date' => $request->input('birth_date'),
-            'mothers_name' => $request->input('mothers_name'),
-            'fathers_name' => $request->input('fathers_name'),
-            'permanent_address' => $request->input('permanent_address'),
-            'current_address' => $request->input('current_address'),
-            'contact_number' => $request->input('contact_number'),
-            'spouse' => $request->input('spouse'),
-            'email' => $request->input('email'),
-            'zone' => $request->input('zone'),
-            'voter' => $request->input('voter'),
-            'password' => hash::make($password),
-            'user_id' => $request->input('user_id'),
-            'status' => 'alive',
-            'barangay_id' => $request->input('barangay_id'),
-            'present_house_block' => $request->input('present_house_block'),
-            'present_subd' => $request->input('present_subd'),
-            'present_municipality' => $request->input('present_municipality'),
-            'present_province' => $request->input('present_province'),
-            'present_living_status' => $request->input('present_living_status'),
-            'present_length_of_stay' => $request->input('present_length_of_stay'),
-            'provincial_house_block' => $request->input('provincial_house_block'),
-            'provincial_subd' => $request->input('provincial_subd'),
-            'provincial_municipality' => $request->input('provincial_municipality'),
-            'provincial_province' => $request->input('provincial_province'),
-        ]);
+    //     $officials = new Residents([
+    //         'user_image' => $image_name,
+    //         'first_name' => $request->input('first_name'),
+    //         'middle_name' => $request->input('middle_name'),
+    //         'last_name' => $request->input('last_name'),
+    //         'gender' => $request->input('gender'),
+    //         'civil_status' => $request->input('civil_status'),
+    //         'birth_date' => $request->input('birth_date'),
+    //         'mothers_name' => $request->input('mothers_name'),
+    //         'fathers_name' => $request->input('fathers_name'),
+    //         'permanent_address' => $request->input('permanent_address'),
+    //         'current_address' => $request->input('current_address'),
+    //         'contact_number' => $request->input('contact_number'),
+    //         'spouse' => $request->input('spouse'),
+    //         'email' => $request->input('email'),
+    //         'zone' => $request->input('zone'),
+    //         'voter' => $request->input('voter'),
+    //         'password' => hash::make($password),
+    //         'user_id' => $request->input('user_id'),
+    //         'status' => 'alive',
+    //         'barangay_id' => $request->input('barangay_id'),
+    //         'present_house_block' => $request->input('present_house_block'),
+    //         'present_subd' => $request->input('present_subd'),
+    //         'present_municipality' => $request->input('present_municipality'),
+    //         'present_province' => $request->input('present_province'),
+    //         'present_living_status' => $request->input('present_living_status'),
+    //         'present_length_of_stay' => $request->input('present_length_of_stay'),
+    //         'provincial_house_block' => $request->input('provincial_house_block'),
+    //         'provincial_subd' => $request->input('provincial_subd'),
+    //         'provincial_municipality' => $request->input('provincial_municipality'),
+    //         'provincial_province' => $request->input('provincial_province'),
+    //     ]);
 
-        $officials->save();
-    }
+    //     $officials->save();
+    // }
 
     public function offical_resident_registration_process(Request $request)
     {
@@ -207,6 +207,8 @@ class Official_controller extends Controller
             'provincial_subd' => $request->input('provincial_subd'),
             'provincial_municipality' => $request->input('provincial_municipality'),
             'provincial_province' => $request->input('provincial_province'),
+            'height' => $request->input('height'),
+            'weight' => $request->input('weight'),
         ]);
 
         $officials->save();
@@ -281,19 +283,19 @@ class Official_controller extends Controller
             for ($b = 0; $b < count($request->input('house_hold_name')); $b++) {
                 $new_house = new Resident_households([
                     'resident_id' => $officials->id,
-                    'name' => $request->input('name'),
-                    'position' => $request->input('position'),
-                    'age' => $request->input('age'),
-                    'birth_date' => $request->input('birth_date'),
-                    'civil_status' => $request->input('civil_status'),
-                    'occupation' => $request->input('occupation'),
+                    'name' => $request->input('house_hold_name')[$b],
+                    'position' => $request->input('house_hold_position')[$b],
+                    'age' => $request->input('house_hold_age')[$b],
+                    'birth_date' => $request->input('house_hold_birth_date')[$b],
+                    'civil_status' => $request->input('house_hold_birth_civil_status')[$b],
+                    'occupation' => $request->input('house_hold_birth_occupation')[$b],
                 ]);
 
                 $new_house->save();
             }
         }
-
-        $user = User::find($request->input('user_id'));
+        //return $request->input('user_id');
+        $user = Barangay_officials::find($request->input('user_id'));
         $barangay = $user->barangay->barangay;
         $first_name = $request->input('first_name');
         $last_name = $request->input('last_name');
@@ -306,14 +308,14 @@ class Official_controller extends Controller
     public function finance_welcome($user_id)
     {
         $user = Barangay_officials::find($user_id);
-        $complain_report = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->orderBy('id', 'desc')->get();
-        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $complain_report = Complain::where('barangay_id', $user->barangay_id)->orderBy('id', 'desc')->get();
+        $complain_count = Complain::where('barangay_id', $user->barangay_id)->count();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $active = 'active';
 
-        $document_request = Document_request::where('barangay_id', $user->barangay_id)
-            ->where('status', 'Approved')->orWhere('status', 'Received')->get();
+        $document_request = Document_request::where('barangay_id', $user->barangay_id)->get();
+
 
         return view('finance_welcome', [
             'user' => $user,
@@ -329,12 +331,12 @@ class Official_controller extends Controller
     public function chairman_welcome($user_id)
     {
         $user = Barangay_officials::find($user_id);
-        $complain_report = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->orderBy('id', 'desc')->get();
-        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $complain_report = Complain::where('barangay_id', $user->barangay_id)->orderBy('id', 'desc')->get();
+        $complain_count = Complain::where('barangay_id', $user->barangay_id)->count();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
 
-        $document_request = Document_request::where('barangay_id', $user->barangay_id)->orWhere('status', 'Received')->get();
+        $document_request = Document_request::where('barangay_id', $user->barangay_id)->get();
 
         return view('chairman_welcome', [
             'user' => $user,
@@ -350,7 +352,7 @@ class Official_controller extends Controller
     {
         $user = Barangay_officials::find($user_id);
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $complain_count = Complain::where('lupon_id', $user->id)->where('status', 'Approved')->count();
+        $complain_count = Complain::where('status', 'Approved')->where('barangay_id', $user->barangay_id)->count();
         return view('official_welcome', [
             'user' => $user,
             'assistance_count' => $assistance_count,
@@ -453,7 +455,7 @@ class Official_controller extends Controller
         $user = Barangay_officials::find($user_id);
         $resident = Residents::where('barangay_id', $user->barangay_id)->get();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $complain_count = Complain::where('barangay_id', $user->barangay_id)->where('status', 'Approved')->count();
         $active = 'official_res_profile';
 
         return view('official_res_profile', [
@@ -461,7 +463,7 @@ class Official_controller extends Controller
             'user' => $user,
             'assistance_count' => $assistance_count,
             'complain_count' => $complain_count,
-            'official_res_profile' => $official_res_profile,
+            'official_res_profile' => $active,
         ]);
     }
 
@@ -506,7 +508,7 @@ class Official_controller extends Controller
         $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $complain_count = Complain::where('status', 'Approved')->where('barangay_id', $user->barangay_id)->count();
         $active = 'official_assistance_request';
 
         return view('official_assistance_request', [
@@ -610,7 +612,7 @@ class Official_controller extends Controller
         $user = Barangay_officials::find($user_id);
         $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $complain_count = Complain::where('status', 'Approved')->where('barangay_id', $user->barangay_id)->count();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $active = 'official_profile';
         return view('official_profile', [
@@ -674,8 +676,8 @@ class Official_controller extends Controller
 
 
         $user = Barangay_officials::find($user_id);
-        $complain_report = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->orderBy('id', 'desc')->get();
-        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $complain_report = Complain::where('status', 'Approved')->where('barangay_id', $user->barangay_id)->orderBy('id', 'desc')->get();
+        $complain_count = Complain::where('status', 'Approved')->where('barangay_id', $user->barangay_id)->count();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $active = 'official_complain_report';
 
@@ -691,8 +693,8 @@ class Official_controller extends Controller
     public function staff_welcome($user_id)
     {
         $user = Barangay_officials::find($user_id);
-        $complain_report = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->orderBy('id', 'desc')->get();
-        $complain_count = Complain::where('lupon_id', $user_id)->where('status', 'Approved')->count();
+        $complain_report = Complain::where('status', 'Approved')->where('barangay_id', $user->barangay_id)->orderBy('id', 'desc')->get();
+        $complain_count = Complain::where('status', 'Approved')->where('barangay_id', $user->barangay_id)->count();
         $assistance_count = Assitance::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         return view('staff_welcome', [
@@ -800,19 +802,26 @@ class Official_controller extends Controller
     //     ]);
     // }
 
-    public function print_document($id)
+    public function print_document($id,$document_id)
     {
+       
         date_default_timezone_set('Asia/Manila');
+        $date = date('Y-m-d');
         $year = date('Y');
-        $month = date('m');
+        $month = date('F');
         $day = date('d');
         $month_label_for_agent_performance = date('F');
         $resident = Residents::find($id);
+        $barangay_officials = Barangay_officials::where('barangay_id',$resident->barangay_id)->get();
+        $document = Document_request::find($document_id);
         return view('print_document',[
             'resident' => $resident,
+            'barangay_officials' => $barangay_officials,
             'year' => $year,
+            'document' => $document,
             'month' => $month,
             'day' => $day,
+            'date' => $date,
             'month_label_for_agent_performance' => $month_label_for_agent_performance,
         ]);
     }

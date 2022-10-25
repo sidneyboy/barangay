@@ -20,7 +20,7 @@
                             {{-- <th>Approved</th> --}}
                             <th>Purpose</th>
                             <th>Document Name</th>
-                            <th>Document</th>
+                            {{-- <th>Document</th> --}}
                             <th>Amount</th>
                             <th>status</th>
                             <th>time_approved</th>
@@ -41,8 +41,8 @@
                                 </td> --}}
                                 <td>{{ $data->reason }}</td>
                                 <td>{{ $data->document->document_name }}</td>
-                                <td><a href="{{ asset('/storage/' . $data->document->file) }}"
-                                        download>{{ $data->document->file }}</td>
+                                {{-- <td><a href="{{ asset('/storage/' . $data->document->file) }}"
+                                        download>{{ $data->document->file }}</td> --}}
                                 <td>{{ number_format($data->document->amount, 2, '.', ',') }}</td>
 
                                 </td>

@@ -40,6 +40,8 @@ class Residents extends Model
         'provincial_subd',
         'provincial_municipality',
         'provincial_province',
+        'weight',
+        'height',
     ];
 
     public function barangay()
@@ -55,5 +57,20 @@ class Residents extends Model
     public function barangay_official_id()
     {
         return $this->belongsTo('App\Models\Barangay_officials', 'user_id');
+    }
+
+    public function resident_education()
+    {
+        return $this->hasMany('App\Models\Resident_education', 'resident_id');
+    }
+
+    public function resident_employment()
+    {
+        return $this->hasMany('App\Models\Employement_record', 'resident_id');
+    }
+
+    public function resident_household()
+    {
+        return $this->hasMany('App\Models\Resident_households', 'resident_id');
     }
 }

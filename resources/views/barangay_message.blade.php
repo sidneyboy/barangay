@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card" style="width: 100%;">
-                <div class="card-header">COMPANY NAME (ILISANAN PA NAMO SIR)</div>
+                <div class="card-header">CAMSTECH</div>
                 <div class="card-body">
                     @foreach ($message as $data)
                         <div class="card">

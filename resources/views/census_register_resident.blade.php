@@ -138,10 +138,10 @@
                         </div>
                         <div class="col-md-12">
                             <br />
-                            <input type="text" class="form-control" placeholder="(Province)" name="provincial_province"
-                                required>
+                            <input type="text" class="form-control" placeholder="(Province)"
+                                name="provincial_province" required>
                         </div>
-                       
+
 
 
 
@@ -269,7 +269,7 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="height">{{ __('height:') }}</label>
+                                <label for="height">{{ __('Height:') }}</label>
                                 <input type="text" class="form-control" name="height" required>
 
                                 @error('height')
@@ -483,18 +483,24 @@
                                     <tbody>
                                         <tr>
                                             <th>Elementary</th>
-                                            <th><input type="text" class="form-control" name="elementary_school[]"></th>
-                                            <th><input type="text" class="form-control" name="elementary_address[]"></th>
+                                            <th><input type="text" class="form-control" name="elementary_school[]">
+                                            </th>
+                                            <th><input type="text" class="form-control" name="elementary_address[]">
+                                            </th>
                                         </tr>
                                         <tr>
                                             <th>Highschool</th>
-                                            <th><input type="text" class="form-control" name="highschool_school[]"></th>
-                                            <th><input type="text" class="form-control" name="highschool_address[]"></th>
+                                            <th><input type="text" class="form-control" name="highschool_school[]">
+                                            </th>
+                                            <th><input type="text" class="form-control" name="highschool_address[]">
+                                            </th>
                                         </tr>
                                         <tr>
                                             <th>Vocational Course</th>
-                                            <th><input type="text" class="form-control" name="vocation_course_school[]"></th>
-                                            <th><input type="text" class="form-control" name="vocation_course_address[]"></th>
+                                            <th><input type="text" class="form-control"
+                                                    name="vocation_course_school[]"></th>
+                                            <th><input type="text" class="form-control"
+                                                    name="vocation_course_address[]"></th>
                                         </tr>
                                         <tr>
                                             <th>College/Course</th>
@@ -560,75 +566,59 @@
                                     <tbody>
                                         <tr>
                                             <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_age[]"></th>
+                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
                                         </tr>
                                         <tr>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]">
-                                            </th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]">
-                                            </th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]">
-                                            </th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]">
-                                            </th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]">
-                                            </th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]">
-                                            </th>
+                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_age[]"></th>
+                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
                                         </tr>
                                         <tr>
+                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
                                             <th><input type="text" class="form-control" name="house_hold_age[]"></th>
+                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
+                                        </tr>
+                                         <tr>
+                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
                                             <th><input type="text" class="form-control" name="house_hold_age[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_age[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_age[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_age[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_age[]"></th>
+                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
                                         </tr>
                                         <tr>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_date[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_age[]"></th>
+                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
                                         </tr>
-                                        <tr>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_civil_status[]"></th>
+                                         <tr>
+                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_age[]"></th>
+                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
                                         </tr>
-                                        <tr>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_occupation[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_occupation[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_occupation[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_occupation[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_occupation[]"></th>
-                                            <th><input type="text" class="form-control"
-                                                    name="house_hold_birth_occupation[]"></th>
+                                         <tr>
+                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_age[]"></th>
+                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
                                         </tr>
                                     </tbody>
                                 </table>

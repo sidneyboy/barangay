@@ -70,37 +70,38 @@ class Super_user_controller extends Controller
         return redirect('super_user_login');
     }
 
-    public function status_approval($user_id, $status, $barangay_id)
+    public function status_approval(Request $request)
     {
+        //return 'asdasd';
         date_default_timezone_set('Asia/Manila');
         $date_time = date('Y-m-d H:i:s');
-        $barangay_name = Barangay::find($barangay_id);
-        if ($status == 'Pending Approval') {
-            Barangay::where('id', $barangay_id)
+        $barangay_name = Barangay::find($request->input('barangay_id'));
+        if ($request->input('status') == 'Pending Approval') {
+            Barangay::where('id', $request->input('barangay_id'))
                 ->update(['status' => 'Approved']);
 
             $new_logs = new User_logs([
-                'user_id' => $user_id,
+                'user_id' => $request->input('user_id'),
                 'content' => 'Changed ' . $barangay_name->barangay . ' status to Enabled',
                 'created_at' => $date_time,
             ]);
 
             $new_logs->save();
 
-            return redirect()->route('super_user_dashboard', ['user_id' => $user_id])->with('success', 'Selected barangay approved successfully');
+            return redirect()->route('super_user_dashboard', ['user_id' => $request->input('user_id')])->with('success', 'Selected barangay approved successfully');
         } else {
-            Barangay::where('id', $barangay_id)
+            Barangay::where('id', $request->input('barangay_id'))
                 ->update(['status' => 'Pending Approval']);
 
             $new_logs = new User_logs([
-                'user_id' => $user_id,
+                'user_id' => $request->input('user_id'),
                 'content' => 'Changed ' . $barangay_name->barangay . ' status to Disabled',
                 'created_at' => $date_time,
             ]);
 
             $new_logs->save();
 
-            return redirect()->route('super_user_dashboard', ['user_id' => $user_id])->with('success', 'Selected barangay deactivated successfully');
+            return redirect()->route('super_user_dashboard', ['user_id' => $request->input('user_id')])->with('success', 'Selected barangay deactivated successfully');
         }
     }
 

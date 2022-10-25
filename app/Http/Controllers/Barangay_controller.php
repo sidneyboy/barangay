@@ -158,7 +158,7 @@ class Barangay_controller extends Controller
 
         $user->save();
 
-        return redirect('barangay_admin_login')->with('success', 'Successfully created admin account, You can now login');
+        return redirect('barangay_admin_login')->with('success', 'Successfully created barangay account. Wait for Approval');
     }
 
     public function barangay_admin_login(Request $request)
@@ -288,7 +288,7 @@ class Barangay_controller extends Controller
 
         $validated = $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:barangay_officials'],
-            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $user_image = $request->file('user_image');
@@ -527,6 +527,11 @@ class Barangay_controller extends Controller
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
         $active = 'residents';
+
+
+        
+
+
         return view('barangay_resident_profile', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
@@ -1246,6 +1251,32 @@ class Barangay_controller extends Controller
 
         return view('assistance_report_print',[
             'assistance' => $assistance,
+        ]);
+    }
+
+    public function contract()
+    {
+       // return 'asdasd';
+        // $user = User::find(auth()->user()->id);
+        // $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
+        // $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
+        // $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
+        // $assistance = Assistance_type::where('barangay_id',$user->barangay_id)->get();
+        // $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        // $message = Barangay_message::orderBy('id', 'desc')->get();
+        // $record = Assitance::where('barangay_id',$user->barangay_id)->get();
+        // $active = 'contract';
+
+        return view('contract',[
+            // 'user' => $user,
+            // 'barangay_logo' => $barangay_logo,
+            // 'complain_count' => $complain_count,
+            // 'request_count' => $request_count,
+            // 'assistance' => $assistance,
+            // 'message_count' => $message_count,
+            // 'message' => $message,
+            // 'record' => $record,
+            // 'active' => $active,
         ]);
     }
 }

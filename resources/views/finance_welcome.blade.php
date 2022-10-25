@@ -20,7 +20,7 @@
                             {{-- <th>Approved</th> --}}
                             <th>Purpose</th>
                             <th>Document Name</th>
-                            <th>Document</th>
+                            {{-- <th>Document</th> --}}
                             <th>Amount</th>
                             <th>status</th>
                             <th>time_approved</th>
@@ -29,72 +29,74 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($document_request as $data)
-                            <tr>
-                                <td>{{ $data->resident->first_name }} {{ $data->resident->middle_name }}
-                                    {{ $data->resident->last_name }}</td>
-                                {{-- <td>
-                                    @if ($data->user_id != '')
-                                        {{ $data->staff->name }}
-                                    @else
-                                    @endif
-                                </td> --}}
-                                <td>{{ $data->reason }}</td>
-                                <td>{{ $data->document->document_name }}</td>
-                                <td><a href="{{ asset('/storage/' . $data->document->file) }}"
-                                        download>{{ $data->document->file }}</td>
-                                <td>{{ number_format($data->document->amount, 2, '.', ',') }}</td>
+                        @if (count($document_request) != 0)
+                            @foreach ($document_request as $data)
+                                <tr>
+                                    <td>{{ $data->resident->first_name }} {{ $data->resident->middle_name }}
+                                        {{ $data->resident->last_name }}</td>
+                                    {{-- <td>
+                               @if ($data->user_id != '')
+                                   {{ $data->staff->name }}
+                               @else
+                               @endif
+                           </td> --}}
+                                    <td>{{ $data->reason }}</td>
+                                    <td>{{ $data->document->document_name }}</td>
+                                    {{-- <td><a href="{{ asset('/storage/' . $data->document->file) }}"
+                                            download>{{ $data->document->file }}</td> --}}
+                                    <td>{{ number_format($data->document->amount, 2, '.', ',') }}</td>
 
-                                </td>
-                                <td>{{ $data->status }}</td>
-                                <td>
-                                    @if ($data->time_approved != '')
-                                        {{ date('F j, Y h:i:s a', strtotime($data->time_approved)) }}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($data->time_received != '')
-                                        {{ date('F j, Y h:i:s a', strtotime($data->time_received)) }}
-                                    @endif
-                                </td>
+                                    </td>
+                                    <td>{{ $data->status }}</td>
+                                    <td>
+                                        @if ($data->time_approved != '')
+                                            {{ date('F j, Y h:i:s a', strtotime($data->time_approved)) }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($data->time_received != '')
+                                            {{ date('F j, Y h:i:s a', strtotime($data->time_received)) }}
+                                        @endif
+                                    </td>
 
-                                <td>
-                                    {{-- @if ($data->status == 'New Request')
-                                        <a style="width:100px;"
-                                            href="{{ url('staff_document_request_approved', [
-                                                'document_request_id' => $data->id,
-                                                'document_id' => $data->document_type_id,
-                                                'resident_id' => $data->resident_id,
-                                                'user_id' => $user->id,
-                                            ]) }}"
-                                            class="btn btn-sm btn-primary btn-block">Approved ?</a>
-                                    @elseif ($data->status == 'Approved')
-                                        <a style="width:100px;"
-                                            href="{{ url('staff_document_request_received', [
-                                                'document_request_id' => $data->id,
-                                                'document_id' => $data->document_type_id,
-                                                'resident_id' => $data->resident_id,
-                                                'user_id' => $user->id,
-                                            ]) }}"
-                                            class="btn btn-sm btn-primary btn-block">Received ?</a>
-                                    @else
-                                        <button type="button" class="btn btn-success btn-sm" disabled>Received</button>
-                                    @endif --}}
-                                    @if ($data->status == 'Approved')
-                                        <a style="width:100px;"
-                                            href="{{ url('staff_document_request_received', [
-                                                'document_request_id' => $data->id,
-                                                'document_id' => $data->document_type_id,
-                                                'resident_id' => $data->resident_id,
-                                                'user_id' => $user->id,
-                                            ]) }}"
-                                            class="btn btn-sm btn-primary btn-block">Paid</a>
-                                    @elseif($data->status == 'Received')
-                                        <button type="button" class="btn btn-success btn-sm" disabled>Paid</button>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
+                                    <td>
+                                        {{-- @if ($data->status == 'New Request')
+                                   <a style="width:100px;"
+                                       href="{{ url('staff_document_request_approved', [
+                                           'document_request_id' => $data->id,
+                                           'document_id' => $data->document_type_id,
+                                           'resident_id' => $data->resident_id,
+                                           'user_id' => $user->id,
+                                       ]) }}"
+                                       class="btn btn-sm btn-primary btn-block">Approved ?</a>
+                               @elseif ($data->status == 'Approved')
+                                   <a style="width:100px;"
+                                       href="{{ url('staff_document_request_received', [
+                                           'document_request_id' => $data->id,
+                                           'document_id' => $data->document_type_id,
+                                           'resident_id' => $data->resident_id,
+                                           'user_id' => $user->id,
+                                       ]) }}"
+                                       class="btn btn-sm btn-primary btn-block">Received ?</a>
+                               @else
+                                   <button type="button" class="btn btn-success btn-sm" disabled>Received</button>
+                               @endif --}}
+                                        @if ($data->status == 'Approved')
+                                            <a style="width:100px;"
+                                                href="{{ url('staff_document_request_received', [
+                                                    'document_request_id' => $data->id,
+                                                    'document_id' => $data->document_type_id,
+                                                    'resident_id' => $data->resident_id,
+                                                    'user_id' => $user->id,
+                                                ]) }}"
+                                                class="btn btn-sm btn-primary btn-block">Paid</a>
+                                        @elseif($data->status == 'Received')
+                                            <button type="button" class="btn btn-success btn-sm" disabled>Paid</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
