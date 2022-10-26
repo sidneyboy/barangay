@@ -77,88 +77,198 @@
                                                 <div class="modal-body">
                                                     <div class="table table-responsive">
                                                         <div class="form-group">
-                                                            <table class="table table-bordered table-hover table-sm">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th colspan="3" style="text-align: center;">
-                                                                            EDUCATIONAL ATTAINMENT</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style="text-align: center;width:200px;">Level of
-                                                                            Education</th>
-                                                                        <th style="text-align: center;">School</th>
-                                                                        <th style="text-align: center;">Address</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach ($data->resident_education as $educ)
+                                                            <form action="{{ route('education_update') }}" method="post">
+                                                                @csrf
+                                                                <table class="table table-bordered table-hover table-sm">
+                                                                    <thead>
                                                                         <tr>
-                                                                            <td>{{ $educ->level_of_education }}</td>
-                                                                            <td>{{ $educ->school }}</td>
-                                                                            <td>{{ $educ->address }}</td>
+                                                                            <th colspan="3" style="text-align: center;">
+                                                                                EDUCATIONAL ATTAINMENT</th>
                                                                         </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
+                                                                        <tr>
+                                                                            <th style="text-align: center;width:200px;">
+                                                                                Level of
+                                                                                Education</th>
+                                                                            <th style="text-align: center;">School</th>
+                                                                            <th style="text-align: center;">Address</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach ($data->resident_education as $educ)
+                                                                            <tr>
+                                                                                <td>{{ $educ->level_of_education }}</td>
+                                                                                <td>
+                                                                                    <input type="hidden"
+                                                                                        class="form-control" required
+                                                                                        name="id[]"
+                                                                                        value="{{ $educ->id }}">
+                                                                                    <input type="text"
+                                                                                        class="form-control" required
+                                                                                        name="school[{{ $educ->id }}]"
+                                                                                        value="{{ $educ->school }}">
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        class="form-control" required
+                                                                                        name="address[{{ $educ->id }}]"
+                                                                                        value="{{ $educ->address }}"></td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                        <tr>
+                                                                            <th colspan="3"><button
+                                                                                    class="btn btn-sm btn-primary float-right">Save
+                                                                                    Changes</button></th>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </form>
                                                         </div>
 
 
                                                         <div class="form-group">
-                                                            <table class="table table-bordered table-hover table-sm">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th colspan="3" style="text-align: center;">
-                                                                            EMPLOYMENT RECORD</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style="text-align: center;width:200px;">Duration
-                                                                        </th>
-                                                                        <th style="text-align: center;">Company</th>
-                                                                        <th style="text-align: center;">Address</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach ($data->resident_employment as $emp)
+                                                            <form action="{{ route('employment_update') }}" method="post">
+                                                                @csrf
+                                                                <table class="table table-bordered table-hover table-sm">
+                                                                    <thead>
                                                                         <tr>
-                                                                            <td>{{ $emp->duration }}</td>
-                                                                            <td>{{ $emp->company }}</td>
-                                                                            <td>{{ $emp->address }}</td>
+                                                                            <th colspan="3" style="text-align: center;">
+                                                                                EMPLOYMENT RECORD</th>
                                                                         </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
+                                                                        <tr>
+                                                                            <th style="text-align: center;width:200px;">
+                                                                                Duration
+                                                                            </th>
+                                                                            <th style="text-align: center;">Company</th>
+                                                                            <th style="text-align: center;">Address</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach ($data->resident_employment as $emp)
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input type="hidden" name="emp_id[]"
+                                                                                        value="{{ $emp->id }}">
+                                                                                    <input type="text"
+                                                                                        class="form-control" required
+                                                                                        name="duration[{{ $emp->id }}]"
+                                                                                        value="{{ $emp->duration }}">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                        class="form-control" required
+                                                                                        name="company[{{ $emp->id }}]"
+                                                                                        value="{{ $emp->company }}">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                        class="form-control" required
+                                                                                        name="address[{{ $emp->id }}]"
+                                                                                        value="{{ $emp->address }}">
+                                                                                </td>
+
+                                                                            </tr>
+                                                                        @endforeach
+                                                                        <tr>
+                                                                            <th colspan="3"><button
+                                                                                    class="btn btn-sm btn-primary float-right">Save
+                                                                                    Changes</button></th>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </form>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <table class="table table-bordered table-hover table-sm">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th colspan="3" style="text-align: center;">OTHER
-                                                                            HOUSE OCCUPANTS</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style="text-align: center;width:200px;">NAME
-                                                                        </th>
-                                                                        <th style="text-align: center;">Position</th>
-                                                                        <th style="text-align: center;">Age</th>
-                                                                        <th style="text-align: center;">Birth Date</th>
-                                                                        <th style="text-align: center;">Civil Status</th>
-                                                                        <th style="text-align: center;">Occupation</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach ($data->resident_household as $house)
+                                                            <form action="{{ route('house_update') }}" method="post">
+                                                                @csrf
+                                                                <table class="table table-bordered table-hover table-sm">
+                                                                    <thead>
                                                                         <tr>
-                                                                            <td>{{ $house->name }}</td>
-                                                                            <td>{{ $house->position }}</td>
-                                                                            <td>{{ $house->age }}</td>
-                                                                            <td>{{ $house->birth_date }}</td>
-                                                                            <td>{{ $house->civil_status }}</td>
-                                                                            <td>{{ $house->occupation }}</td>
+                                                                            <th colspan="3" style="text-align: center;">
+                                                                                OTHER
+                                                                                HOUSE OCCUPANTS</th>
                                                                         </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
+                                                                        <tr>
+                                                                            <th style="text-align: center;width:200px;">NAME
+                                                                            </th>
+                                                                            <th style="text-align: center;">Position</th>
+                                                                            <th style="text-align: center;">Age</th>
+                                                                            <th style="text-align: center;">Birth Date</th>
+                                                                            <th style="text-align: center;">Civil Status
+                                                                            </th>
+                                                                            <th style="text-align: center;">Occupation</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach ($data->resident_household as $house)
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input type="hidden" name="house_id[]"
+                                                                                        value="{{ $house->id }}">
+                                                                                    <input type="text"
+                                                                                        class="form-control" 
+                                                                                        name="name[{{ $house->id }}]"
+                                                                                        value="{{ $house->name }}">
+
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                        class="form-control" 
+                                                                                        name="position[{{ $house->id }}]"
+                                                                                        value="{{ $house->position }}">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                        class="form-control" 
+                                                                                        name="age[{{ $house->id }}]"
+                                                                                        value="{{ $house->age }}">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="date"
+                                                                                        class="form-control" 
+                                                                                        name="birth_date[{{ $house->id }}]"
+                                                                                        value="{{ $house->birth_date }}">
+                                                                                </td>
+                                                                                <td>
+                                                                                    {{-- <input type="text" class="form-control" 
+                                                                                    name="civil_status[{{ $house->id }}]"
+                                                                                    value="{{ $house->civil_status }}">
+                                                                                <select name="" id=""></select> --}}
+                                                                                    <select
+                                                                                        name="civil_status[{{ $house->id }}]"
+                                                                                         class="form-control">
+                                                                                        <option value="" default>
+                                                                                            Select</option>
+                                                                                        <option
+                                                                                            value="{{ $house->civil_status }}"
+                                                                                            selected>
+                                                                                            {{ $house->civil_status }}
+                                                                                        </option>
+                                                                                        <option value="Single">Single
+                                                                                        </option>
+                                                                                        <option value="Married">Married
+                                                                                        </option>
+                                                                                        <option value="Widow">Widow
+                                                                                        </option>
+                                                                                        <option value="Divorced">Divorced
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                        class="form-control" 
+                                                                                        name="occupation[{{ $house->id }}]"
+                                                                                        value="{{ $house->occupation }}">
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                        <tr>
+                                                                            <th colspan="6"><button
+                                                                                    class="btn btn-sm btn-primary float-right">Save
+                                                                                    Changes</button></th>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -34,6 +34,9 @@ use App\Mail\Document_received;
 
 use App\Mail\send_email_to_resident;
 use App\Mail\Assistance_approved_email;
+use App\Models\Employement_record;
+use App\Models\Resident_education;
+use App\Models\Resident_households;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -209,7 +212,7 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $active = 'official';
         return view('barangay_position', [
             'position' => $position,
@@ -263,11 +266,11 @@ class Barangay_controller extends Controller
     public function barangay_register()
     {
         $user = User::find(auth()->user()->id);
-        $position = Barangay_position::where('barangay_id',$user->barangay_id)->get();
+        $position = Barangay_position::where('barangay_id', $user->barangay_id)->get();
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $active = 'official';
 
         return view('barangay_register', [
@@ -352,7 +355,7 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $active = 'official';
         return view('barangay_officials_profile', [
             'officials' => $officials,
@@ -401,7 +404,7 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $active = 'barangay_logo';
         return view('barangay_logo', [
             'user' => $user,
@@ -456,7 +459,7 @@ class Barangay_controller extends Controller
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $zone = Zone::get();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $active = 'residents';
         return view('barangay_resident_register', [
             'user' => $user,
@@ -525,11 +528,11 @@ class Barangay_controller extends Controller
         $resident = Residents::where('barangay_id', $user->barangay_id)->get();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $active = 'residents';
 
 
-        
+
 
 
         return view('barangay_resident_profile', [
@@ -550,7 +553,7 @@ class Barangay_controller extends Controller
         $resident = Residents::where('barangay_id', $user->barangay_id)->get();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $active = 'barangay_profile';
         return view('barangay_profile', [
             'user' => $user,
@@ -605,9 +608,9 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $complain = Complain::orderBy('id', 'desc')->where('barangay_id', $user->barangay_id)->get();
-        $lupon = Barangay_officials::where('barangay_id', $user->barangay_id)->where('position_type_id','!=',1)->get();
+        $lupon = Barangay_officials::where('barangay_id', $user->barangay_id)->where('position_type_id', '!=', 1)->get();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $active = 'barangay_complain_report';
         return view('barangay_complain_report', [
             'user' => $user,
@@ -706,7 +709,7 @@ class Barangay_controller extends Controller
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $document = Document_type::where('barangay_id', $user->barangay_id)->get();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $active = 'barangay_document_type';
         return view('barangay_document_type', [
             'user' => $user,
@@ -744,7 +747,7 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
 
         return view('barangay_document_type_update', [
             'document_type' => $document_type,
@@ -789,7 +792,7 @@ class Barangay_controller extends Controller
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $document_request = Document_request::where('barangay_id', $user->barangay_id)->get();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $active = 'barangay_document_request';
         return view('barangay_document_request', [
             'request_count' => $request_count,
@@ -809,7 +812,7 @@ class Barangay_controller extends Controller
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
         $document_request = Document_request::where('barangay_id', $user->barangay_id)->get();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         return view('barangay_document_request_list', [
             'request_count' => $request_count,
             'user' => $user,
@@ -903,7 +906,7 @@ class Barangay_controller extends Controller
 
             $document = Document_type::where('barangay_id', $user->barangay_id)->get();
             $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-            $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+            $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
             date_default_timezone_set('Asia/Manila');
             $year = date('Y');
             $month = date('m');
@@ -911,7 +914,7 @@ class Barangay_controller extends Controller
 
             $complain_status = DB::table('document_requests')
                 ->select('status', DB::raw('count(*) as total'))
-                ->where('barangay_id',$user->barangay_id)
+                ->where('barangay_id', $user->barangay_id)
                 ->groupBy('status')
                 ->get()
                 ->toArray();
@@ -923,7 +926,7 @@ class Barangay_controller extends Controller
 
             $assistance = DB::table('assitances')
                 ->select('status', DB::raw('count(*) as total'))
-                ->where('barangay_id',$user->barangay_id)
+                ->where('barangay_id', $user->barangay_id)
                 ->groupBy('status')
                 ->get()
                 ->toArray();
@@ -935,7 +938,7 @@ class Barangay_controller extends Controller
 
             $complains = DB::table('complains')
                 ->select('status', DB::raw('count(*) as total'))
-                ->where('barangay_id',$user->barangay_id)
+                ->where('barangay_id', $user->barangay_id)
                 ->groupBy('status')
                 ->get()
                 ->toArray();
@@ -1013,7 +1016,7 @@ class Barangay_controller extends Controller
                     'd_approved_count' => $d_approved_count,
                     'received_count' => $received_count,
                     'active' => $active,
-                    
+
                 ]);
             } else {
                 return view('barangay_dashboard', [
@@ -1056,7 +1059,7 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         return view('barangay_staff_register', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
@@ -1116,7 +1119,7 @@ class Barangay_controller extends Controller
     {
         $user = Barangay_officials::find(auth()->user()->id);
         $assistance = Assitance::orderBy('status', 'desc')->where('barangay_id', $user->barangay_id)->get();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         return view('barangay_assistance_request', [
             'user' => $user,
             'assistance' => $assistance,
@@ -1135,8 +1138,8 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $assistance = Assistance_type::where('barangay_id',$user->barangay_id)->get();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $assistance = Assistance_type::where('barangay_id', $user->barangay_id)->get();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $active = 'barangay_assistance_type';
 
         return view('barangay_assistance_type', [
@@ -1177,9 +1180,9 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $assistance = Assistance_type::where('barangay_id',$user->barangay_id)->get();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
-        $message = Barangay_message::orderBy('id', 'desc')->where('barangay_id',$user->barangay_id)->get();
+        $assistance = Assistance_type::where('barangay_id', $user->barangay_id)->get();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
+        $message = Barangay_message::orderBy('id', 'desc')->where('barangay_id', $user->barangay_id)->get();
         $active = 'barangay_message';
         if ($message_count != 0) {
             foreach ($message as $key => $data) {
@@ -1203,8 +1206,8 @@ class Barangay_controller extends Controller
     public function complain_report_print(Request $request)
     {
         $user = User::find($request->input('user_id'));
-        $complain = Complain::whereBetween('created_at',[$request->input('date_from'),$request->input('date_to')])->where('barangay_id',$user->barangay_id)->get();
-        return view('complain_report_print',[
+        $complain = Complain::whereBetween('created_at', [$request->input('date_from'), $request->input('date_to')])->where('barangay_id', $user->barangay_id)->get();
+        return view('complain_report_print', [
             'complain' => $complain,
         ]);
     }
@@ -1212,8 +1215,8 @@ class Barangay_controller extends Controller
     public function document_report_print(Request $request)
     {
         $user = User::find($request->input('user_id'));
-        $document_request = Document_request::whereBetween('created_at',[$request->input('date_from'),$request->input('date_to')])->where('barangay_id', $user->barangay_id)->get();
-        return view('document_report_print',[
+        $document_request = Document_request::whereBetween('created_at', [$request->input('date_from'), $request->input('date_to')])->where('barangay_id', $user->barangay_id)->get();
+        return view('document_report_print', [
             'document_request' => $document_request,
         ]);
     }
@@ -1225,13 +1228,13 @@ class Barangay_controller extends Controller
         $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
         $request_count = Document_request::where('status', 'New Request')->where('barangay_id', $user->barangay_id)->count();
-        $assistance = Assistance_type::where('barangay_id',$user->barangay_id)->get();
-        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status',null)->count();
+        $assistance = Assistance_type::where('barangay_id', $user->barangay_id)->get();
+        $message_count = Barangay_message::where('barangay_id', $user->barangay_id)->where('status', null)->count();
         $message = Barangay_message::orderBy('id', 'desc')->get();
-        $record = Assitance::where('barangay_id',$user->barangay_id)->get();
+        $record = Assitance::where('barangay_id', $user->barangay_id)->get();
         $active = 'barangay_assistance_record';
 
-        return view('barangay_assistance_record',[
+        return view('barangay_assistance_record', [
             'user' => $user,
             'barangay_logo' => $barangay_logo,
             'complain_count' => $complain_count,
@@ -1247,16 +1250,16 @@ class Barangay_controller extends Controller
     public function assistance_report_print(Request $request)
     {
         $user = User::find(auth()->user()->id);
-        $assistance = Assitance::whereBetween('created_at',[$request->input('date_from'),$request->input('date_to')])->where('barangay_id', $user->barangay_id)->get();
+        $assistance = Assitance::whereBetween('created_at', [$request->input('date_from'), $request->input('date_to')])->where('barangay_id', $user->barangay_id)->get();
 
-        return view('assistance_report_print',[
+        return view('assistance_report_print', [
             'assistance' => $assistance,
         ]);
     }
 
     public function contract()
     {
-       // return 'asdasd';
+        // return 'asdasd';
         // $user = User::find(auth()->user()->id);
         // $barangay_logo = Barangay_logo::select('logo')->where('barangay_id', $user->barangay_id)->first();
         // $complain_count = Complain::where('status', 'Pending Approval')->where('barangay_id', $user->barangay_id)->count();
@@ -1267,7 +1270,7 @@ class Barangay_controller extends Controller
         // $record = Assitance::where('barangay_id',$user->barangay_id)->get();
         // $active = 'contract';
 
-        return view('contract',[
+        return view('contract', [
             // 'user' => $user,
             // 'barangay_logo' => $barangay_logo,
             // 'complain_count' => $complain_count,
@@ -1278,5 +1281,54 @@ class Barangay_controller extends Controller
             // 'record' => $record,
             // 'active' => $active,
         ]);
+    }
+
+    public function education_update(Request $request)
+    {
+        //return $request->input();
+
+        foreach ($request->input('id') as $key => $data) {
+            Resident_education::where('id', $data)
+                ->update([
+                    'school' => $request->input('school')[$data],
+                    'address' => $request->input('address')[$data],
+                ]);
+        }
+
+        return redirect('barangay_resident_profile')->with('success', 'Success');
+    }
+
+    public function employment_update(Request $request)
+    {
+        //return $request->input();   
+
+        foreach ($request->input('emp_id') as $key => $data) {
+            Employement_record::where('id', $data)
+                ->update([
+                    'duration' => $request->input('duration')[$data],
+                    'company' => $request->input('company')[$data],
+                    'address' => $request->input('address')[$data],
+                ]);
+        }
+
+        return redirect('barangay_resident_profile')->with('success', 'Success');
+    }
+
+    public function house_update(Request $request)
+    {
+       // return $request->input();
+        foreach ($request->input('house_id') as $key => $data) {
+            Resident_households::where('id', $data)
+                ->update([
+                    'name' => $request->input('name')[$data],
+                    'position' => $request->input('position')[$data],
+                    'age' => $request->input('age')[$data],
+                    'birth_date' => $request->input('birth_date')[$data],
+                    'civil_status' => $request->input('civil_status')[$data],
+                    'occupation' => $request->input('occupation')[$data],
+                ]);
+        }
+
+        return redirect('barangay_resident_profile')->with('success', 'Success');
     }
 }

@@ -253,7 +253,10 @@ Route::post('/document_report_print', [App\Http\Controllers\Barangay_controller:
 Route::get('/barangay_assistance_record', [App\Http\Controllers\Barangay_controller::class, 'barangay_assistance_record'])->name('barangay_assistance_record');
 Route::post('/assistance_report_print', [App\Http\Controllers\Barangay_controller::class, 'assistance_report_print'])->name('assistance_report_print');
 
+Route::post('/education_update', [App\Http\Controllers\Barangay_controller::class, 'education_update'])->name('education_update');
 
+Route::post('/employment_update', [App\Http\Controllers\Barangay_controller::class, 'employment_update'])->name('employment_update');
+Route::post('/house_update', [App\Http\Controllers\Barangay_controller::class, 'house_update'])->name('house_update');
 
 
 

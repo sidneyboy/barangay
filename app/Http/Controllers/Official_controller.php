@@ -813,6 +813,7 @@ class Official_controller extends Controller
         $month_label_for_agent_performance = date('F');
         $resident = Residents::find($id);
         $barangay_officials = Barangay_officials::where('barangay_id',$resident->barangay_id)->get();
+        
         $document = Document_request::find($document_id);
         return view('print_document',[
             'resident' => $resident,

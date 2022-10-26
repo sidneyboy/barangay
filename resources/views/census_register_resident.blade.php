@@ -566,59 +566,178 @@
                                     <tbody>
                                         <tr>
                                             <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]">
+                                            </th>
                                             <th><input type="text" class="form-control" name="house_hold_age[]"></th>
-                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
+                                            <th><input type="date" class="form-control"
+                                                    name="house_hold_birth_date[]"></th>
+                                            <th>
+                                                <select name="house_hold_birth_civil_status[]" class="form-control">
+                                                    <option value="" default>
+                                                        Select</option>
+
+                                                    <option value="Single">Single
+                                                    </option>
+                                                    <option value="Married">Married
+                                                    </option>
+                                                    <option value="Widow">Widow
+                                                    </option>
+                                                    <option value="Divorced">Divorced
+                                                    </option>
+                                                </select>
+                                            </th>
+                                            <th><input type="text" class="form-control"
+                                                    name="house_hold_birth_occupation[]"></th>
                                         </tr>
                                         <tr>
                                             <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]">
+                                            </th>
                                             <th><input type="text" class="form-control" name="house_hold_age[]"></th>
-                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
+                                            <th><input type="date" class="form-control"
+                                                    name="house_hold_birth_date[]"></th>
+                                            <th>
+                                                <select name="civil_status[]" class="form-control">
+                                                    <option value="" default>
+                                                        Select</option>
+
+                                                    <option value="Single">Single
+                                                    </option>
+                                                    <option value="Married">Married
+                                                    </option>
+                                                    <option value="Widow">Widow
+                                                    </option>
+                                                    <option value="Divorced">Divorced
+                                                    </option>
+                                                </select>
+                                            </th>
+                                            <th><input type="text" class="form-control"
+                                                    name="house_hold_birth_occupation[]"></th>
                                         </tr>
                                         <tr>
                                             <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]">
+                                            </th>
                                             <th><input type="text" class="form-control" name="house_hold_age[]"></th>
-                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
-                                        </tr>
-                                         <tr>
-                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_age[]"></th>
-                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
+                                            <th><input type="date" class="form-control"
+                                                    name="house_hold_birth_date[]"></th>
+                                            <th>
+                                                <select name="civil_status[]" class="form-control">
+                                                    <option value="" default>
+                                                        Select</option>
+
+                                                    <option value="Single">Single
+                                                    </option>
+                                                    <option value="Married">Married
+                                                    </option>
+                                                    <option value="Widow">Widow
+                                                    </option>
+                                                    <option value="Divorced">Divorced
+                                                    </option>
+                                                </select>
+                                            </th>
+                                            <th><input type="text" class="form-control"
+                                                    name="house_hold_birth_occupation[]"></th>
                                         </tr>
                                         <tr>
                                             <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]">
+                                            </th>
                                             <th><input type="text" class="form-control" name="house_hold_age[]"></th>
-                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
+                                            <th><input type="date" class="form-control"
+                                                    name="house_hold_birth_date[]"></th>
+                                            <th>
+                                                <select name="civil_status[]" class="form-control">
+                                                    <option value="" default>
+                                                        Select</option>
+
+                                                    <option value="Single">Single
+                                                    </option>
+                                                    <option value="Married">Married
+                                                    </option>
+                                                    <option value="Widow">Widow
+                                                    </option>
+                                                    <option value="Divorced">Divorced
+                                                    </option>
+                                                </select>
+                                            </th>
+                                            <th><input type="text" class="form-control"
+                                                    name="house_hold_birth_occupation[]"></th>
                                         </tr>
-                                         <tr>
+                                        <tr>
                                             <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]">
+                                            </th>
                                             <th><input type="text" class="form-control" name="house_hold_age[]"></th>
-                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
+                                            <th><input type="date" class="form-control"
+                                                    name="house_hold_birth_date[]"></th>
+                                            <th>
+                                                <select name="civil_status[]" class="form-control">
+                                                    <option value="" default>
+                                                        Select</option>
+
+                                                    <option value="Single">Single
+                                                    </option>
+                                                    <option value="Married">Married
+                                                    </option>
+                                                    <option value="Widow">Widow
+                                                    </option>
+                                                    <option value="Divorced">Divorced
+                                                    </option>
+                                                </select>
+                                            </th>
+                                            <th><input type="text" class="form-control"
+                                                    name="house_hold_birth_occupation[]"></th>
                                         </tr>
-                                         <tr>
+                                        <tr>
                                             <th><input type="text" class="form-control" name="house_hold_name[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_position[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]">
+                                            </th>
                                             <th><input type="text" class="form-control" name="house_hold_age[]"></th>
-                                            <th><input type="date" class="form-control" name="house_hold_birth_date[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_civil_status[]"></th>
-                                            <th><input type="text" class="form-control" name="house_hold_birth_occupation[]"></th>
+                                            <th><input type="date" class="form-control"
+                                                    name="house_hold_birth_date[]"></th>
+                                            <th>
+                                                <select name="civil_status[]" class="form-control">
+                                                    <option value="" default>
+                                                        Select</option>
+
+                                                    <option value="Single">Single
+                                                    </option>
+                                                    <option value="Married">Married
+                                                    </option>
+                                                    <option value="Widow">Widow
+                                                    </option>
+                                                    <option value="Divorced">Divorced
+                                                    </option>
+                                                </select>
+                                            </th>
+                                            <th><input type="text" class="form-control"
+                                                    name="house_hold_birth_occupation[]"></th>
+                                        </tr>
+                                        <tr>
+                                            <th><input type="text" class="form-control" name="house_hold_name[]"></th>
+                                            <th><input type="text" class="form-control" name="house_hold_position[]">
+                                            </th>
+                                            <th><input type="text" class="form-control" name="house_hold_age[]"></th>
+                                            <th><input type="date" class="form-control"
+                                                    name="house_hold_birth_date[]"></th>
+                                            <th>
+                                                <select name="civil_status[]" class="form-control">
+                                                    <option value="" default>
+                                                        Select</option>
+
+                                                    <option value="Single">Single
+                                                    </option>
+                                                    <option value="Married">Married
+                                                    </option>
+                                                    <option value="Widow">Widow
+                                                    </option>
+                                                    <option value="Divorced">Divorced
+                                                    </option>
+                                                </select>
+                                            </th>
+                                            <th><input type="text" class="form-control"
+                                                    name="house_hold_birth_occupation[]"></th>
                                         </tr>
                                     </tbody>
                                 </table>
