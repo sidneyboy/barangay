@@ -116,7 +116,7 @@
                     style='font-size:16px;line-height:115%;font-family:"Book Antiqua",serif;color:black;'>(s).</span>
             </p>
             <p><span style='font-size:16px;line-height:115%;font-family:"Book Antiqua",serif;color:black;'>Done this
-                    22<sup>nd</sup> day of August 2022, at Cugman Barangay Hall, and Cagayan de Oro City. &nbsp; &nbsp;
+                    22<sup>nd</sup> day of August 2022, at {{ $resident->barangay->barangay }} Barangay Hall, and Cagayan de Oro City. &nbsp; &nbsp;
                     &nbsp; &nbsp; &nbsp;&nbsp;</span></p>
 
             <br />
@@ -139,7 +139,7 @@
     integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
 </script>
 <script>
-    // window.print();
+    window.print();
 </script>
 
 </html>

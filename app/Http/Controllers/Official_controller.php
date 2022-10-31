@@ -79,12 +79,11 @@ class Official_controller extends Controller
                 return redirect('barangay_admin_staff')->with('error', 'Barangay Deactivated. Cannot Login!');
             }
         } else {
-            
+
             $resident = Residents::where('email', $request->input('email'))->first();
             if ($resident) {
                 if ($resident->barangay->status != 'Pending Approval') {
-                    if ($resident->status == 'alive') {
-                      ;
+                    if ($resident->status == 'alive') {;
                         if (Hash::check($request->input('password'), $resident->password)) {
                             return redirect()->route('resident_welcome', ['resident_id' => $resident->id]);
                         } else {
@@ -168,6 +167,7 @@ class Official_controller extends Controller
 
     public function offical_resident_registration_process(Request $request)
     {
+        //return $request->input();
         $user_image = $request->file('user_image');
         $image_name = 'user_image-' . time() . '.' . $user_image->getClientOriginalExtension();
         $path_user_image = $user_image->storeAs('public', $image_name);
@@ -213,87 +213,112 @@ class Official_controller extends Controller
 
         $officials->save();
         //return $request->input();
-        if (count($request->input('elementary_school')) != 0) {
-            for ($i = 0; $i < count($request->input('elementary_school')); $i++) {
 
-                $new_education_elementary = new Resident_education([
-                    'resident_id' => $officials->id,
-                    'level_of_education' => 'Elementary',
-                    'school' => $request->input('elementary_school')[$i],
-                    'address' => $request->input('elementary_address')[$i],
-                ]);
+        $elementary_school = $request->input('elementary_school');
+        if (isset($elementary_school)) {
+            if (count($request->input('elementary_school')) != 0) {
+                for ($i = 0; $i < count($request->input('elementary_school')); $i++) {
 
-                $new_education_elementary->save();
+                    $new_education_elementary = new Resident_education([
+                        'resident_id' => $officials->id,
+                        'level_of_education' => 'Elementary',
+                        'school' => $request->input('elementary_school')[$i],
+                        'address' => $request->input('elementary_address')[$i],
+                    ]);
+
+                    $new_education_elementary->save();
+                }
             }
         }
 
-        if (count($request->input('highschool_school')) != 0) {
-            for ($x = 0; $x < count($request->input('highschool_school')); $x++) {
-                $new_education_highschool = new Resident_education([
-                    'resident_id' => $officials->id,
-                    'level_of_education' => 'High School',
-                    'school' => $request->input('highschool_school')[$x],
-                    'address' => $request->input('highschool_address')[$x],
-                ]);
+        $highschool_school = $request->input('highschool_school');
+        if (isset($highschool_school)) {
+            if (count($request->input('highschool_school')) != 0) {
+                for ($x = 0; $x < count($request->input('highschool_school')); $x++) {
+                    $new_education_highschool = new Resident_education([
+                        'resident_id' => $officials->id,
+                        'level_of_education' => 'High School',
+                        'school' => $request->input('highschool_school')[$x],
+                        'address' => $request->input('highschool_address')[$x],
+                    ]);
 
-                $new_education_highschool->save();
+                    $new_education_highschool->save();
+                }
             }
         }
 
-        if (count($request->input('vocation_course_school')) != 0) {
-            for ($y = 0; $y < count($request->input('vocation_course_school')); $y++) {
-                $new_education_vocation = new Resident_education([
-                    'resident_id' => $officials->id,
-                    'level_of_education' => 'Vocational Course',
-                    'school' => $request->input('vocation_course_school')[$y],
-                    'address' => $request->input('vocation_course_address')[$y],
-                ]);
+        $vocation_course_school = $request->input('vocation_course_school');
+        if (isset($vocation_course_school)) {
+            if (count($request->input('vocation_course_school')) != 0) {
+                for ($y = 0; $y < count($request->input('vocation_course_school')); $y++) {
+                    $new_education_vocation = new Resident_education([
+                        'resident_id' => $officials->id,
+                        'level_of_education' => 'Vocational Course',
+                        'school' => $request->input('vocation_course_school')[$y],
+                        'address' => $request->input('vocation_course_address')[$y],
+                    ]);
 
-                $new_education_vocation->save();
+                    $new_education_vocation->save();
+                }
             }
         }
 
-        if (count($request->input('college_school')) != 0) {
-            for ($p = 0; $p < count($request->input('college_school')); $p++) {
-                $new_education_college = new Resident_education([
-                    'resident_id' => $officials->id,
-                    'level_of_education' => 'College',
-                    'school' => $request->input('college_school')[$p],
-                    'address' => $request->input('college_address')[$p],
-                ]);
+        $college_school = $request->input('college_school');
+        if (isset($college_school)) {
+            if (count($request->input('college_school')) != 0) {
+                for ($p = 0; $p < count($request->input('college_school')); $p++) {
+                    $new_education_college = new Resident_education([
+                        'resident_id' => $officials->id,
+                        'level_of_education' => 'College',
+                        'school' => $request->input('college_school')[$p],
+                        'address' => $request->input('college_address')[$p],
+                    ]);
 
-                $new_education_college->save();
+                    $new_education_college->save();
+                }
             }
         }
 
-        if (count($request->input('duration')) != 0) {
-            for ($u = 0; $u < count($request->input('duration')); $u++) {
-                $new_employment = new Employement_record([
-                    'resident_id' => $officials->id,
-                    'duration' => $request->input('duration')[$u],
-                    'company' => $request->input('company')[$u],
-                    'address' => $request->input('address')[$u],
-                ]);
+        $duration = $request->input('duration');
+        if (isset($duration)) {
+            if (count($request->input('duration')) != 0) {
+                for ($u = 0; $u < count($request->input('duration')); $u++) {
+                    $new_employment = new Employement_record([
+                        'resident_id' => $officials->id,
+                        'duration' => $request->input('duration')[$u],
+                        'company' => $request->input('company')[$u],
+                        'address' => $request->input('address')[$u],
+                    ]);
 
-                $new_employment->save();
+                    $new_employment->save();
+                }
             }
         }
 
-        if (count($request->input('house_hold_name')) != 0) {
-            for ($b = 0; $b < count($request->input('house_hold_name')); $b++) {
-                $new_house = new Resident_households([
-                    'resident_id' => $officials->id,
-                    'name' => $request->input('house_hold_name')[$b],
-                    'position' => $request->input('house_hold_position')[$b],
-                    'age' => $request->input('house_hold_age')[$b],
-                    'birth_date' => $request->input('house_hold_birth_date')[$b],
-                    'civil_status' => $request->input('house_hold_birth_civil_status')[$b],
-                    'occupation' => $request->input('house_hold_birth_occupation')[$b],
-                ]);
 
-                $new_house->save();
+        $house_hold_name = $request->input('house_hold_name');
+        if (isset($house_hold_name)) {
+            if (count($request->input('house_hold_name')) != 0) {
+                for ($b = 0; $b < count($request->input('house_hold_name')); $b++) {
+                    $new_house = new Resident_households([
+                        'resident_id' => $officials->id,
+                        'name' => $request->input('house_hold_name')[$b],
+                        'position' => $request->input('house_hold_position')[$b],
+                        'age' => $request->input('house_hold_age')[$b],
+                        'birth_date' => $request->input('house_hold_birth_date')[$b],
+                        'civil_status' => $request->input('house_hold_birth_civil_status')[$b],
+                        'occupation' => $request->input('house_hold_birth_occupation')[$b],
+                    ]);
+
+                    $new_house->save();
+                }
             }
         }
+
+
+
+
+
         //return $request->input('user_id');
         $user = Barangay_officials::find($request->input('user_id'));
         $barangay = $user->barangay->barangay;
@@ -802,9 +827,9 @@ class Official_controller extends Controller
     //     ]);
     // }
 
-    public function print_document($id,$document_id)
+    public function print_document($id, $document_id)
     {
-       
+
         date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d');
         $year = date('Y');
@@ -812,10 +837,10 @@ class Official_controller extends Controller
         $day = date('d');
         $month_label_for_agent_performance = date('F');
         $resident = Residents::find($id);
-        $barangay_officials = Barangay_officials::where('barangay_id',$resident->barangay_id)->get();
-        
+        $barangay_officials = Barangay_officials::where('barangay_id', $resident->barangay_id)->get();
+
         $document = Document_request::find($document_id);
-        return view('print_document',[
+        return view('print_document', [
             'resident' => $resident,
             'barangay_officials' => $barangay_officials,
             'year' => $year,

@@ -597,7 +597,7 @@
                                             <th><input type="date" class="form-control"
                                                     name="house_hold_birth_date[]"></th>
                                             <th>
-                                                <select name="civil_status[]" class="form-control">
+                                                <select name="house_hold_birth_civil_status[]" class="form-control">
                                                     <option value="" default>
                                                         Select</option>
 
@@ -622,7 +622,7 @@
                                             <th><input type="date" class="form-control"
                                                     name="house_hold_birth_date[]"></th>
                                             <th>
-                                                <select name="civil_status[]" class="form-control">
+                                                <select name="house_hold_birth_civil_status[]" class="form-control">
                                                     <option value="" default>
                                                         Select</option>
 
@@ -647,7 +647,7 @@
                                             <th><input type="date" class="form-control"
                                                     name="house_hold_birth_date[]"></th>
                                             <th>
-                                                <select name="civil_status[]" class="form-control">
+                                                <select name="house_hold_birth_civil_status[]" class="form-control">
                                                     <option value="" default>
                                                         Select</option>
 
@@ -672,7 +672,7 @@
                                             <th><input type="date" class="form-control"
                                                     name="house_hold_birth_date[]"></th>
                                             <th>
-                                                <select name="civil_status[]" class="form-control">
+                                                <select name="house_hold_birth_civil_status[]" class="form-control">
                                                     <option value="" default>
                                                         Select</option>
 
@@ -697,7 +697,7 @@
                                             <th><input type="date" class="form-control"
                                                     name="house_hold_birth_date[]"></th>
                                             <th>
-                                                <select name="civil_status[]" class="form-control">
+                                                <select name="house_hold_birth_civil_status[]" class="form-control">
                                                     <option value="" default>
                                                         Select</option>
 
@@ -722,7 +722,7 @@
                                             <th><input type="date" class="form-control"
                                                     name="house_hold_birth_date[]"></th>
                                             <th>
-                                                <select name="civil_status[]" class="form-control">
+                                                <select name="house_hold_birth_civil_status[]" class="form-control">
                                                     <option value="" default>
                                                         Select</option>
 
